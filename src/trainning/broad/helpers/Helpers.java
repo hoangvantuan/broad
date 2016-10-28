@@ -7,8 +7,7 @@ import trainning.broad.bean.User;
 
 public class Helpers {
 
-	public static final String CURRENT_USER_SESSION = "CURRENT_USER";
-	public static final String CONNECTION_STORED = "CONNECTION_STORED";
+	public static final String CURRENT_USER_SESSION = "user";
 
 	// store session of user when login
 	public static void storeUserToSession(HttpServletRequest request, User user) {
@@ -21,8 +20,17 @@ public class Helpers {
 	// get user is login
 	public static User getUserFromSession(HttpServletRequest request) {
 
-		return (User) request.getSession().getAttribute(CURRENT_USER_SESSION);
+		HttpSession session = request.getSession();
+		return (User) session.getAttribute(CURRENT_USER_SESSION);
 
+	}
+
+	public static void removeSession(HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		if (!Helpers.isEmpty(session.getAttribute(CURRENT_USER_SESSION)))
+			session.removeAttribute(CURRENT_USER_SESSION);
+		session.invalidate();
 	}
 
 	public static boolean isEmpty(String object) {

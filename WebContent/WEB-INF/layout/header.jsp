@@ -7,5 +7,6 @@
 <link rel="stylesheet" href="assets/css/bootstrap.css"></link>
 <title>Insert title here</title>
 </head>
-<jsp:include page="navigation.jsp"></jsp:include>
 <body>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="navigation.jsp"></jsp:include>
