@@ -18,7 +18,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle"
             data-toggle="dropdown" role="button" aria-haspopup="true"
-            aria-expanded="false">sdsdf<span class="caret"></span></a>
+            aria-expanded="false">${session.user.user_name }<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href='<s:url value="#"></s:url>'><i
               class="glyphicon glyphicon-user"></i>&nbsp;Profile</a></li>

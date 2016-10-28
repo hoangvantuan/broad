@@ -7,7 +7,6 @@ import trainning.broad.database.DAOManager;
 import trainning.broad.database.Table;
 import trainning.broad.database.connection.PostgresSQLConnection;
 import trainning.broad.database.dao.UserDAO;
-import trainning.broad.helpers.Helpers;
 
 public class AuthenticationBusiness {
 
@@ -22,19 +21,14 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean checkLogin(User user) throws SQLException {
+	public User checkLogin(User user) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Table.USER);
-			if (Helpers.isEmpty(userDAO.findByEmail(user))) {
-				return false;
-			} else {
-				return true;
-			}
+			return userDAO.findByEmail(user);
 		} catch (SQLException e) {
 			throw e;
-		}
-		finally {
+		} finally {
 			daoManager.close();
 		}
 	}

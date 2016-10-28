@@ -28,7 +28,7 @@ public class AuthenticationServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		this.goLoginPage(req, resp);
+		this.fowardLoginPage(req, resp);
 	}
 
 	@Override
@@ -42,21 +42,26 @@ public class AuthenticationServlet extends HttpServlet {
 			user.setEmail(email);
 			user.setPassword(password);
 			try {
-				if (this.authenticationBusiness.checkLogin(user)) {
-					resp.getWriter().println("Login success");
+				user = authenticationBusiness.checkLogin(user);
+				if (Helpers.isEmpty(user)) {
+					req.setAttribute("error", "アカウントとかパスワードは問題があります。");
+					fowardLoginPage(req, resp);
 				} else {
-					resp.getWriter().println("Account is not avalible");
+					Helpers.storeUserToSession(req, user);
+					req.setAttribute("message", "ログイン成功しました");
+					Link.redirectHomepage(req, resp);
+
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else {
-			this.goLoginPage(req, resp);
+			this.fowardLoginPage(req, resp);
 		}
 
 	}
 
-	public void goLoginPage(HttpServletRequest req, HttpServletResponse resp) {
+	public void fowardLoginPage(HttpServletRequest req, HttpServletResponse resp) {
 
 		RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher(Link.LOGIN);
 		try {
@@ -65,4 +70,5 @@ public class AuthenticationServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
 }

@@ -6,10 +6,13 @@
 <div class="container">
 	<div class="row">
 		<h3 class="text-center">登録</h3>
+		<div class="text-danger text-center">${error}</div>
 		<div class="col-md-8 col-md-offset-2">
-			<form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/login">
+			<form class="form-horizontal" method="POST"
+				action="${pageContext.request.contextPath}/login">
 				<div class="form-group">
-					<label for="email" class="col-md-3 control-label">メール<span class="text-danger">*</span></label>
+					<label for="email" class="col-md-3 control-label">メール<span
+						class="text-danger">*</span></label>
 					<div class="col-md-9">
 						<input type="text" class="form-control" id="email" name="email"
 							placeholder="メール" required="required" autocomplete="on"
@@ -17,7 +20,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="password" class="col-md-3 control-label">パスワード<span class="text-danger">*</span></label>
+					<label for="password" class="col-md-3 control-label">パスワード<span
+						class="text-danger">*</span></label>
 					<div class="col-md-9">
 						<input type="password" class="form-control" id="password"
 							name="password" placeholder="パスワード" required="required"
