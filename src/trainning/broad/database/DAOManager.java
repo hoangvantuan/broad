@@ -12,9 +12,9 @@ public class DAOManager {
 	private Connection con;
 	private IConnection myConnection;
 
-	public DAOManager(IConnection myCollection) {
+	public DAOManager(IConnection myConnection) {
 
-		this.myConnection = myCollection;
+		this.myConnection = myConnection;
 	}
 
 	public void open() {
@@ -41,6 +41,7 @@ public class DAOManager {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public GenericDAO getDAO(String table) {
 
 		try {
@@ -54,11 +55,10 @@ public class DAOManager {
 		switch (table) {
 
 		case Table.USER:
-			return new UserDAOImpl(con);
+			return new UserDAOImpl(this.con);
 
 		default:
 			return null;
 		}
 	}
-
 }

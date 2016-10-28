@@ -10,31 +10,17 @@ public class PostgresSQLConnection implements IConnection {
 	private final String USERNAME = "postgres";
 	private final String PASSWORD = "zxcvbn";
 
-	public PostgresSQLConnection() {
-		try {
+	public PostgresSQLConnection() throws ClassNotFoundException{
 			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
 	}
 
 	@Override
-	public Connection openConnection() {
-		try {
+	public Connection openConnection() throws SQLException {
 			return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	@Override
-	public void closeConnection(Connection con) {
-		try {
+	public void closeConnection(Connection con) throws SQLException {
 			con.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
