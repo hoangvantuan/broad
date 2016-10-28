@@ -49,7 +49,7 @@ public class AuthenticationServlet extends HttpServlet {
 				} else {
 					Helpers.storeUserToSession(req, user);
 					req.setAttribute("message", "ログイン成功しました");
-					Link.redirectHomepage(req, resp);
+					Link.fowardHomepage(req, resp);
 
 				}
 			} catch (SQLException e) {
