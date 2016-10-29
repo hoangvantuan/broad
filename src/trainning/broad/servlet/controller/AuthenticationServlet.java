@@ -3,7 +3,6 @@ package trainning.broad.servlet.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +14,7 @@ import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Link;
 
-@WebServlet(urlPatterns = { "/login" })
+@WebServlet(urlPatterns = { "/login", "/logout", "/register" })
 public class AuthenticationServlet extends HttpServlet {
 
 	private AuthenticationBusiness authenticationBusiness;
@@ -28,47 +27,77 @@ public class AuthenticationServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		this.fowardLoginPage(req, resp);
+		String requestName = req.getRequestURI();
+		switch (requestName) {
+		case Link.URI_LOGIN:
+			if (Helpers.isEmpty(Helpers.getUserFromSession(req)))
+				Link.fowardLoginPage(req, resp);
+			else
+				Link.redirectHomePage(req, resp);
+			break;
+		case Link.URI_LOGOUT:
+			this.logout(req, resp);
+			break;
+		case Link.URI_REGISTER:
+			// TODO
+			break;
+		default:
+			Link.redirectHomePage(req, resp);
+			break;
+		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		if (!Helpers.isEmpty(email) && !Helpers.isEmpty(password)) {
+		String requestName = req.getRequestURI();
+		switch (requestName) {
+		case Link.URI_LOGIN:
+			this.login(req, resp);
+			break;
+		case Link.URI_REGISTER:
+			this.register(req, resp);
+			break;
+		default:
+			Link.redirectHomePage(req, resp);
+			break;
+		}
+	}
 
-			User user = new User();
-			user.setEmail(email);
-			user.setPassword(password);
+	public void login(HttpServletRequest req, HttpServletResponse resp) {
+
+		User user = new User();
+		user.setEmail(req.getParameter("email"));
+		user.setPassword(req.getParameter("password"));
+		if (!Helpers.isEmpty(user.getEmail()) && !Helpers.isEmpty(user.getPassword())) {
+
 			try {
 				user = authenticationBusiness.checkLogin(user);
 				if (Helpers.isEmpty(user)) {
 					req.setAttribute("error", "アカウントとかパスワードは問題があります。");
-					fowardLoginPage(req, resp);
+					Link.fowardLoginPage(req, resp);
 				} else {
 					Helpers.storeUserToSession(req, user);
 					req.setAttribute("message", "ログイン成功しました");
-					Link.fowardHomepage(req, resp);
-
+					Link.fowardHomePage(req, resp);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else {
-			this.fowardLoginPage(req, resp);
+			Link.redirectLoginPage(req, resp);
 		}
 
 	}
 
-	public void fowardLoginPage(HttpServletRequest req, HttpServletResponse resp) {
+	public void logout(HttpServletRequest req, HttpServletResponse resp) {
 
-		RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher(Link.LOGIN);
-		try {
-			dispatcher.forward(req, resp);
-		} catch (ServletException | IOException e) {
-			e.printStackTrace();
-		}
+		Helpers.removeSession(req);
+		Link.redirectHomePage(req, resp);
+	}
+
+	public void register(HttpServletRequest req, HttpServletResponse resp) {
+
 	}
 
 }
