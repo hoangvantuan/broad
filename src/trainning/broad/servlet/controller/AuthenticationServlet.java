@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import trainning.broad.bean.User;
 import trainning.broad.business.AuthenticationBusiness;
+import trainning.broad.helpers.Attributes;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Link;
+import trainning.broad.helpers.Links;
+import trainning.broad.helpers.Messages;
 
 @WebServlet(urlPatterns = { "/login", "/logout", "/register" })
 public class AuthenticationServlet extends HttpServlet {
@@ -28,22 +30,27 @@ public class AuthenticationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String requestName = req.getRequestURI();
-		switch (requestName) {
-		case Link.URI_LOGIN:
-			if (Helpers.isEmpty(Helpers.getUserFromSession(req)))
-				Link.fowardLoginPage(req, resp);
-			else
-				Link.redirectHomePage(req, resp);
-			break;
-		case Link.URI_LOGOUT:
-			this.logout(req, resp);
-			break;
-		case Link.URI_REGISTER:
-			// TODO
-			break;
-		default:
-			Link.redirectHomePage(req, resp);
-			break;
+		if (Helpers.isOnline(req)) {
+			switch (requestName) {
+			case Links.URI_LOGOUT:
+				this.logout(req, resp);
+				break;
+			default:
+				Links.redirectTo(req, resp, Links.ROOT_PATH);
+				break;
+			}
+		} else {
+			switch (requestName) {
+			case Links.URI_LOGIN:
+				Links.fowardTo(req, resp, Links.LOGIN_JSP);
+				break;
+			case Links.URI_REGISTER:
+				Links.fowardTo(req, resp, Links.REGISTER_JSP);
+				break;
+			default:
+				Links.redirectTo(req, resp, Links.ROOT_PATH);
+				break;
+			}
 		}
 	}
 
@@ -51,41 +58,43 @@ public class AuthenticationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String requestName = req.getRequestURI();
+		User user = new User();
+		user.setEmail(req.getParameter(Attributes.EMAIL));
+		user.setPassword(req.getParameter(Attributes.PASSWORD));
+
 		switch (requestName) {
-		case Link.URI_LOGIN:
-			this.login(req, resp);
+		case Links.URI_LOGIN:
+			this.login(req, resp, user);
 			break;
-		case Link.URI_REGISTER:
-			this.register(req, resp);
+		case Links.URI_REGISTER:
+			this.register(req, resp, user);
 			break;
 		default:
-			Link.redirectHomePage(req, resp);
+			Links.redirectTo(req, resp, Links.ROOT_PATH);
 			break;
 		}
 	}
 
-	public void login(HttpServletRequest req, HttpServletResponse resp) {
+	public void login(HttpServletRequest req, HttpServletResponse resp, User user) {
 
-		User user = new User();
-		user.setEmail(req.getParameter("email"));
-		user.setPassword(req.getParameter("password"));
 		if (!Helpers.isEmpty(user.getEmail()) && !Helpers.isEmpty(user.getPassword())) {
 
 			try {
 				user = authenticationBusiness.checkLogin(user);
 				if (Helpers.isEmpty(user)) {
-					req.setAttribute("error", "アカウントとかパスワードは問題があります。");
-					Link.fowardLoginPage(req, resp);
+					req.setAttribute(Messages.ERROR, Messages.LOGIN_ERROR);
+					Links.fowardTo(req, resp, Links.LOGIN_JSP);
 				} else {
 					Helpers.storeUserToSession(req, user);
-					req.setAttribute("message", "ログイン成功しました");
-					Link.fowardHomePage(req, resp);
+					req.setAttribute(Messages.MESSAGE, Messages.LOGIN_SUCCESS);
+					Links.fowardTo(req, resp, Links.ROOT_PATH);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				Links.redirectTo(req, resp, Links.ROOT_PATH);
 			}
 		} else {
-			Link.redirectLoginPage(req, resp);
+			Links.redirectTo(req, resp, Links.LOGIN_JSP);
 		}
 
 	}
@@ -93,11 +102,31 @@ public class AuthenticationServlet extends HttpServlet {
 	public void logout(HttpServletRequest req, HttpServletResponse resp) {
 
 		Helpers.removeSession(req);
-		Link.redirectHomePage(req, resp);
+		Links.redirectTo(req, resp, Links.ROOT_PATH);
 	}
 
-	public void register(HttpServletRequest req, HttpServletResponse resp) {
+	public void register(HttpServletRequest req, HttpServletResponse resp, User user) {
+
+		if (Helpers.isEmpty(user.getEmail())) {
+
+			Links.fowardTo(req, resp, Links.REGISTER_JSP);
+		} else {
+			try {
+
+				if (authenticationBusiness.isAvalibleUser(user)) {
+					req.setAttribute(Messages.ERROR, Messages.ACCOUNT_AVALIBLE_ERROR);
+					req.setAttribute(User.USER, user);
+					Links.fowardTo(req, resp, Links.REGISTER_JSP);
+				} else {
+					authenticationBusiness.register(user);
+					req.setAttribute(Messages.MESSAGE, Messages.REGISTER_SUCCESS);
+					Links.fowardTo(req, resp, Links.REGISTER_JSP);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				Links.redirectTo(req, resp, Links.ROOT_PATH);
+			}
+		}
 
 	}
-
 }

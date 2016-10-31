@@ -9,34 +9,23 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
 	protected String tableName;
 	protected Connection con;
+	protected String id;
 
-	public GenericDAOImpl(String tableName, Connection con) {
-		this.tableName = tableName;
-		this.con = con;
+	public GenericDAOImpl() {
 	}
 
 	@Override
-	public void delete(T object) {
+	public void delete(int id) {
 
 	}
 
 	@Override
-	public T findById(T object) {
+	public T findById(int id) {
 		return null;
 	}
 
 	@Override
 	public List<T> listAll() {
 		return null;
-	}
-
-	@Override
-	public void save(T object) {
-
-	}
-
-	@Override
-	public void update(T object) {
-
 	}
 }

@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public class Comment implements Serializable {
 
+	public static final String COMMENT = "comment";
+
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
