@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public class Post implements Serializable {
 
+	public static final String POST = "post";
+
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 

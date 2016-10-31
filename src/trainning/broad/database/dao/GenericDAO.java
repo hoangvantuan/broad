@@ -7,12 +7,8 @@ public interface GenericDAO<T> {
 
 	public List<T> listAll();
 
-	public T findById(T object) throws SQLException;
+	public T findById(int id) throws SQLException;
 
-	public void delete(T object) throws SQLException;
-
-	public void save(T object) throws SQLException;
-
-	public void update(T object) throws SQLException;
+	public void delete(int id) throws SQLException;
 
 }

@@ -25,7 +25,31 @@ public class AuthenticationBusiness {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Table.USER);
-			return userDAO.findByEmail(user);
+			return userDAO.findByEmailAndPassword(user);
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			daoManager.close();
+		}
+	}
+
+	public boolean isAvalibleUser(User user) throws SQLException {
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Table.USER);
+			return userDAO.isAvalibleUser(user);
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			daoManager.close();
+		}
+	}
+
+	public void register(User user) throws SQLException {
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Table.USER);
+			userDAO.saveForRegister(user);
 		} catch (SQLException e) {
 			throw e;
 		} finally {

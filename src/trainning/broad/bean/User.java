@@ -1,7 +1,7 @@
 package trainning.broad.bean;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * USER モデルクラス.
@@ -10,6 +10,8 @@ import java.util.Date;
  * @version $Id$
  */
 public class User implements Serializable {
+
+	public static final String USER = "user";
 
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;

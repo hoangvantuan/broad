@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- include header -->
 <jsp:include page="../layout/header.jsp"></jsp:include>
-<!-- Form signin -->
+<!-- body -->
 <div class="container">
 	<div class="row">
-		<h3 class="text-center">登録</h3>
+		<h3 class="text-center">ログイン</h3>
 		<div class="text-danger text-center">${error}</div>
 		<div class="col-md-8 col-md-offset-2">
 			<form class="form-horizontal" method="POST"
@@ -15,7 +16,7 @@
 						class="text-danger">*</span></label>
 					<div class="col-md-9">
 						<input type="text" class="form-control" id="email" name="email"
-							placeholder="メール" required="required" autocomplete="on"
+							placeholder="メール" value="${user.email }" required="required" autocomplete="on"
 							autofocus="autofocus" pattern=".{6,30}">
 					</div>
 				</div>
@@ -30,12 +31,12 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-md-9">
-						<button type="submit" class="btn btn-primary btn-block">登録</button>
+						<button type="submit" class="btn btn-primary btn-block">ログイン</button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-<!-- END Form -->
+<!-- include footer -->
 <jsp:include page="../layout/footer.jsp"></jsp:include>

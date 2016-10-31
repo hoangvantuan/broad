@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class PostTag implements Serializable {
 
+	public static final String POST_TAG = "posttag";
+
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
