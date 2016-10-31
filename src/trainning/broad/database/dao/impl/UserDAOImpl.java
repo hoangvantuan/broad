@@ -23,9 +23,9 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		statement.setString(1, user.getEmail());
 		statement.setString(2, user.getPassword());
 		ResultSet result = statement.executeQuery();
-		if(result.next()){
-			do{
 
+		if (result.next()) {
+			do {
 				user.setUserId(result.getInt("user_id"));
 				user.setUserName(result.getString("user_name"));
 				user.setEmail(result.getString("email"));
@@ -34,9 +34,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 				user.setIsActive(result.getBoolean("is_active"));
 				user.setCreateAt(result.getTimestamp("create_at"));
 				user.setCreateAt(result.getTimestamp("update_at"));
-			}while(result.next());
-		}
-		else{
+			} while (result.next());
+		} else {
 			user = null;
 		}
 		return user;
