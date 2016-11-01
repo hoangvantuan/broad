@@ -2,6 +2,8 @@ package trainning.broad.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * USER モデルクラス.
@@ -11,227 +13,101 @@ import java.sql.Date;
  */
 public class User implements Serializable {
 
-	public static final String USER = "user";
-
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/** user_id. */
 	private Integer userId;
 
-	/** user_name. */
 	private String userName;
 
-	/** email. */
 	private String email;
 
-	/** password. */
 	private String password;
 
-	/** is_active. */
 	private Boolean isActive;
 
-	/** is_role. */
 	private Boolean isRole;
 
-	/** create_at. */
 	private Date createAt;
 
-	/** update_at. */
 	private Date updateAt;
 
-	/**
-	 * コンストラクタ.
-	 */
+	private List<Post> posts;
+
 	public User() {
+		posts = new ArrayList<Post>();
 	}
 
-	/**
-	 * user_id を設定します.
-	 *
-	 * @param userId
-	 *            user_id
-	 */
+	public Integer getUserId() {
+		return userId;
+	}
+
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	/**
-	 * user_id を取得します.
-	 *
-	 * @return user_id
-	 */
-	public Integer getUserId() {
-		return this.userId;
+	public String getUserName() {
+		return userName;
 	}
 
-	/**
-	 * user_name を設定します.
-	 *
-	 * @param userName
-	 *            user_name
-	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	/**
-	 * user_name を取得します.
-	 *
-	 * @return user_name
-	 */
-	public String getUserName() {
-		return this.userName;
+	public String getEmail() {
+		return email;
 	}
 
-	/**
-	 * email を設定します.
-	 *
-	 * @param email
-	 *            email
-	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/**
-	 * email を取得します.
-	 *
-	 * @return email
-	 */
-	public String getEmail() {
-		return this.email;
+	public String getPassword() {
+		return password;
 	}
 
-	/**
-	 * password を設定します.
-	 *
-	 * @param password
-	 *            password
-	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	/**
-	 * password を取得します.
-	 *
-	 * @return password
-	 */
-	public String getPassword() {
-		return this.password;
+	public Boolean getIsActive() {
+		return isActive;
 	}
 
-	/**
-	 * is_active を設定します.
-	 *
-	 * @param isActive
-	 *            is_active
-	 */
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 
-	/**
-	 * is_active を取得します.
-	 *
-	 * @return is_active
-	 */
-	public Boolean getIsActive() {
-		return this.isActive;
+	public Boolean getIsRole() {
+		return isRole;
 	}
 
-	/**
-	 * is_role を設定します.
-	 *
-	 * @param isRole
-	 *            is_role
-	 */
 	public void setIsRole(Boolean isRole) {
 		this.isRole = isRole;
 	}
 
-	/**
-	 * is_role を取得します.
-	 *
-	 * @return is_role
-	 */
-	public Boolean getIsRole() {
-		return this.isRole;
+	public Date getCreateAt() {
+		return createAt;
 	}
 
-	/**
-	 * create_at を設定します.
-	 *
-	 * @param createAt
-	 *            create_at
-	 */
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
 
-	/**
-	 * create_at を取得します.
-	 *
-	 * @return create_at
-	 */
-	public Date getCreateAt() {
-		return this.createAt;
+	public Date getUpdateAt() {
+		return updateAt;
 	}
 
-	/**
-	 * update_at を設定します.
-	 *
-	 * @param updateAt
-	 *            update_at
-	 */
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
 	}
 
-	/**
-	 * update_at を取得します.
-	 *
-	 * @return update_at
-	 */
-	public Date getUpdateAt() {
-		return this.updateAt;
+	public List<Post> getPosts() {
+		return posts;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		User other = (User) obj;
-		if (userId == null) {
-			if (other.userId != null) {
-				return false;
-			}
-		} else if (!userId.equals(other.userId)) {
-			return false;
-		}
-		return true;
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 }

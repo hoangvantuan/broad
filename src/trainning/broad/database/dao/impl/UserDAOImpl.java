@@ -6,23 +6,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import trainning.broad.bean.User;
-import trainning.broad.database.Table;
 import trainning.broad.database.dao.UserDAO;
+import trainning.broad.helpers.Constants;
 
 public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
 	public UserDAOImpl(Connection con) {
 
-		this.tableName = Table.USER;
+		this.tableName = Constants.TABLE_USER;
 		this.con = con;
-		this.id = Table.USER_ID;
+		this.id = Constants.ATTR_USER_ID;
 
 	}
 
 	@Override
 	public User findByEmailAndPassword(User user) throws SQLException {
 
-		String query = "SELECT * FROM " + Table.USER + " WHERE email = ? and password = ?";
+		String query = "SELECT * FROM " + tableName + " WHERE email = ? and password = ?";
 		PreparedStatement statement = con.prepareStatement(query);
 		statement.setString(1, user.getEmail());
 		statement.setString(2, user.getPassword());

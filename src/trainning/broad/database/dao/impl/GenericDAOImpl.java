@@ -1,7 +1,8 @@
 package trainning.broad.database.dao.impl;
 
 import java.sql.Connection;
-import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import trainning.broad.database.dao.GenericDAO;
 
@@ -15,17 +16,13 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws SQLException {
 
+		String query = "DELETE FROM " + tableName + " WHERE " + this.id + " = ?";
+		PreparedStatement statement = con.prepareStatement(query);
+		statement.setInt(1, 34);
+		statement.executeUpdate();
 	}
 
-	@Override
-	public T findById(int id) {
-		return null;
-	}
 
-	@Override
-	public List<T> listAll() {
-		return null;
-	}
 }

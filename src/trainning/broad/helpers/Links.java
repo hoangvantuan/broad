@@ -9,14 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Links {
 
-	public final static String ROOT_PATH = "/";
-	public final static String LOGIN_PATH = "/login";
-	public final static String LOGIN_JSP = "/WEB-INF/authentication/login.jsp";
-	public final static String REGISTER_JSP = "/WEB-INF/authentication/register.jsp";
-	public final static String URI_LOGIN = "/broad/login";
-	public final static String URI_LOGOUT = "/broad/logout";
-	public final static String URI_REGISTER = "/broad/register";
-
 	public static void fowardTo(HttpServletRequest req, HttpServletResponse resp, String target) {
 
 		RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher(target);
