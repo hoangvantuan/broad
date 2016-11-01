@@ -11,7 +11,7 @@ public class Helpers {
 	public static void storeUserToSession(HttpServletRequest request, User user) {
 
 		HttpSession session = request.getSession();
-		session.setAttribute(User.USER, user);
+		session.setAttribute(Constants.ATTR_USER, user);
 
 	}
 
@@ -19,15 +19,15 @@ public class Helpers {
 	public static User getUserFromSession(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
-		return (User) session.getAttribute(User.USER);
+		return (User) session.getAttribute(Constants.ATTR_USER);
 
 	}
 
 	public static void removeSession(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
-		if (!Helpers.isEmpty(session.getAttribute(User.USER)))
-			session.removeAttribute(User.USER);
+		if (!Helpers.isEmpty(session.getAttribute(Constants.ATTR_USER)))
+			session.removeAttribute(Constants.ATTR_USER);
 		session.invalidate();
 	}
 

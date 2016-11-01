@@ -1,4 +1,4 @@
-package trainning .broad.bean;
+package trainning.broad.bean;
 
 import java.io.Serializable;
 
@@ -10,117 +10,42 @@ import java.io.Serializable;
  */
 public class PostTag implements Serializable {
 
-	public static final String POST_TAG = "posttag";
-
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/** post_tag_id. */
 	private Integer postTagId;
 
-	/** post_id. */
-	private Integer postId;
+	private Post post;
 
-	/** tag_id. */
-	private Integer tagId;
+	private Tag tag;
 
-	/**
-	 * コンストラクタ.
-	 */
 	public PostTag() {
+		post = new Post();
+		tag = new Tag();
 	}
 
-	/**
-	 * post_tag_id を設定します.
-	 *
-	 * @param postTagId
-	 *            post_tag_id
-	 */
+	public Integer getPostTagId() {
+		return postTagId;
+	}
+
 	public void setPostTagId(Integer postTagId) {
 		this.postTagId = postTagId;
 	}
 
-	/**
-	 * post_tag_id を取得します.
-	 *
-	 * @return post_tag_id
-	 */
-	public Integer getPostTagId() {
-		return this.postTagId;
+	public Post getPost() {
+		return post;
 	}
 
-	/**
-	 * post_id を設定します.
-	 *
-	 * @param postId
-	 *            post_id
-	 */
-	public void setPostId(Integer postId) {
-		this.postId = postId;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
-	/**
-	 * post_id を取得します.
-	 *
-	 * @return post_id
-	 */
-	public Integer getPostId() {
-		return this.postId;
+	public Tag getTag() {
+		return tag;
 	}
 
-	/**
-	 * tag_id を設定します.
-	 *
-	 * @param tagId
-	 *            tag_id
-	 */
-	public void setTagId(Integer tagId) {
-		this.tagId = tagId;
-	}
-
-	/**
-	 * tag_id を取得します.
-	 *
-	 * @return tag_id
-	 */
-	public Integer getTagId() {
-		return this.tagId;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((postTagId == null) ? 0 : postTagId.hashCode());
-		return result;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		PostTag other = (PostTag) obj;
-		if (postTagId == null) {
-			if (other.postTagId != null) {
-				return false;
-			}
-		} else if (!postTagId.equals(other.postTagId)) {
-			return false;
-		}
-		return true;
+	public void setTag(Tag tag) {
+		this.tag = tag;
 	}
 
 }

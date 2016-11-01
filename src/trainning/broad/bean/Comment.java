@@ -1,4 +1,4 @@
-package trainning .broad.bean;
+package trainning.broad.bean;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,183 +11,70 @@ import java.util.Date;
  */
 public class Comment implements Serializable {
 
-	public static final String COMMENT = "comment";
-
 	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/** comment_id. */
 	private Integer commentId;
 
-	/** post_id. */
-	private Integer postId;
-
-	/** user_id. */
-	private Integer userId;
-
-	/** content. */
 	private String content;
 
-	/** create_at. */
 	private Date createAt;
 
-	/** update_at. */
 	private Date updateAt;
 
-	/**
-	 * コンストラクタ.
-	 */
+	private Post post;
+	private User user;
+
 	public Comment() {
+		post = new Post();
+		user = new User();
 	}
 
-	/**
-	 * comment_id を設定します.
-	 *
-	 * @param commentId
-	 *            comment_id
-	 */
+	public Integer getCommentId() {
+		return commentId;
+	}
+
 	public void setCommentId(Integer commentId) {
 		this.commentId = commentId;
 	}
 
-	/**
-	 * comment_id を取得します.
-	 *
-	 * @return comment_id
-	 */
-	public Integer getCommentId() {
-		return this.commentId;
+	public String getContent() {
+		return content;
 	}
 
-	/**
-	 * post_id を設定します.
-	 *
-	 * @param postId
-	 *            post_id
-	 */
-	public void setPostId(Integer postId) {
-		this.postId = postId;
-	}
-
-	/**
-	 * post_id を取得します.
-	 *
-	 * @return post_id
-	 */
-	public Integer getPostId() {
-		return this.postId;
-	}
-
-	/**
-	 * user_id を設定します.
-	 *
-	 * @param userId
-	 *            user_id
-	 */
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	/**
-	 * user_id を取得します.
-	 *
-	 * @return user_id
-	 */
-	public Integer getUserId() {
-		return this.userId;
-	}
-
-	/**
-	 * content を設定します.
-	 *
-	 * @param content
-	 *            content
-	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-	/**
-	 * content を取得します.
-	 *
-	 * @return content
-	 */
-	public String getContent() {
-		return this.content;
+	public Date getCreateAt() {
+		return createAt;
 	}
 
-	/**
-	 * create_at を設定します.
-	 *
-	 * @param createAt
-	 *            create_at
-	 */
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
 
-	/**
-	 * create_at を取得します.
-	 *
-	 * @return create_at
-	 */
-	public Date getCreateAt() {
-		return this.createAt;
+	public Date getUpdateAt() {
+		return updateAt;
 	}
 
-	/**
-	 * update_at を設定します.
-	 *
-	 * @param updateAt
-	 *            update_at
-	 */
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
 	}
 
-	/**
-	 * update_at を取得します.
-	 *
-	 * @return update_at
-	 */
-	public Date getUpdateAt() {
-		return this.updateAt;
+	public Post getPost() {
+		return post;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((commentId == null) ? 0 : commentId.hashCode());
-		return result;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Comment other = (Comment) obj;
-		if (commentId == null) {
-			if (other.commentId != null) {
-				return false;
-			}
-		} else if (!commentId.equals(other.commentId)) {
-			return false;
-		}
-		return true;
+	public User getUser() {
+		return user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
