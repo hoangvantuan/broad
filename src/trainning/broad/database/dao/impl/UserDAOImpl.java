@@ -1,13 +1,14 @@
 package trainning.broad.database.dao.impl;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import trainning.broad.bean.User;
 import trainning.broad.database.dao.UserDAO;
 import trainning.broad.helpers.Constants;
+import trainning.broad.helpers.DAOHelpers;
+import trainning.broad.helpers.Helpers;
 
 public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
@@ -20,21 +21,20 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 	}
 
 	@Override
-	public User findByEmailAndPassword(User user) throws SQLException {
+	public User findByEmail(String email) throws SQLException {
 
-		String query = "SELECT * FROM " + tableName + " WHERE email = ? and password = ?";
-		PreparedStatement statement = con.prepareStatement(query);
-		statement.setString(1, user.getEmail());
-		statement.setString(2, user.getPassword());
+		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.ATTR_EMAIL + " = ?";
+		statement = con.prepareStatement(query);
+		statement.setString(1, email);
 		ResultSet result = statement.executeQuery();
-		return convertResultToUser(result, user);
+		return DAOHelpers.convertResultToUser(result);
 	}
 
 	@Override
 	public boolean isAvalibleUser(User user) throws SQLException {
 
-		String query = "SELECT COUNT(*) AS num FROM " + tableName + " WHERE email = ?";
-		PreparedStatement statement = con.prepareStatement(query);
+		String query = "SELECT COUNT(*) AS num FROM " + tableName + " WHERE " + Constants.ATTR_EMAIL + " = ?";
+		statement = con.prepareStatement(query);
 		statement.setString(1, user.getEmail());
 		ResultSet result = statement.executeQuery();
 		if (result.next()) {
@@ -44,31 +44,26 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 	}
 
 	@Override
-	public void saveForRegister(User user) throws SQLException {
+	public void saveEmail(String email) throws SQLException {
 
-		String query = "INSERT INTO " + tableName + "(email) VALUES(?)";
-		PreparedStatement statement = con.prepareStatement(query);
-		statement.setString(1, user.getEmail());
+		String query = "INSERT INTO " + tableName + "(" + Constants.ATTR_EMAIL + ") VALUES(?)";
+		statement = con.prepareStatement(query);
+		statement.setString(1, email);
 		statement.executeUpdate();
 
 	}
 
-	private User convertResultToUser(ResultSet result, User user) throws SQLException {
+	@Override
+	public void active(String email, String password) throws SQLException {
 
-		if (result.next()) {
-			do {
-				user.setUserId(result.getInt("user_id"));
-				user.setUserName(result.getString("user_name"));
-				user.setEmail(result.getString("email"));
-				user.setPassword(result.getString("password"));
-				user.setIsRole(result.getBoolean("is_role"));
-				user.setIsActive(result.getBoolean("is_active"));
-				user.setCreateAt(result.getDate("create_at"));
-				user.setCreateAt(result.getDate("update_at"));
-			} while (result.next());
-		} else {
-			user = null;
-		}
-		return user;
+		String query = "UPDATE " + tableName + " SET " + Constants.ATTR_PASSWORD + " = ?, " + Constants.ATTR_IS_ACTIVE
+				+ " = ?, " + Constants.ATTR_UPDATE_AT + " = ?  WHERE " + Constants.ATTR_EMAIL + " = ?";
+		statement = con.prepareStatement(query);
+		statement.setString(1, password);
+		statement.setBoolean(2, true);
+		statement.setString(4, email);
+		statement.setTimestamp(3,Helpers.getCurrenTimeStamp());
+		statement.executeUpdate();
+
 	}
 }

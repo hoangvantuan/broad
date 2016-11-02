@@ -12,7 +12,11 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/broad/">電子掲示板</a>
+			<a class="navbar-brand" href="/broad/home"><span
+				class="text-info">電子掲示板</span></a>
+		</div>
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
 			<c:if test="${sessionScope.user != null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -21,14 +25,20 @@
 							class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="/broad/profile"><i
-									class="glyphicon glyphicon-user"></i>&nbsp;Profile</a></li>
-							<li><a href="/broad/logout"><i class="glyphicon glyphicon-off"></i>&nbsp;Log
-									out</a></li>
+									class="glyphicon glyphicon-user"></i>&nbsp;個人情報</a></li>
+							<li><a href="/broad/logout"><i
+									class="glyphicon glyphicon-off"></i>&nbsp;ログアウト</a></li>
 						</ul></li>
 				</ul>
 			</c:if>
+			<c:if test="${sessionScope.user == null }">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="${pageContext.request.contextPath}/login">ログイン</a></li>
+					<li><a href="${pageContext.request.contextPath}/register">登録</a></li>
+				</ul>
+			</c:if>
 		</div>
-		<!-- /.navbar-collapse -->
 	</div>
+	<!-- /.navbar-collapse -->
 	<!-- /.container-fluid -->
 </nav>

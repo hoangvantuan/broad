@@ -6,17 +6,18 @@
 <!-- body -->
 <div class="container">
 	<div class="col-md-6 col-md-offset-3">
-		<h3 class="text-center">登録</h3>
+		<h3 class="text-center">アクティブ</h3>
 		<div class="text-danger text-center">${error}</div>
 		<div class="text-info text-center">${message}</div>
-		<form method="post"
-			action="${pageContext.request.contextPath}/register">
+		<h4>Hello ${email }</h4>
+		<form method="post" action="${pageContext.request.contextPath}/active">
+			<input type="hidden" name="email" value="${email }" />
 			<div class="form-group">
-				<label for="email">メールアドレス</label> <input type="text"
-					class="form-control" name="email" id="email" value="${user.email }"
-					placeholder="メール">
+				<label for="password">パスワード</label> <input type="text"
+					class="form-control" name="password" id="password"
+					placeholder="パスワード">
 			</div>
-			<button type="submit" class="btn btn-default btn-block">登録</button>
+			<button type="submit" class="btn btn-default btn-block">確認</button>
 		</form>
 	</div>
 </div>

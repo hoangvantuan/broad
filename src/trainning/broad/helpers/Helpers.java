@@ -1,5 +1,12 @@
 package trainning.broad.helpers;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,6 +38,27 @@ public class Helpers {
 		session.invalidate();
 	}
 
+	public static String getCodeActive(String email) throws NoSuchAlgorithmException {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(email.concat(Constants.ENCODE).getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+		} catch (NoSuchAlgorithmException e) {
+			throw e;
+		}
+	}
+
+	public static Timestamp getCurrenTimeStamp() {
+
+		Date date = new java.util.Date();
+		return new Timestamp(date.getTime());
+	}
+
 	public static boolean isOnline(HttpServletRequest request) {
 
 		return !isEmpty(getUserFromSession(request));
@@ -44,5 +72,10 @@ public class Helpers {
 	public static boolean isEmpty(Object object) {
 
 		return object == null;
+	}
+
+	public static boolean isEmpty(List<Object> list) {
+
+		return list == null || list.size() == 0;
 	}
 }

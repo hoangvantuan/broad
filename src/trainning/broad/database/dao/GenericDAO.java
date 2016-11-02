@@ -11,10 +11,4 @@ public interface GenericDAO<T> {
 
 	public List<T> findAll() throws SQLException;
 
-	public List<T> findByProperty(String attribute, Object value) throws SQLException;
-
-	public void save(String query) throws SQLException;
-
-	public void update(String query) throws SQLException;
-
 }

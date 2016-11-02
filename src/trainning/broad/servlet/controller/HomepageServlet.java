@@ -8,20 +8,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/" })
+import trainning.broad.business.HomepageBusiness;
+import trainning.broad.helpers.Constants;
+import trainning.broad.helpers.Helpers;
+import trainning.broad.helpers.Links;
+
+@WebServlet(urlPatterns = { "/home" })
 public class HomepageServlet extends HttpServlet {
 
+	HomepageBusiness homepageBusiness;
+
 	public HomepageServlet() {
+
+		this.homepageBusiness = new HomepageBusiness();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.getWriter().println("hello world");
+		if (Helpers.isOnline(req)) {
+
+		}
+		Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
+		this.doGet(req, resp);
 	}
 
 }

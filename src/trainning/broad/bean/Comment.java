@@ -1,7 +1,7 @@
 package trainning.broad.bean;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * COMMENT モデルクラス.
@@ -18,9 +18,9 @@ public class Comment implements Serializable {
 
 	private String content;
 
-	private Date createAt;
+	private Timestamp createAt;
 
-	private Date updateAt;
+	private Timestamp updateAt;
 
 	private Post post;
 	private User user;
@@ -46,19 +46,19 @@ public class Comment implements Serializable {
 		this.content = content;
 	}
 
-	public Date getCreateAt() {
+	public Timestamp getCreateAt() {
 		return createAt;
 	}
 
-	public void setCreateAt(Date createAt) {
+	public void setCreateAt(Timestamp createAt) {
 		this.createAt = createAt;
 	}
 
-	public Date getUpdateAt() {
+	public Timestamp getUpdateAt() {
 		return updateAt;
 	}
 
-	public void setUpdateAt(Date updateAt) {
+	public void setUpdateAt(Timestamp updateAt) {
 		this.updateAt = updateAt;
 	}
 

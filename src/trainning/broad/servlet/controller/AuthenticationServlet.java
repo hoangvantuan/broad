@@ -1,6 +1,7 @@
 package trainning.broad.servlet.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
-@WebServlet(urlPatterns = { "/login", "/logout", "/register" })
+@WebServlet(urlPatterns = { "/login", "/logout", "/register", "/active" })
 public class AuthenticationServlet extends HttpServlet {
 
 	private AuthenticationBusiness authenticationBusiness;
@@ -37,7 +38,7 @@ public class AuthenticationServlet extends HttpServlet {
 				this.logout(req, resp);
 				break;
 			default:
-				Links.redirectTo(req, resp, Constants.ROOT_PATH);
+				Links.redirectTo(req, resp, Constants.HOME_PATH);
 				break;
 			}
 		} else {
@@ -48,8 +49,11 @@ public class AuthenticationServlet extends HttpServlet {
 			case Constants.URI_REGISTER:
 				Links.fowardTo(req, resp, Constants.REGISTER_JSP);
 				break;
+			case Constants.URI_ACTIVE:
+				this.confirmPassword(req, resp);
+				break;
 			default:
-				Links.redirectTo(req, resp, Constants.ROOT_PATH);
+				Links.redirectTo(req, resp, Constants.HOME_PATH);
 				break;
 			}
 		}
@@ -70,8 +74,11 @@ public class AuthenticationServlet extends HttpServlet {
 		case Constants.URI_REGISTER:
 			this.register(req, resp, user);
 			break;
+		case Constants.URI_ACTIVE:
+			this.active(req, resp, user);
+			break;
 		default:
-			Links.redirectTo(req, resp, Constants.ROOT_PATH);
+			Links.redirectTo(req, resp, Constants.HOME_PATH);
 			break;
 		}
 	}
@@ -80,6 +87,7 @@ public class AuthenticationServlet extends HttpServlet {
 
 		if (!Helpers.isEmpty(user.getEmail()) && !Helpers.isEmpty(user.getPassword())) {
 
+			req.setAttribute(Constants.ATTR_USER, user);
 			try {
 				user = authenticationBusiness.checkLogin(user);
 				if (Helpers.isEmpty(user)) {
@@ -87,12 +95,11 @@ public class AuthenticationServlet extends HttpServlet {
 					Links.fowardTo(req, resp, Constants.LOGIN_JSP);
 				} else {
 					Helpers.storeUserToSession(req, user);
-					req.setAttribute(Constants.MESSAGE, Constants.LOGIN_SUCCESS);
-					Links.fowardTo(req, resp, Constants.ROOT_PATH);
+					Links.redirectTo(req, resp, Constants.HOME_PATH);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.ROOT_PATH);
+				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		} else {
 			Links.redirectTo(req, resp, Constants.LOGIN_JSP);
@@ -103,7 +110,7 @@ public class AuthenticationServlet extends HttpServlet {
 	public void logout(HttpServletRequest req, HttpServletResponse resp) {
 
 		Helpers.removeSession(req);
-		Links.redirectTo(req, resp, Constants.ROOT_PATH);
+		Links.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 
 	public void register(HttpServletRequest req, HttpServletResponse resp, User user) {
@@ -117,17 +124,52 @@ public class AuthenticationServlet extends HttpServlet {
 				if (authenticationBusiness.isAvalibleUser(user)) {
 					req.setAttribute(Constants.ERROR, Constants.ACCOUNT_AVALIBLE_ERROR);
 					req.setAttribute(Constants.ATTR_USER, user);
-					Links.fowardTo(req, resp, Constants.REGISTER_JSP);
 				} else {
 					authenticationBusiness.register(user);
 					req.setAttribute(Constants.MESSAGE, Constants.REGISTER_SUCCESS);
-					Links.fowardTo(req, resp, Constants.REGISTER_JSP);
 				}
-			} catch (SQLException | EmailException e) {
+				Links.fowardTo(req, resp, Constants.REGISTER_JSP);
+			} catch (SQLException | EmailException | NoSuchAlgorithmException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.ROOT_PATH);
+				Links.redirectTo(req, resp, Constants.REGISTER_PATH);
 			}
 		}
 
+	}
+
+	public void confirmPassword(HttpServletRequest req, HttpServletResponse resp) {
+
+		String email = req.getParameter(Constants.ATTR_EMAIL);
+		String code = req.getParameter(Constants.CODE);
+		if (!Helpers.isEmpty(email) && !Helpers.isEmpty(code)) {
+
+			try {
+				if (authenticationBusiness.isActive(email, code)) {
+					req.setAttribute(Constants.ATTR_EMAIL, email);
+					Links.fowardTo(req, resp, Constants.CONFIRM_PASSWORD_JSP);
+				} else {
+					Links.redirectTo(req, resp, Constants.HOME_PATH);
+				}
+			} catch (NoSuchAlgorithmException | SQLException e) {
+				e.printStackTrace();
+			}
+		} else
+			Links.redirectTo(req, resp, Constants.HOME_PATH);
+	}
+
+	public void active(HttpServletRequest req, HttpServletResponse resp, User user) {
+
+		if (!Helpers.isEmpty(user.getEmail()) && !Helpers.isEmpty(user.getPassword())) {
+			try {
+				authenticationBusiness.active(user.getEmail(), user.getPassword());
+				Helpers.storeUserToSession(req, user);
+				req.setAttribute(Constants.MESSAGE, Constants.ACTIVE_SUCCESS);
+				Links.fowardTo(req, resp, Constants.HOME_PATH);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				Links.redirectTo(req, resp, Constants.HOME_PATH);
+			}
+		} else
+			Links.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 }

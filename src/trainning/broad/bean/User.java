@@ -1,7 +1,7 @@
 package trainning.broad.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +28,9 @@ public class User implements Serializable {
 
 	private Boolean isRole;
 
-	private Date createAt;
+	private Timestamp createAt;
 
-	private Date updateAt;
+	private Timestamp updateAt;
 
 	private List<Post> posts;
 
@@ -86,19 +86,19 @@ public class User implements Serializable {
 		this.isRole = isRole;
 	}
 
-	public Date getCreateAt() {
+	public Timestamp getCreateAt() {
 		return createAt;
 	}
 
-	public void setCreateAt(Date createAt) {
+	public void setCreateAt(Timestamp createAt) {
 		this.createAt = createAt;
 	}
 
-	public Date getUpdateAt() {
+	public Timestamp getUpdateAt() {
 		return updateAt;
 	}
 
-	public void setUpdateAt(Date updateAt) {
+	public void setUpdateAt(Timestamp updateAt) {
 		this.updateAt = updateAt;
 	}
 
