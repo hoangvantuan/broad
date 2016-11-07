@@ -12,7 +12,7 @@
 		<form method="post"
 			action="${pageContext.request.contextPath}/register">
 			<div class="form-group">
-				<label for="email">メールアドレス</label> <input type="text"
+				<label for="email">メールアドレス</label> <input type="email"
 					class="form-control" name="email" id="email" value="${user.email }"
 					placeholder="メール">
 			</div>

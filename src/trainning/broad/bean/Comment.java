@@ -22,12 +22,10 @@ public class Comment implements Serializable {
 
 	private Timestamp updateAt;
 
-	private Post post;
-	private User user;
+	private Integer postId;
+	private Integer userId;
 
 	public Comment() {
-		post = new Post();
-		user = new User();
 	}
 
 	public Integer getCommentId() {
@@ -62,19 +60,19 @@ public class Comment implements Serializable {
 		this.updateAt = updateAt;
 	}
 
-	public Post getPost() {
-		return post;
+	public Integer getPostId() {
+		return this.postId;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
+	public void setPostId(Integer postId) {
+		this.postId = postId;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 }

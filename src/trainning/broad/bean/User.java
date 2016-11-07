@@ -2,8 +2,6 @@ package trainning.broad.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * USER モデルクラス.
@@ -32,10 +30,7 @@ public class User implements Serializable {
 
 	private Timestamp updateAt;
 
-	private List<Post> posts;
-
 	public User() {
-		posts = new ArrayList<Post>();
 	}
 
 	public Integer getUserId() {
@@ -100,14 +95,6 @@ public class User implements Serializable {
 
 	public void setUpdateAt(Timestamp updateAt) {
 		this.updateAt = updateAt;
-	}
-
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
 	}
 
 }

@@ -18,6 +18,7 @@ public class Constants {
 	public final static String ATTR_POST_NAME = "post_name";
 	public final static String ATTR_IS_ROLE = "is_role";
 	public final static String ATTR_IS_ACTIVE = "is_active";
+	public final static String ATTR_TAG_NAME = "tag_name";
 
 	// Links
 	public final static String ROOT_PATH = "/";
@@ -46,7 +47,7 @@ public class Constants {
 	public final static String TABLE_USER = "public.user";
 	public final static String TABLE_POST = "post";
 	public final static String TABLE_TAG = "tag";
-	public final static String TABLE_POSTTAG = "posttag";
+	public final static String TABLE_POSTTAG = "post_tag";
 	public final static String TABLE_COMMENT = "comment";
 
 	// Mail attributes

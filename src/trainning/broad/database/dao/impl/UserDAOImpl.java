@@ -62,7 +62,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		statement.setString(1, password);
 		statement.setBoolean(2, true);
 		statement.setString(4, email);
-		statement.setTimestamp(3,Helpers.getCurrenTimeStamp());
+		statement.setTimestamp(3, Helpers.getCurrenTimeStamp());
 		statement.executeUpdate();
 
 	}

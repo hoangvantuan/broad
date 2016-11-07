@@ -16,7 +16,7 @@
 					<label for="email" class="col-md-3 control-label">メール<span
 						class="text-danger">*</span></label>
 					<div class="col-md-9">
-						<input type="text" class="form-control" id="email" name="email"
+						<input type="email" class="form-control" id="email" name="email"
 							placeholder="メール" value="${user.email }" required="required"
 							autocomplete="on" autofocus="autofocus" pattern=".{6,30}">
 					</div>

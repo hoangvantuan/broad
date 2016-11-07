@@ -62,8 +62,39 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 			return (T) DAOHelpers.convertResultToUser(result);
 		case Constants.TABLE_POST:
 			return (T) DAOHelpers.convertResultToPost(result);
+		case Constants.TABLE_TAG:
+			return (T) DAOHelpers.convertResultToTag(result);
+		case Constants.TABLE_POSTTAG:
+			return (T) DAOHelpers.convertResultToPostTag(result);
 		default:
 			return null;
 		}
+	}
+
+	@Override
+	public List<T> findByProperty(String property, int value) throws SQLException {
+
+		String query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?";
+		statement = con.prepareStatement(query);
+		statement.setInt(1, value);
+		result = statement.executeQuery();
+
+		switch (tableName) {
+
+		case Constants.TABLE_USER:
+			return (List<T>) DAOHelpers.convertResultToUsers(result);
+		case Constants.TABLE_POST:
+			return (List<T>) DAOHelpers.convertResultToPosts(result);
+		case Constants.TABLE_POSTTAG:
+			return (List<T>) DAOHelpers.convertResultToPostTags(result);
+		default:
+			return null;
+		}
+	}
+
+	@Override
+	public List<T> findByProperty(String property, String value) throws SQLException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }

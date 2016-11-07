@@ -24,9 +24,9 @@ public class Post implements Serializable {
 
 	private Timestamp updateAt;
 
-	private User user;
+	private Integer userId;
+
 	public Post() {
-		this.user = new User();
 	}
 
 	public Integer getPostId() {
@@ -69,12 +69,12 @@ public class Post implements Serializable {
 		this.updateAt = updateAt;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 }

@@ -10,22 +10,23 @@ import trainning.broad.bean.PostTag;
 import trainning.broad.bean.Tag;
 import trainning.broad.database.DAOManager;
 import trainning.broad.database.connection.PostgresSQLConnection;
+import trainning.broad.database.dao.CommentDAO;
 import trainning.broad.database.dao.PostDAO;
 import trainning.broad.database.dao.PostTagDAO;
 import trainning.broad.database.dao.TagDAO;
 import trainning.broad.database.dao.UserDAO;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 
-public class HomepageBusiness {
+public class PostBusiness {
 
 	private DAOManager daoManager;
 	private UserDAO userDAO;
 	private PostDAO postDAO;
 	private TagDAO tagDAO;
 	private PostTagDAO postTagDAO;
+	private CommentDAO commentDAO;
 
-	public HomepageBusiness() {
+	public PostBusiness() {
 
 		try {
 			this.daoManager = new DAOManager(new PostgresSQLConnection());
@@ -34,46 +35,28 @@ public class HomepageBusiness {
 		}
 	}
 
-	public List<InfoPostHomepage> getDataForHomepage() {
+	public InfoPostHomepage getPostDetails(int postId) {
 
-		List<InfoPostHomepage> infoPostHomepages = new ArrayList<InfoPostHomepage>();
-		List<Tag> tags;
-		List<Post> posts;
+		InfoPostHomepage infoPostHomepage = new InfoPostHomepage();
+		List<Tag> tags = new ArrayList<Tag>();
 		List<PostTag> postTags;
+		int commentOnPost = 0;
+		Post post;
+
 		postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
-		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 		postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 		tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
-
+		commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
+		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 		try {
-			posts = postDAO.findAll();
-
-			for (Post post : posts) {
-				tags = new ArrayList<Tag>();
-				InfoPostHomepage infoPostHomepage = new InfoPostHomepage();
-				post.setContent(Helpers.cutString(post.getContent()));
-				infoPostHomepage.setPost(post);
-				infoPostHomepage.setUser(userDAO.findById(post.getUserId()));
-
-				postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
-
-				for (PostTag postTag : postTags) {
-					tags.add(tagDAO.findById(postTag.getTagId()));
-				}
-
-				infoPostHomepage.setTags(tags);
-				infoPostHomepages.add(infoPostHomepage);
+			post = postDAO.findById(postId);
+			postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
+			for (PostTag postTag : postTags) {
+				tags.add(tagDAO.findById(postTag.getTagId()));
 			}
-
-			return infoPostHomepages;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
-		} finally {
-			daoManager.close();
 		}
-
+		return null;
 	}
-
 }

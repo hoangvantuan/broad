@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trainning.broad.bean.Post;
+import trainning.broad.bean.PostTag;
+import trainning.broad.bean.Tag;
 import trainning.broad.bean.User;
 
 public class DAOHelpers {
@@ -47,6 +49,42 @@ public class DAOHelpers {
 		}
 	}
 
+	public static PostTag convertResultToPostTag(ResultSet result) throws SQLException {
+
+		if (result.next()) {
+			return getPostTagFromResult(result);
+		} else
+			return null;
+	}
+
+	public static List<Tag> convertResultToTags(ResultSet result) throws SQLException {
+
+		List<Tag> tags = new ArrayList<Tag>();
+		while (result.next()) {
+			tags.add(getTagFromResult(result));
+		}
+
+		return tags;
+	}
+
+	public static Tag convertResultToTag(ResultSet result) throws SQLException {
+
+		if (result.next()) {
+			return getTagFromResult(result);
+		} else
+			return null;
+	}
+
+	public static List<PostTag> convertResultToPostTags(ResultSet result) throws SQLException {
+
+		List<PostTag> postTags = new ArrayList<PostTag>();
+		while (result.next()) {
+			postTags.add(getPostTagFromResult(result));
+		}
+
+		return postTags;
+	}
+
 	public static User getUserFromResult(ResultSet result) throws SQLException {
 
 		User user = new User();
@@ -65,11 +103,32 @@ public class DAOHelpers {
 
 		Post post = new Post();
 		post.setPostId(result.getInt(Constants.ATTR_POST_ID));
-		post.setContent(result.getString(Constants.ATTR_POST_NAME));
+		post.setUserId(result.getInt(Constants.ATTR_USER_ID));
+		post.setContent(result.getString(Constants.ATTR_CONNTENT));
 		post.setPostName(result.getString(Constants.ATTR_POST_NAME));
 		post.setCreateAt(result.getTimestamp(Constants.ATTR_CREATE_AT));
 		post.setUpdateAt(result.getTimestamp(Constants.ATTR_UPDATE_AT));
 		return post;
 
 	}
+
+	public static PostTag getPostTagFromResult(ResultSet result) throws SQLException {
+
+		PostTag postTag = new PostTag();
+		postTag.setPostTagId(result.getInt(Constants.ATTR_POST_TAG_ID));
+		postTag.setPostId(result.getInt(Constants.ATTR_POST_ID));
+		postTag.setTagId(result.getInt(Constants.ATTR_TAG_ID));
+
+		return postTag;
+	}
+
+	public static Tag getTagFromResult(ResultSet result) throws SQLException {
+
+		Tag tag = new Tag();
+		tag.setTagId(result.getInt(Constants.ATTR_TAG_ID));
+		tag.setTagName(result.getString(Constants.ATTR_TAG_NAME));
+
+		return tag;
+	}
+
 }

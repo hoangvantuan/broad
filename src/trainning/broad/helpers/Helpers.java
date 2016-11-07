@@ -78,4 +78,13 @@ public class Helpers {
 
 		return list == null || list.size() == 0;
 	}
+
+	public static String cutString(String str) {
+
+		if (str.length() >= 100) {
+			return str.substring(0, 100);
+		} else
+			return str;
+
+	}
 }

@@ -15,13 +15,11 @@ public class PostTag implements Serializable {
 
 	private Integer postTagId;
 
-	private Post post;
+	private Integer postId;
 
-	private Tag tag;
+	private Integer tagId;
 
 	public PostTag() {
-		post = new Post();
-		tag = new Tag();
 	}
 
 	public Integer getPostTagId() {
@@ -32,20 +30,20 @@ public class PostTag implements Serializable {
 		this.postTagId = postTagId;
 	}
 
-	public Post getPost() {
-		return post;
+	public Integer getPostId() {
+		return postId;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
+	public void setPostId(Integer postId) {
+		this.postId = postId;
 	}
 
-	public Tag getTag() {
-		return tag;
+	public Integer getTagId() {
+		return tagId;
 	}
 
-	public void setTag(Tag tag) {
-		this.tag = tag;
+	public void setTagId(Integer tagId) {
+		this.tagId = tagId;
 	}
 
 }
