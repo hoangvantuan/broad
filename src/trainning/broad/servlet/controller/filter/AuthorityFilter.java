@@ -17,9 +17,9 @@ import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
 @WebFilter(urlPatterns = { "/post/details" })
-public class LoginFilter implements Filter {
+public class AuthorityFilter implements Filter {
 
-	public LoginFilter() {
+	public AuthorityFilter() {
 	}
 
 	@Override

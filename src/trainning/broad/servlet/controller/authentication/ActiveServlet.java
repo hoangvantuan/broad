@@ -17,11 +17,11 @@ import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
 @WebServlet(urlPatterns = { "/active" })
-public class Active extends HttpServlet {
+public class ActiveServlet extends HttpServlet {
 
 	AuthenticationBusiness authenticationBusiness;
 
-	public Active() {
+	public ActiveServlet() {
 
 		try {
 			authenticationBusiness = new AuthenticationBusiness();

@@ -16,11 +16,11 @@ import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
 @WebServlet(urlPatterns = { "/login" })
-public class Login extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
 	private AuthenticationBusiness authenticationBusiness;
 
-	public Login() {
+	public LoginServlet() {
 
 		try {
 			this.authenticationBusiness = new AuthenticationBusiness();

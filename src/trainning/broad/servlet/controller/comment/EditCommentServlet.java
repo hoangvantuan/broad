@@ -1,4 +1,4 @@
-package trainning.broad.servlet.controller.authentication;
+package trainning.broad.servlet.controller.comment;
 
 import java.io.IOException;
 
@@ -7,30 +7,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Links;
+@WebServlet(urlPatterns = { "/comment/edit" })
+public class EditCommentServlet extends HttpServlet {
 
-@WebServlet(urlPatterns = { "/logout" })
-public class Logout extends HttpServlet {
-
-	public Logout() {
+	public EditCommentServlet() {
+		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		HttpSession session = req.getSession();
-
-		session.removeAttribute(Constants.ATTR_USER);
-		session.invalidate();
-		Links.redirectTo(req, resp, Constants.HOME_PATH);
+		// TODO 自動生成されたメソッド・スタブ
+		super.doGet(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		this.doGet(req, resp);
+		// TODO 自動生成されたメソッド・スタブ
+		super.doPost(req, resp);
 	}
 }

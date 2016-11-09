@@ -18,11 +18,11 @@ import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
 @WebServlet(urlPatterns = { "/register" })
-public class Register extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
 	private AuthenticationBusiness authenticationBusiness;
 
-	public Register() {
+	public RegisterServlet() {
 
 		try {
 			authenticationBusiness = new AuthenticationBusiness();

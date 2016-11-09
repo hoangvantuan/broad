@@ -1,4 +1,4 @@
-package trainning.broad.servlet.controller.user.post;
+package trainning.broad.servlet.controller.post;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,11 +18,11 @@ import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
 @WebServlet(urlPatterns = { "/post/details" })
-public class Details extends HttpServlet {
+public class DetailsPostServlet extends HttpServlet {
 
 	PostBusiness postBusiness;
 
-	public Details() {
+	public DetailsPostServlet() {
 
 		try {
 			postBusiness = new PostBusiness();
