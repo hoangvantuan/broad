@@ -4,9 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import trainning.broad.bean.PostUserTag;
 import trainning.broad.bean.Post;
 import trainning.broad.bean.PostTag;
+import trainning.broad.bean.PostUserTag;
 import trainning.broad.bean.Tag;
 import trainning.broad.database.DAOManager;
 import trainning.broad.database.connection.PostgresSQLConnection;

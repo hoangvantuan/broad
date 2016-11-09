@@ -20,7 +20,7 @@
 				</small>
 			</p>
 			<br>
-			<p class="text-center">${post_user_tag.post.content }</p>
+			<p>${post_user_tag.post.content }</p>
 			<br> <br>
 			<p>
 				<span class="text-primary">タグ：</span>

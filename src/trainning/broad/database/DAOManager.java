@@ -39,7 +39,7 @@ public class DAOManager {
 		try {
 			if (this.con != null && !this.con.isClosed()) {
 
-				this.con.close();
+				this.con.close();;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
