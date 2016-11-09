@@ -16,7 +16,7 @@ import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
-@WebFilter(urlPatterns = { "/home" })
+@WebFilter(urlPatterns = { "/post/details" })
 public class LoginFilter implements Filter {
 
 	public LoginFilter() {

@@ -4,13 +4,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import trainning.broad.bean.Comment;
 import trainning.broad.bean.Post;
 import trainning.broad.bean.PostTag;
 import trainning.broad.bean.PostUserTag;
 import trainning.broad.bean.Tag;
 import trainning.broad.bean.User;
+import trainning.broad.bean.UserComment;
 import trainning.broad.database.DAOManager;
 import trainning.broad.database.connection.PostgresSQLConnection;
+import trainning.broad.database.dao.CommentDAO;
 import trainning.broad.database.dao.PostDAO;
 import trainning.broad.database.dao.PostTagDAO;
 import trainning.broad.database.dao.TagDAO;
@@ -25,6 +28,7 @@ public class PostBusiness {
 	private PostDAO postDAO;
 	private TagDAO tagDAO;
 	private PostTagDAO postTagDAO;
+	private CommentDAO commentDAO;
 
 	public PostBusiness() throws ClassNotFoundException {
 
@@ -71,6 +75,35 @@ public class PostBusiness {
 			throw e;
 		} finally {
 			daoManager.close();
+		}
+	}
+
+	public List<UserComment> getUserComment(int postId) throws SQLException {
+
+		List<UserComment> userComments = new ArrayList<UserComment>();
+		List<Comment> comments;
+		UserComment userComment;
+		User user;
+
+		commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
+		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+
+		try {
+			comments = commentDAO.findByProperty(Constants.ATTR_POST_ID, postId);
+
+			if (Helpers.isEmpty(comments)) {
+				return null;
+			}
+			for (Comment comment : comments) {
+				userComment = new UserComment();
+				user = userDAO.findById(comment.getUserId());
+				userComment.setComment(comment);
+				userComment.setUser(user);
+				userComments.add(userComment);
+			}
+			return userComments;
+		} catch (SQLException e) {
+			throw e;
 		}
 	}
 }

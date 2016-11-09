@@ -6,25 +6,56 @@
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <!-- body -->
 <div class="container">
-	<h3 class="text-center text-primary">${post_user_tag_comment.post.postName }</h3>
+	<h3 class="text-center text-primary">${post_user_tag.post.postName }</h3>
+	<hr>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<p>
-				<span class="text-primary">作者：</span>${post_user_tag_comment.user.email }
+				<span class="text-primary">作者：</span>${post_user_tag.user.email }
 			</p>
-			<p>
-				<span class= "text-primary">日時：</span><fmt:formatDate value="${post_user_tag_comment.post.createAt }" pattern="yyyy年MM月dd日（E） a KK時mm分ss秒" />
+			<p class="date">
+				<small> <span class="text-primary">日時：</span> <fmt:formatDate
+						value="${post_user_tag.post.createAt }"
+						pattern="yyyy年MM月dd日（E） a KK時mm分ss秒" />
+				</small>
 			</p>
 			<br>
-			<p class = "text-center">${post_user_tag_comment.post.content }</p>
-			<br><br>
+			<p class="text-center">${post_user_tag.post.content }</p>
+			<br> <br>
 			<p>
-			<span class="text-primary">タグ：</span>
-			<c:forEach var = "tag" items = "${post_user_tag_comment.tags }">
-				<a href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a>
-			</c:forEach>
+				<span class="text-primary">タグ：</span>
+				<c:forEach var="tag" items="${post_user_tag.tags }">
+					<a href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a>
+				</c:forEach>
 			</p>
-
+			<hr>
+			<h3 class="text-primary">コメント</h3>
+			<div>
+				<form method="post">
+					<div class="form-group">
+						<textarea class="form-control" rows="3" name="comment"
+							placeholder="コメント"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary pull-right">コメント</button>
+				</form>
+			</div>
+			<br><br><br>
+			<div>
+				<c:forEach var="userComment" items="${user_comment }">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<p class="text-primary">${userComment.user.email }:</p>
+							<p class="date">
+								<small class=""> <fmt:formatDate
+										value="${userComment.comment.createAt }"
+										pattern="yyyy年MM月dd日（E） a KK時mm分ss秒" />
+								</small>
+							</p>
+							${userComment.comment.content }
+						</div>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 </div>

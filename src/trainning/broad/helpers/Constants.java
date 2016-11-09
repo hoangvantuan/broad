@@ -19,7 +19,8 @@ public class Constants {
 	public final static String ATTR_IS_ROLE = "is_role";
 	public final static String ATTR_IS_ACTIVE = "is_active";
 	public final static String ATTR_TAG_NAME = "tag_name";
-	public final static String POST_USER_TAG_COMMENT = "post_user_tag_comment";
+	public final static String POST_USER_TAG = "post_user_tag";
+	public final static String USER_COMMENT = "user_comment";
 
 	// Links
 	public final static String HOME_PATH = "/";

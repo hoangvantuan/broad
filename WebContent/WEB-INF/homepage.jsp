@@ -17,7 +17,7 @@
 				</div>
 				<div class="panel-footer">
 					<p>
-						<i class="glyphicon glyphicon-user">&nbsp;</i>${data.user.email }</p>
+						<small><span class="text-primary">作者: </span>${data.user.email }</small></p>
 					<c:forEach var="tag" items="${data.tags }">
 						<small><a href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a></small>
 					</c:forEach>

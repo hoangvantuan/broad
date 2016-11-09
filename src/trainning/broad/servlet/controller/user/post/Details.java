@@ -2,6 +2,7 @@ package trainning.broad.servlet.controller.user.post;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import trainning.broad.bean.PostUserTag;
+import trainning.broad.bean.UserComment;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
@@ -35,12 +37,13 @@ public class Details extends HttpServlet {
 		int postId = Integer.parseInt(req.getParameter(Constants.ATTR_POST_ID));
 
 		try {
-			PostUserTag postUserTagComment = postBusiness.getPostDetails(postId);
-
-			if (Helpers.isEmpty(postUserTagComment)) {
+			PostUserTag postUserTag = postBusiness.getPostDetails(postId);
+			List<UserComment> userComments = postBusiness.getUserComment(postId);
+			if (Helpers.isEmpty(postUserTag)) {
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			} else {
-				req.setAttribute(Constants.POST_USER_TAG_COMMENT, postUserTagComment);
+				req.setAttribute(Constants.POST_USER_TAG, postUserTag);
+				req.setAttribute(Constants.USER_COMMENT, userComments);
 				Links.fowardTo(req, resp, Constants.POST_DETAIL_JSP);
 			}
 		} catch (SQLException e) {

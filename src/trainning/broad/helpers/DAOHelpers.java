@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import trainning.broad.bean.Comment;
 import trainning.broad.bean.Post;
 import trainning.broad.bean.PostTag;
 import trainning.broad.bean.Tag;
@@ -75,6 +76,24 @@ public class DAOHelpers {
 			return null;
 	}
 
+	public static List<Comment> convertResultToPostComments(ResultSet result) throws SQLException {
+
+		List<Comment> comments = new ArrayList<Comment>();
+		while (result.next()) {
+			comments.add(getCommentFromResult(result));
+		}
+
+		return comments;
+	}
+
+	public static Comment convertResultToComment(ResultSet result) throws SQLException {
+
+		if (result.next()) {
+			return getCommentFromResult(result);
+		} else
+			return null;
+	}
+
 	public static List<PostTag> convertResultToPostTags(ResultSet result) throws SQLException {
 
 		List<PostTag> postTags = new ArrayList<PostTag>();
@@ -129,6 +148,19 @@ public class DAOHelpers {
 		tag.setTagName(result.getString(Constants.ATTR_TAG_NAME));
 
 		return tag;
+	}
+
+	public static Comment getCommentFromResult(ResultSet result) throws SQLException {
+
+		Comment comment = new Comment();
+		comment.setCommentId(result.getInt(Constants.ATTR_COMMENT_ID));
+		comment.setPostId(result.getInt(Constants.ATTR_POST_ID));
+		comment.setUserId(result.getInt(Constants.ATTR_USER_ID));
+		comment.setContent(result.getString(Constants.ATTR_CONNTENT));
+		comment.setCreateAt(result.getTimestamp(Constants.ATTR_CREATE_AT));
+		comment.setUpdateAt(result.getTimestamp(Constants.ATTR_UPDATE_AT));
+
+		return comment;
 	}
 
 }
