@@ -8,7 +8,7 @@ public interface UserDAO extends GenericDAO<User> {
 
 	public User findByEmail(String email) throws SQLException;
 
-	public boolean isAvalibleUser(User user) throws SQLException;
+	public int countEmail(String  email) throws SQLException;
 
 	public void saveEmail(String email) throws SQLException;
 

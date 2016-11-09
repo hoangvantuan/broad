@@ -12,8 +12,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/broad/home"><span
-				class="text-info">電子掲示板</span></a>
+			<a class="navbar-brand" href="/broad/">電子掲示板</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">

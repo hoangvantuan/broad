@@ -16,7 +16,7 @@
 					class="form-control" name="email" id="email" value="${user.email }"
 					placeholder="メール">
 			</div>
-			<button type="submit" class="btn btn-default btn-block">登録</button>
+			<button type="submit" class="btn btn-primary btn-block">登録</button>
 		</form>
 	</div>
 </div>

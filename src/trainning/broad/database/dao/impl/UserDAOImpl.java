@@ -31,16 +31,17 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 	}
 
 	@Override
-	public boolean isAvalibleUser(User user) throws SQLException {
+	public int countEmail(String email) throws SQLException {
 
 		String query = "SELECT COUNT(*) AS num FROM " + tableName + " WHERE " + Constants.ATTR_EMAIL + " = ?";
 		statement = con.prepareStatement(query);
-		statement.setString(1, user.getEmail());
+		statement.setString(1, email);
 		ResultSet result = statement.executeQuery();
+
 		if (result.next()) {
-			return result.getInt("num") > 0 ? true : false;
+			return result.getInt("num");
 		} else
-			return false;
+			return 0;
 	}
 
 	@Override

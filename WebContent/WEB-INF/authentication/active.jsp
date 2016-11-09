@@ -9,7 +9,7 @@
 		<h3 class="text-center">アクティブ</h3>
 		<div class="text-danger text-center">${error}</div>
 		<div class="text-info text-center">${message}</div>
-		<h4>Hello ${email }</h4>
+		<p class="text-info">こんにちは ${email }</p>
 		<form method="post" action="${pageContext.request.contextPath}/active">
 			<input type="hidden" name="email" value="${email }" />
 			<div class="form-group">
@@ -17,7 +17,7 @@
 					class="form-control" name="password" id="password"
 					placeholder="パスワード">
 			</div>
-			<button type="submit" class="btn btn-default btn-block">確認</button>
+			<button type="submit" class="btn btn-primary btn-block">確認</button>
 		</form>
 	</div>
 </div>

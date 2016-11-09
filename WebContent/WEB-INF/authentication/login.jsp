@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- include header -->
 <jsp:include page="../layout/header.jsp"></jsp:include>
-
 <!-- body -->
 <div class="container">
 	<div class="row">
@@ -18,7 +17,7 @@
 					<div class="col-md-9">
 						<input type="email" class="form-control" id="email" name="email"
 							placeholder="メール" value="${user.email }" required="required"
-							autocomplete="on" autofocus="autofocus" pattern=".{6,30}">
+							autocomplete="on" autofocus="autofocus">
 					</div>
 				</div>
 				<div class="form-group">
@@ -27,7 +26,7 @@
 					<div class="col-md-9">
 						<input type="password" value="${user.password }"
 							class="form-control" id="password" name="password"
-							placeholder="パスワード" required="required" pattern=".{6,16}">
+							placeholder="パスワード" required="required">
 					</div>
 				</div>
 				<div class="form-group">

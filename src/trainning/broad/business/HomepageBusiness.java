@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import trainning.broad.bean.InfoPostHomepage;
+import trainning.broad.bean.PostUserTag;
 import trainning.broad.bean.Post;
 import trainning.broad.bean.PostTag;
 import trainning.broad.bean.Tag;
@@ -25,18 +25,18 @@ public class HomepageBusiness {
 	private TagDAO tagDAO;
 	private PostTagDAO postTagDAO;
 
-	public HomepageBusiness() {
+	public HomepageBusiness() throws ClassNotFoundException {
 
 		try {
 			this.daoManager = new DAOManager(new PostgresSQLConnection());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public List<InfoPostHomepage> getDataForHomepage() {
+	public List<PostUserTag> getDataForHomepage() throws SQLException {
 
-		List<InfoPostHomepage> infoPostHomepages = new ArrayList<InfoPostHomepage>();
+		List<PostUserTag> infoPostHomepages = new ArrayList<PostUserTag>();
 		List<Tag> tags;
 		List<Post> posts;
 		List<PostTag> postTags;
@@ -50,7 +50,7 @@ public class HomepageBusiness {
 
 			for (Post post : posts) {
 				tags = new ArrayList<Tag>();
-				InfoPostHomepage infoPostHomepage = new InfoPostHomepage();
+				PostUserTag infoPostHomepage = new PostUserTag();
 				post.setContent(Helpers.cutString(post.getContent()));
 				infoPostHomepage.setPost(post);
 				infoPostHomepage.setUser(userDAO.findById(post.getUserId()));
@@ -68,8 +68,7 @@ public class HomepageBusiness {
 			return infoPostHomepages;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
+			throw e;
 		} finally {
 			daoManager.close();
 		}

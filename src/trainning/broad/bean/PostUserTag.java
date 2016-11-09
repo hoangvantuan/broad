@@ -2,24 +2,15 @@ package trainning.broad.bean;
 
 import java.util.List;
 
-public class InfoPostHomepage {
+public class PostUserTag {
 
-	public InfoPostHomepage() {
+	public PostUserTag() {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	Post post;
 	User user;
 	List<Tag> tags;
-	List<Comment> comments;
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
 
 	public Post getPost() {
 		return post;

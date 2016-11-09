@@ -19,29 +19,26 @@ public class Constants {
 	public final static String ATTR_IS_ROLE = "is_role";
 	public final static String ATTR_IS_ACTIVE = "is_active";
 	public final static String ATTR_TAG_NAME = "tag_name";
+	public final static String POST_USER_TAG_COMMENT = "post_user_tag_comment";
 
 	// Links
-	public final static String ROOT_PATH = "/";
-	public final static String HOME_PATH = "/home";
-	public final static String HOMEPAGE_JSP = "/WEB-INF/homepage.jsp";
+	public final static String HOME_PATH = "/";
 	public final static String LOGIN_PATH = "/login";
 	public final static String REGISTER_PATH = "/register";
+	public final static String HOMEPAGE_JSP = "/WEB-INF/homepage.jsp";
 	public final static String LOGIN_JSP = "/WEB-INF/authentication/login.jsp";
 	public final static String REGISTER_JSP = "/WEB-INF/authentication/register.jsp";
 	public final static String CONFIRM_PASSWORD_JSP = "/WEB-INF/authentication/active.jsp";
-	public final static String URI_LOGIN = "/broad/login";
-	public final static String URI_LOGOUT = "/broad/logout";
-	public final static String URI_REGISTER = "/broad/register";
-	public final static String URI_ACTIVE = "/broad/active";
+	public final static String POST_DETAIL_JSP = "/WEB-INF/post/details.jsp";
 
 	// Messages
 	public final static String ERROR = "error";
 	public final static String MESSAGE = "message";
-	public final static String LOGIN_ERROR = "申し訳ございません。エラーがあるそうですね";
-	public final static String LOGIN_SUCCESS = "ただいま、良い日を";
-	public final static String ACCOUNT_AVALIBLE_ERROR = "申し訳ございません。入力したメールは既に登録しました.";
+	public final static String ERROR_EMAIL_OR_PASSWORD = "申し訳ございません。メールとかパスワードは違いました。";
+	public final static String ACCOUNT_HAS_AVALIBLE = "申し訳ございません。入力したメールは既に登録しました.";
 	public final static String REGISTER_SUCCESS = "登録成功しましたが。我々お客様のメールに認証リンクを送信しました.";
 	public final static String ACTIVE_SUCCESS = "アクティブ成功しました、ありがとうございました。";
+	public final static String ERROR_UNKONW = "申し訳ございません。知っていないエラーが実行しました。";
 
 	// table
 	public final static String TABLE_USER = "public.user";

@@ -6,11 +6,11 @@ import org.apache.commons.mail.HtmlEmail;
 
 import trainning.broad.helpers.Constants;
 
-public class MailUtils {
+public class Mails {
 
 	HtmlEmail email = new HtmlEmail();
 
-	public MailUtils() {
+	public Mails() {
 		email.setHostName(Constants.EMAIL_HOST_NAME);
 		email.setSmtpPort(Constants.SMTP_PORT);
 		email.setAuthenticator(new DefaultAuthenticator(Constants.FROM_EMAIL, Constants.EMAIL_PASSWORD));

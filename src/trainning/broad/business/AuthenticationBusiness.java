@@ -11,32 +11,33 @@ import trainning.broad.database.connection.PostgresSQLConnection;
 import trainning.broad.database.dao.UserDAO;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.mail.MailUtils;
+import trainning.broad.mail.Mails;
 
 public class AuthenticationBusiness {
 
 	private DAOManager daoManager;
 	private UserDAO userDAO;
 
-	public AuthenticationBusiness() {
+	public AuthenticationBusiness() throws ClassNotFoundException {
 		try {
 			this.daoManager = new DAOManager(new PostgresSQLConnection());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public User checkLogin(User user) throws SQLException {
+	public boolean checkLogin(User user) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			User tempUser = userDAO.findByEmail(user.getEmail());
-			if (!Helpers.isEmpty(tempUser)) {
-				if (tempUser.getIsActive() && tempUser.getPassword().equals(user.getPassword())) {
-					return tempUser;
-				}
+
+			if (!Helpers.isEmpty(tempUser) && tempUser.getIsActive() == true
+					&& tempUser.getPassword().equals(user.getPassword())) {
+				return true;
+			} else {
+				return false;
 			}
-			return null;
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -44,11 +45,12 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean isAvalibleUser(User user) throws SQLException {
+	public boolean hasAvalibleEmail(String email) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-			return userDAO.isAvalibleUser(user);
+			int numEmail = userDAO.countEmail(email);
+			return numEmail == 0 ? true : false;
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -56,17 +58,16 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public void register(User user) throws SQLException, EmailException, NoSuchAlgorithmException {
+	public void register(String email) throws SQLException, EmailException, NoSuchAlgorithmException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-			userDAO.saveEmail(user.getEmail());
-
-			MailUtils mail = new MailUtils();
+			userDAO.saveEmail(email);
+			Mails mail = new Mails();
 			String subject = "新しいアカウントアクティブ";
-			String content = "http://localhost:8080/broad/active?email=" + user.getEmail() + "&code="
-					+ Helpers.getCodeActive(user.getEmail());
-			mail.sendEmail(Constants.FROM_EMAIL, user.getEmail(), subject, content);
+			String content = "http://localhost:8080/broad/active?email=" + email + "&code="
+					+ Helpers.getCodeActive(email);
+			mail.sendEmail(Constants.FROM_EMAIL, email, subject, content);
 		} catch (SQLException | EmailException | NoSuchAlgorithmException e) {
 			throw e;
 		} finally {
@@ -74,19 +75,22 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean isActive(String email, String code) throws SQLException, NoSuchAlgorithmException {
+	public boolean checkActiveInfo(String email, String code) throws SQLException, NoSuchAlgorithmException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			User tempUser = userDAO.findByEmail(email);
-			if (!Helpers.isEmpty(tempUser)) {
-				if (!tempUser.getIsActive()) {
-					if (Helpers.getCodeActive(email).equals(code)) {
-						return true;
-					}
-				}
+
+			if (Helpers.isEmpty(tempUser)) {
+				return false;
 			}
-			return false;
+			if (tempUser.getIsActive()) {
+				return false;
+			}
+			if (!code.equals(Helpers.getCodeActive(email))) {
+				return false;
+			}
+			return true;
 		} catch (SQLException | NoSuchAlgorithmException e) {
 			throw e;
 		} finally {
