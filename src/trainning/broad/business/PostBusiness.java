@@ -79,7 +79,7 @@ public class PostBusiness {
 		}
 	}
 
-	public List<UserComment> getUserComment(int postId) throws SQLException {
+	public List<UserComment> getPostComment(int postId) throws SQLException {
 
 		User user;
 		UserComment userComment;
@@ -150,5 +150,18 @@ public class PostBusiness {
 			daoManager.setAutoCommit(true);
 			daoManager.close();
 		}
+	}
+
+	public void editPost(int postId, String postName, String content) throws SQLException {
+
+		try {
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			postDAO.update(postId, postName, content);
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			daoManager.close();
+		}
+
 	}
 }

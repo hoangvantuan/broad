@@ -6,24 +6,27 @@
 <jsp:include page="../layout/header.jsp"></jsp:include>
 <!-- body -->
 <div class="container">
-	<h3 class="text-center text-primary">新しい投稿を作成</h3>
+	<h3 class="text-center text-primary">投稿編集</h3>
 	<hr>
 	<div class="text-primary text-center">${message }</div>
 	<div class="text-danger text-center">${error }</div>
 	<form class="form-horizontal" method="post"
-		action="${pageContext.request.contextPath}/post/add">
+		action="${pageContext.request.contextPath}/post/edit">
 		<div class="form-group">
-			<label for="title" class="col-sm-2 control-label">題名</label>
+			<input type="hidden" name="post_id"
+				value=${post_user_tag.post.postId } /> <label for="title"
+				class="col-sm-2 control-label">題名</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="title" placeholder="題名"
-					name="post_name" required="required">
+					name="post_name" required="required"
+					value=${post_user_tag.post.postName }>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="content" class="col-sm-2 control-label">内容</label>
 			<div class="col-sm-10">
 				<textarea class="form-control" id="content" rows="10" name="content"
-					required="required"></textarea>
+					required="required">${post_user_tag.post.content }</textarea>
 			</div>
 		</div>
 		<div class="form-group">
@@ -35,10 +38,13 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-primary btn-block">投稿</button>
+				<button type="submit" class="btn btn-primary btn-block">編集</button>
 			</div>
 		</div>
 	</form>
+	<c:forEach var="tag" items="${post_user_tag.tags }">
+		<div class="old-tag">${tag.tagName }</div>
+	</c:forEach>
 </div>
 <!-- include footer -->
 <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -42,12 +42,13 @@ public class HomepageServlet extends HttpServlet {
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
-			Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+		Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		this.doGet(req, resp);
 	}
 

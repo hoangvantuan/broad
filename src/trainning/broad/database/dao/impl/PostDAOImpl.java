@@ -9,6 +9,7 @@ import trainning.broad.bean.Post;
 import trainning.broad.database.dao.PostDAO;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.DAOHelpers;
+import trainning.broad.helpers.Helpers;
 
 public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO {
 
@@ -36,5 +37,20 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO {
 
 		return DAOHelpers.getGenerateKey(resultKey);
 
+	}
+
+	@Override
+	public void update(int postId, String postName, String content) throws SQLException {
+
+		PreparedStatement statement = null;
+		String query = "UPDATE " + tableName + " SET " + Constants.POST_NAME + "= ?, " + Constants.ATTR_CONNTENT
+				+ " = ?, " + Constants.ATTR_UPDATE_AT + " = ? " + " WHERE " + id + " = ? ";
+
+		statement = con.prepareStatement(query);
+		statement.setString(1, postName);
+		statement.setString(2, content);
+		statement.setTimestamp(3, Helpers.getCurrenTimeStamp());
+		statement.setInt(4, postId);
+		statement.executeUpdate();
 	}
 }

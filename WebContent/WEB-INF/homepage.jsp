@@ -5,6 +5,7 @@
 <jsp:include page="layout/header.jsp"></jsp:include>
 <div class="container">
 	<div class="text-center text-success">${message }</div>
+	<div class="text-center text-danger">${error }</div>
 	<c:forEach var="data" items="${datas }">
 		<div class="col-md-4">
 			<div class="panel panel-info post-body">

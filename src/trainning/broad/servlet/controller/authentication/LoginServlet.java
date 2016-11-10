@@ -52,7 +52,8 @@ public class LoginServlet extends HttpServlet {
 
 			if (validate) {
 				Helpers.storeUserToSession(req, user);
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				req.setAttribute(Constants.MESSAGE, Constants.LOGIN_SUCCESS);
+				Links.fowardTo(req, resp, Constants.HOME_PATH);
 			} else {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_EMAIL_OR_PASSWORD);
 				Links.fowardTo(req, resp, Constants.LOGIN_JSP);
