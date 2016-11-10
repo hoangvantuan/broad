@@ -127,18 +127,20 @@ public class PostBusiness {
 			daoManager.setAutoCommit(false);
 			postId = postDAO.save(postName, content, user.getUserId());
 
-			for (int i = 0; i < tags.length; i++) {
-				List<Tag> temps = tagDAO.findByProperty(Constants.ATTR_TAG_NAME, tags[i]);
-				if (Helpers.isEmpty(temps)) {
-					tagId = tagDAO.save(tags[i]);
-				} else {
-					tagId = temps.get(0).getTagId();
+			if (!Helpers.isEmpty(tags)) {
+				for (int i = 0; i < tags.length; i++) {
+					List<Tag> temps = tagDAO.findByProperty(Constants.ATTR_TAG_NAME, tags[i]);
+					if (Helpers.isEmpty(temps)) {
+						tagId = tagDAO.save(tags[i]);
+					} else {
+						tagId = temps.get(0).getTagId();
+					}
+					tagsId.add(tagId);
 				}
-				tagsId.add(tagId);
-			}
 
-			for (Integer id : tagsId) {
-				postTagDAO.save(postId, id);
+				for (Integer id : tagsId) {
+					postTagDAO.save(postId, id);
+				}
 			}
 
 			daoManager.commit();

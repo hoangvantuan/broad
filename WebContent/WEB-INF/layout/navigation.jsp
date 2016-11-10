@@ -18,13 +18,14 @@
 			id="bs-example-navbar-collapse-1">
 			<c:if test="${sessionScope.user != null }">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="${pageContext.request.contextPath }/post/add" class="add-post"><i class="glyphicon glyphicon-plus"></i></a></li>
+					<li><a href="${pageContext.request.contextPath }/post/add"
+						class="add-post"><i class="glyphicon glyphicon-plus"></i></a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">${sessionScope.user.email }<span
 							class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="/broad/profile"><i
+							<li><a href="/broad/user/profile"><i
 									class="glyphicon glyphicon-user"></i>&nbsp;個人情報</a></li>
 							<li><a href="/broad/logout"><i
 									class="glyphicon glyphicon-off"></i>&nbsp;ログアウト</a></li>

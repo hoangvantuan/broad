@@ -36,6 +36,7 @@ public class Constants {
 	public final static String POST_DETAIL_JSP = "/WEB-INF/post/details.jsp";
 	public final static String POST_ADD_JSP = "/WEB-INF/post/add.jsp";
 	public final static String POST_EDIT_JSP = "/WEB-INF/post/edit.jsp";
+	public final static String USER_PROFILE_JSP = "/WEB-INF/user/profile.jsp";
 
 	// Messages
 	public final static String ERROR = "error";

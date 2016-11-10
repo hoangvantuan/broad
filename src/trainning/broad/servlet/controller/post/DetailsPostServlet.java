@@ -39,11 +39,13 @@ public class DetailsPostServlet extends HttpServlet {
 		try {
 			PostUserTag postUserTag = postBusiness.getPostDetails(postId);
 			List<UserComment> postComments = postBusiness.getPostComment(postId);
+			int numOfComment = postComments.size();
 			if (Helpers.isEmpty(postUserTag)) {
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			} else {
 				req.setAttribute(Constants.POST_USER_TAG, postUserTag);
 				req.setAttribute(Constants.USER_COMMENT, postComments);
+				req.setAttribute("num_of_comments", numOfComment);
 				Links.fowardTo(req, resp, Constants.POST_DETAIL_JSP);
 			}
 		} catch (SQLException e) {

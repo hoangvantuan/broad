@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- include header -->
 <jsp:include page="layout/header.jsp"></jsp:include>
 <div class="container">
@@ -17,8 +18,14 @@
 						${data.post.postId }">続きを読む</a>
 				</div>
 				<div class="panel-footer">
-					<p>
-						<small><span class="text-primary">作者: </span>${data.user.email }</small></p>
+					<h5>
+						<small><span class="text-primary">作者: </span>${data.user.email }</small>
+					</h5>
+					<h5 class="date">
+						<small> <span class="text-primary">日時：</span> <fmt:formatDate
+								value="${data.post.updateAt }" pattern="yyyy年MM月dd日（E） a KK時mm分" />
+						</small>
+					</h5>
 					<c:forEach var="tag" items="${data.tags }">
 						<small><a href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a></small>
 					</c:forEach>

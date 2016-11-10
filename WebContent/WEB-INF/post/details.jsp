@@ -10,15 +10,16 @@
 	<hr>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<p>
-				<span class="text-primary">作者：</span>${post_user_tag.user.email }
-			</p>
-			<p class="date">
+			<h5>
+				<small> <span class="text-primary">作者：</span>${post_user_tag.user.email }
+				</small>
+			</h5>
+			<h5 class="date">
 				<small> <span class="text-primary">日時：</span> <fmt:formatDate
 						value="${post_user_tag.post.createAt }"
-						pattern="yyyy年MM月dd日（E） a KK時mm分ss秒" />
+						pattern="yyyy年MM月dd日（E） a KK時mm分" />
 				</small>
-			</p>
+			</h5>
 			<br>
 			<p>${post_user_tag.post.content }</p>
 			<br> <br>
@@ -29,7 +30,7 @@
 				</c:forEach>
 			</p>
 			<hr>
-			<h3 class="text-primary">コメント</h3>
+			<h3 class="text-primary">コメント(${num_of_comments })</h3>
 			<div>
 				<form method="post">
 					<div class="form-group">
@@ -39,7 +40,7 @@
 					<button type="submit" class="btn btn-primary pull-right">コメント</button>
 				</form>
 			</div>
-			<br><br><br>
+			<br> <br> <br>
 			<div>
 				<c:forEach var="userComment" items="${user_comment }">
 					<div class="panel panel-default">
