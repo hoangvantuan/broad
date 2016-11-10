@@ -164,4 +164,30 @@ public class PostBusiness {
 		}
 
 	}
+
+	public void deletePost(int postId) throws SQLException {
+
+		List<PostTag> postTags;
+
+		try {
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
+
+			daoManager.setAutoCommit(false);
+			postDAO.delete(postId);
+			postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, postId);
+
+			for (PostTag postTag : postTags) {
+				postTagDAO.delete(postTag.getPostTagId());
+			}
+
+			daoManager.commit();
+		} catch (SQLException e) {
+			daoManager.rollBack();
+			throw e;
+		} finally {
+			daoManager.setAutoCommit(true);
+			daoManager.close();
+		}
+	}
 }

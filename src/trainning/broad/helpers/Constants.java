@@ -50,6 +50,7 @@ public class Constants {
 	public final static String LOGIN_SUCCESS = "お帰りなさい、良い日を";
 	public final static String EDIT_SUCCESS = "編集成功しました。";
 	public final static String EDIT_ERROR = "編集失敗しました。";
+	public final static String DELETE_SUCCESS= "削除成功しました。";
 
 
 	// table
