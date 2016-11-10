@@ -49,7 +49,7 @@
 							<p class="date">
 								<small class=""> <fmt:formatDate
 										value="${userComment.comment.createAt }"
-										pattern="yyyy年MM月dd日（E） a KK時mm分ss秒" />
+										pattern="yyyy年MM月dd日（E） a KK時mm分" />
 								</small>
 							</p>
 							${userComment.comment.content }
