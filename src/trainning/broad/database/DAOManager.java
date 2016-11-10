@@ -22,41 +22,54 @@ public class DAOManager {
 		this.myConnection = myConnection;
 	}
 
-	public void open() {
+	public void open() throws SQLException {
 
-		try {
-			if (this.con == null || this.con.isClosed()) {
+		if (this.con == null || this.con.isClosed()) {
 
-				this.con = myConnection.openConnection();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			this.con = myConnection.openConnection();
 		}
 	}
 
-	public void close() {
+	public void close() throws SQLException {
 
-		try {
-			if (this.con != null && !this.con.isClosed()) {
+		if (this.con != null && !this.con.isClosed()) {
 
-				this.con.close();;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			this.con.close();
+		}
+	}
+
+	public void setAutoCommit(boolean b) throws SQLException {
+
+		if (this.con != null && !this.con.isClosed()) {
+
+			this.con.setAutoCommit(b);
+		}
+
+	}
+
+	public void commit() throws SQLException {
+
+		if (this.con != null && !this.con.isClosed()) {
+
+			this.con.commit();
+		}
+
+	}
+
+	public void rollBack() throws SQLException {
+
+		if (this.con != null && !this.con.isClosed()) {
+
+			this.con.rollback();
 		}
 	}
 
 	@SuppressWarnings("rawtypes")
-	public GenericDAO getDAO(String table) {
+	public GenericDAO getDAO(String table) throws SQLException {
 
-		try {
-			if (this.con == null || this.con.isClosed()) {
-				this.open();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (this.con == null || this.con.isClosed()) {
+			this.open();
 		}
-
 		switch (table) {
 		case Constants.TABLE_USER:
 			return new UserDAOImpl(this.con);

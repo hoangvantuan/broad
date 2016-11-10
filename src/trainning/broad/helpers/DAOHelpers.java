@@ -163,4 +163,13 @@ public class DAOHelpers {
 		return comment;
 	}
 
+	public static int getGenerateKey(ResultSet result) throws SQLException {
+
+		if (result.next())
+			return result.getInt(1);
+		else {
+			return 0;
+		}
+	}
+
 }

@@ -16,7 +16,7 @@ import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
-@WebServlet(urlPatterns = {"" })
+@WebServlet(urlPatterns = { "" })
 public class HomepageServlet extends HttpServlet {
 
 	HomepageBusiness homepageBusiness;
@@ -42,7 +42,7 @@ public class HomepageServlet extends HttpServlet {
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
-		Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+			Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
 
 	}
 

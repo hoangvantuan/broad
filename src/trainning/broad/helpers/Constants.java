@@ -21,6 +21,8 @@ public class Constants {
 	public final static String ATTR_TAG_NAME = "tag_name";
 	public final static String POST_USER_TAG = "post_user_tag";
 	public final static String USER_COMMENT = "user_comment";
+	public final static String POST_NAME = "post_name";
+	public final static String TAG = "tag";
 
 	// Links
 	public final static String HOME_PATH = "/";
@@ -31,6 +33,7 @@ public class Constants {
 	public final static String REGISTER_JSP = "/WEB-INF/authentication/register.jsp";
 	public final static String CONFIRM_PASSWORD_JSP = "/WEB-INF/authentication/active.jsp";
 	public final static String POST_DETAIL_JSP = "/WEB-INF/post/details.jsp";
+	public final static String POST_ADD_JSP = "/WEB-INF/post/add.jsp";
 
 	// Messages
 	public final static String ERROR = "error";
@@ -40,6 +43,8 @@ public class Constants {
 	public final static String REGISTER_SUCCESS = "登録成功しましたが。我々お客様のメールに認証リンクを送信しました.";
 	public final static String ACTIVE_SUCCESS = "アクティブ成功しました、ありがとうございました。";
 	public final static String ERROR_UNKONW = "申し訳ございません。知っていないエラーが実行しました。";
+	public final static String ADD_SUCCESS = "投稿を成功しました。";
+	public final static String ADD_ERROR = "投稿を失敗しました。";
 
 	// table
 	public final static String TABLE_USER = "public.user";

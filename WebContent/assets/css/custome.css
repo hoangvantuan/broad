@@ -6,3 +6,9 @@
 .date {
 	color :#777;
 }
+.glyphicon-plus {
+	font-size: 1.4em;
+}
+.add-post:hover{
+	color:rgb(18, 18, 18)!important;
+}

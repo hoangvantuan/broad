@@ -33,7 +33,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	@Override
 	public List<T> findAll() throws SQLException {
 
-		String query = "SELECT * FROM " + tableName;
+		String query = "SELECT * FROM " + tableName + " ORDER BY " + Constants.ATTR_CREATE_AT + " DESC";
 		statement = con.prepareStatement(query);
 		result = statement.executeQuery();
 
@@ -89,6 +89,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 			return (List<T>) DAOHelpers.convertResultToPostTags(result);
 		case Constants.TABLE_COMMENT:
 			return (List<T>) DAOHelpers.convertResultToPostComments(result);
+		case Constants.TAG:
+			return (List<T>) DAOHelpers.convertResultToTags(result);
 		default:
 			return null;
 		}
@@ -96,7 +98,26 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
 	@Override
 	public List<T> findByProperty(String property, String value) throws SQLException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+
+		String query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?";
+		statement = con.prepareStatement(query);
+		statement.setString(1, value);
+		result = statement.executeQuery();
+
+		switch (tableName) {
+
+		case Constants.TABLE_USER:
+			return (List<T>) DAOHelpers.convertResultToUsers(result);
+		case Constants.TABLE_POST:
+			return (List<T>) DAOHelpers.convertResultToPosts(result);
+		case Constants.TABLE_POSTTAG:
+			return (List<T>) DAOHelpers.convertResultToPostTags(result);
+		case Constants.TABLE_COMMENT:
+			return (List<T>) DAOHelpers.convertResultToPostComments(result);
+		case Constants.TAG:
+			return (List<T>) DAOHelpers.convertResultToTags(result);
+		default:
+			return null;
+		}
 	}
 }

@@ -41,18 +41,18 @@ public class PostBusiness {
 
 	public PostUserTag getPostDetails(int postId) throws SQLException {
 
-		PostUserTag postUserTagComment = new PostUserTag();
-		List<Tag> tags = new ArrayList<Tag>();
-		List<PostTag> postTags;
 		Post post;
 		User user;
-
-		postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
-		postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
-		tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
-		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+		List<PostTag> postTags;
+		List<Tag> tags = new ArrayList<Tag>();
+		PostUserTag postUserTagComment = new PostUserTag();
 
 		try {
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
+			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+
 			post = postDAO.findById(postId);
 
 			if (Helpers.isEmpty(post)) {
@@ -71,6 +71,7 @@ public class PostBusiness {
 			postUserTagComment.setUser(user);
 
 			return postUserTagComment;
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -80,20 +81,20 @@ public class PostBusiness {
 
 	public List<UserComment> getUserComment(int postId) throws SQLException {
 
-		List<UserComment> userComments = new ArrayList<UserComment>();
-		List<Comment> comments;
-		UserComment userComment;
 		User user;
-
-		commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+		UserComment userComment;
+		List<Comment> comments;
+		List<UserComment> userComments = new ArrayList<UserComment>();
 
 		try {
+			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			comments = commentDAO.findByProperty(Constants.ATTR_POST_ID, postId);
 
 			if (Helpers.isEmpty(comments)) {
 				return null;
 			}
+
 			for (Comment comment : comments) {
 				userComment = new UserComment();
 				user = userDAO.findById(comment.getUserId());
@@ -101,9 +102,53 @@ public class PostBusiness {
 				userComment.setUser(user);
 				userComments.add(userComment);
 			}
+
 			return userComments;
+
 		} catch (SQLException e) {
 			throw e;
+		}
+	}
+
+	public void addPost(String postName, String content, String[] tags, String email) throws SQLException {
+
+		int postId;
+		int tagId;
+		User user;
+		List<Integer> tagsId = new ArrayList<Integer>();
+
+		try {
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
+			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+
+			user = userDAO.findByEmail(email);
+			daoManager.setAutoCommit(false);
+			postId = postDAO.save(postName, content, user.getUserId());
+
+			for (int i = 0; i < tags.length; i++) {
+				List<Tag> temps = tagDAO.findByProperty(Constants.ATTR_TAG_NAME, tags[i]);
+				if (Helpers.isEmpty(temps)) {
+					tagId = tagDAO.save(tags[i]);
+				} else {
+					tagId = temps.get(0).getTagId();
+				}
+				tagsId.add(tagId);
+			}
+
+			for (Integer id : tagsId) {
+				postTagDAO.save(postId, id);
+			}
+
+			daoManager.commit();
+
+		} catch (SQLException e) {
+			daoManager.rollBack();
+			throw e;
+		} finally {
+			daoManager.setAutoCommit(true);
+			daoManager.close();
 		}
 	}
 }

@@ -54,13 +54,10 @@ public class HomepageBusiness {
 				post.setContent(Helpers.cutString(post.getContent()));
 				infoPostHomepage.setPost(post);
 				infoPostHomepage.setUser(userDAO.findById(post.getUserId()));
-
 				postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
-
 				for (PostTag postTag : postTags) {
 					tags.add(tagDAO.findById(postTag.getTagId()));
 				}
-
 				infoPostHomepage.setTags(tags);
 				infoPostHomepages.add(infoPostHomepage);
 			}

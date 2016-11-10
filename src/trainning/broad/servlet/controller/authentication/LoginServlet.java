@@ -57,6 +57,7 @@ public class LoginServlet extends HttpServlet {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_EMAIL_OR_PASSWORD);
 				Links.fowardTo(req, resp, Constants.LOGIN_JSP);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			Links.redirectTo(req, resp, Constants.LOGIN_PATH);

@@ -1,7 +1,6 @@
 package trainning.broad.database.dao.impl;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import trainning.broad.bean.User;
@@ -26,7 +25,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.ATTR_EMAIL + " = ?";
 		statement = con.prepareStatement(query);
 		statement.setString(1, email);
-		ResultSet result = statement.executeQuery();
+		result = statement.executeQuery();
 		return DAOHelpers.convertResultToUser(result);
 	}
 
@@ -36,7 +35,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		String query = "SELECT COUNT(*) AS num FROM " + tableName + " WHERE " + Constants.ATTR_EMAIL + " = ?";
 		statement = con.prepareStatement(query);
 		statement.setString(1, email);
-		ResultSet result = statement.executeQuery();
+		result = statement.executeQuery();
 
 		if (result.next()) {
 			return result.getInt("num");

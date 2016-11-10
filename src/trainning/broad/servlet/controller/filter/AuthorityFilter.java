@@ -16,7 +16,7 @@ import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
-@WebFilter(urlPatterns = { "/post/details" })
+@WebFilter(urlPatterns = { "/post/*" })
 public class AuthorityFilter implements Filter {
 
 	public AuthorityFilter() {
