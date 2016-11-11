@@ -112,9 +112,22 @@ public class AuthenticationBusiness {
 		} catch (SQLException e) {
 			throw e;
 		} finally {
+
 			daoManager.close();
 		}
 
+	}
+
+	public User getUser(String email) throws SQLException {
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			return userDAO.findByEmail(email);
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			daoManager.close();
+		}
 	}
 
 }

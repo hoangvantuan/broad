@@ -110,7 +110,7 @@ public class PostBusiness {
 		}
 	}
 
-	public void addPost(String postName, String content, String[] tags, String email) throws SQLException {
+	public void addPost(String postName, String content, String[] tags, int userId) throws SQLException {
 
 		int postId;
 		int tagId;
@@ -121,11 +121,9 @@ public class PostBusiness {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
-			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 
-			user = userDAO.findByEmail(email);
 			daoManager.setAutoCommit(false);
-			postId = postDAO.save(postName, content, user.getUserId());
+			postId = postDAO.save(postName, content, userId);
 
 			if (!Helpers.isEmpty(tags)) {
 				for (int i = 0; i < tags.length; i++) {
@@ -191,5 +189,9 @@ public class PostBusiness {
 			daoManager.setAutoCommit(true);
 			daoManager.close();
 		}
+	}
+
+	public boolean isMyPost(String email) throws SQLException {
+		return true;
 	}
 }

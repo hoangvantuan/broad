@@ -1,4 +1,4 @@
-package trainning.broad.servlet.controller.filter;
+package trainning.broad.servlet.filter;
 
 import java.io.IOException;
 
@@ -16,10 +16,10 @@ import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
-@WebFilter(urlPatterns = { "/post/*", "/user/*" })
-public class AuthorityFilter implements Filter {
+@WebFilter(urlPatterns = { "/post/*", "/user/*","/comment/*" })
+public class AuthenticationFilter implements Filter {
 
-	public AuthorityFilter() {
+	public AuthenticationFilter() {
 	}
 
 	@Override

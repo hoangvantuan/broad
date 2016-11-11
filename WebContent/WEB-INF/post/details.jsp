@@ -10,6 +10,8 @@
 	<hr>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
+			<div class="text-center text-danger">${error }</div>
+			<div class="text-center text-primary">${message }</div>
 			<h5>
 				<small> <span class="text-primary">作者：</span>${post_user_tag.user.email }
 				</small>
@@ -43,16 +45,27 @@
 			<br> <br> <br>
 			<div>
 				<c:forEach var="userComment" items="${user_comment }">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<p class="text-primary">${userComment.user.email }:</p>
-							<p class="date">
-								<small class=""> <fmt:formatDate
-										value="${userComment.comment.createAt }"
-										pattern="yyyy年MM月dd日（E） a KK時mm分" />
-								</small>
-							</p>
-							${userComment.comment.content }
+					<div class="row">
+						<div class="col-sm-1">
+							<div class="thumbnail">
+								<img class="img-responsive user-photo"
+									src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+							</div>
+						</div>
+						<div class="col-sm-11">
+							<div class="panel comment panel-info">
+								<div class="panel-heading">
+									<strong>${userComment.user.email }</strong> <span
+										class="text-muted">コメント <span class="date"> <small
+											class=""> <fmt:formatDate
+													value="${userComment.comment.createAt }"
+													pattern="yyyy年MM月dd日（E） a KK時mm分" />
+										</small>
+									</span>
+									</span>
+								</div>
+								<div class="panel-body">${userComment.comment.content }</div>
+							</div>
 						</div>
 					</div>
 				</c:forEach>

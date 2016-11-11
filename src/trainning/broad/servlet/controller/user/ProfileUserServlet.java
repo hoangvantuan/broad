@@ -34,11 +34,13 @@ public class ProfileUserServlet extends HttpServlet {
 
 		String userId = req.getParameter(Constants.ATTR_USER_ID);
 		User user;
+		int numOfPost = 0;
+		int numOfComment = 0;
 
 		try {
 			if (Helpers.isEmpty(userId)) {
 				user = Helpers.getUserFromSession(req);
-				user = userBusiness.getUSer(user.getEmail());
+				user = userBusiness.getUser(user.getEmail());
 
 			} else {
 				int id = Integer.parseInt(userId);
@@ -49,7 +51,11 @@ public class ProfileUserServlet extends HttpServlet {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 				Links.fowardTo(req, resp, Constants.HOME_PATH);
 			} else {
+				numOfPost = userBusiness.getNumPost(user.getUserId());
+				numOfComment = userBusiness.getNumComment(user.getUserId());
 				req.setAttribute(Constants.ATTR_USER, user);
+				req.setAttribute("num_of_post", numOfPost);
+				req.setAttribute("num_of_comment", numOfComment);
 				Links.fowardTo(req, resp, Constants.USER_PROFILE_JSP);
 			}
 

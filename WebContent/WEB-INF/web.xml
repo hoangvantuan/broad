@@ -8,4 +8,35 @@
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>trainning.broad.servlet.filter.AuthenticationFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>PostEditFilter</filter-name>
+		<filter-class>trainning.broad.servlet.filter.post.EditFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>PostDeleteFilter</filter-name>
+		<filter-class>trainning.broad.servlet.filter.post.DeleteFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>CommentEditFilter</filter-name>
+		<filter-class>trainning.broad.servlet.filter.comment.EditFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>CommentDeleteFilter</filter-name>
+		<filter-class>trainning.broad.servlet.filter.comment.DeleteFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>UserDeleteFilter</filter-name>
+		<filter-class>trainning.broad.servlet.filter.user.DeleteFilter</filter-class>
+	</filter>
+
 </web-app>

@@ -51,6 +51,7 @@ public class LoginServlet extends HttpServlet {
 			validate = authenticationBusiness.checkLogin(user);
 
 			if (validate) {
+				user = authenticationBusiness.getUser(email);
 				Helpers.storeUserToSession(req, user);
 				req.setAttribute(Constants.MESSAGE, Constants.LOGIN_SUCCESS);
 				Links.fowardTo(req, resp, Constants.HOME_PATH);

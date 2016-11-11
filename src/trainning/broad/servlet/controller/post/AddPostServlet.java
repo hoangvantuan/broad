@@ -42,8 +42,8 @@ public class AddPostServlet extends HttpServlet {
 		String[] tags = req.getParameterValues(Constants.TAG);
 
 		try {
-			String email = Helpers.getUserFromSession(req).getEmail();
-			postBusiness.addPost(postName, content, tags, email);
+			int userId = Helpers.getUserFromSession(req).getUserId();
+			postBusiness.addPost(postName, content, tags, userId);
 			req.setAttribute(Constants.MESSAGE, Constants.ADD_SUCCESS);
 			Links.fowardTo(req, resp, Constants.POST_ADD_JSP);
 

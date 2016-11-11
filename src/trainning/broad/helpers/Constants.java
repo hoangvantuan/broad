@@ -29,6 +29,7 @@ public class Constants {
 	public final static String HOME_PATH = "/";
 	public final static String LOGIN_PATH = "/login";
 	public final static String REGISTER_PATH = "/register";
+	public final static String USER_PROFILE_PATH = "/user/profile";
 	public final static String HOMEPAGE_JSP = "/WEB-INF/homepage.jsp";
 	public final static String LOGIN_JSP = "/WEB-INF/authentication/login.jsp";
 	public final static String REGISTER_JSP = "/WEB-INF/authentication/register.jsp";
@@ -37,6 +38,7 @@ public class Constants {
 	public final static String POST_ADD_JSP = "/WEB-INF/post/add.jsp";
 	public final static String POST_EDIT_JSP = "/WEB-INF/post/edit.jsp";
 	public final static String USER_PROFILE_JSP = "/WEB-INF/user/profile.jsp";
+	public final static String USER_EDIT_JSP = "/WEB-INF/user/edit.jsp";
 
 	// Messages
 	public final static String ERROR = "error";
@@ -51,8 +53,8 @@ public class Constants {
 	public final static String LOGIN_SUCCESS = "お帰りなさい、良い日を";
 	public final static String EDIT_SUCCESS = "編集成功しました。";
 	public final static String EDIT_ERROR = "編集失敗しました。";
-	public final static String DELETE_SUCCESS= "削除成功しました。";
-
+	public final static String DELETE_SUCCESS = "削除成功しました。";
+	public final static String CONFIRM_PASSWORD_WRONG = "確認パスワードは違いました";
 
 	// table
 	public final static String TABLE_USER = "public.user";
