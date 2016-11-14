@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String email = req.getParameter(Constants.ATTR_EMAIL);
+		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
 
 		try {
 			if (!authenticationBusiness.hasAvalibleEmail(email)) {

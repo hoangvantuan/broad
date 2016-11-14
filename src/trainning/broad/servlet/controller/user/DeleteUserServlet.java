@@ -34,7 +34,6 @@ public class DeleteUserServlet extends HttpServlet {
 		String userId = req.getParameter(Constants.ATTR_USER_ID);
 
 		if (!Helpers.isEmpty(userId)) {
-
 			try {
 				int id = Integer.parseInt(userId);
 				userBusiness.deleteUser(id);
@@ -49,6 +48,6 @@ public class DeleteUserServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
+		super.doGet(req, resp);
 	}
 }

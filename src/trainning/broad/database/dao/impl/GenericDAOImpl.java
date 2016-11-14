@@ -66,6 +66,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 			return (T) DAOHelpers.convertResultToTag(result);
 		case Constants.TABLE_POSTTAG:
 			return (T) DAOHelpers.convertResultToPostTag(result);
+		case Constants.TABLE_COMMENT:
+			return (T) DAOHelpers.convertResultToComment(result);
 		default:
 			return null;
 		}

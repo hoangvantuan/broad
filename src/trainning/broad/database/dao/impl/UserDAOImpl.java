@@ -66,4 +66,18 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		statement.executeUpdate();
 
 	}
+
+	@Override
+	public void save(User user) throws SQLException {
+
+		String query = "UPDATE " + tableName + " SET " + Constants.ATTR_USER_NAME + " = ?, " + Constants.ATTR_PASSWORD
+				+ " = ?, " + Constants.ATTR_UPDATE_AT + " = ?  WHERE " + Constants.ATTR_EMAIL + " = ?";
+
+		statement = con.prepareStatement(query);
+		statement.setString(1, user.getUserName());
+		statement.setString(2, user.getPassword());
+		statement.setTimestamp(3, Helpers.getCurrenTimeStamp());
+		statement.setString(4, user.getEmail());
+		statement.executeUpdate();
+	}
 }

@@ -114,7 +114,7 @@ public class PostBusiness {
 
 		int postId;
 		int tagId;
-		User user;
+
 		List<Integer> tagsId = new ArrayList<Integer>();
 
 		try {
@@ -182,6 +182,7 @@ public class PostBusiness {
 			}
 
 			daoManager.commit();
+
 		} catch (SQLException e) {
 			daoManager.rollBack();
 			throw e;
@@ -191,7 +192,22 @@ public class PostBusiness {
 		}
 	}
 
-	public boolean isMyPost(String email) throws SQLException {
-		return true;
+	public boolean isMyPost(String email, int postId) throws SQLException {
+
+		User user;
+		Post post;
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+
+			user = userDAO.findByEmail(email);
+			post = postDAO.findById(postId);
+
+			return user.getUserId() == post.getUserId() ? true : false;
+
+		} catch (SQLException e) {
+			throw e;
+		}
 	}
 }

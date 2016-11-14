@@ -42,13 +42,13 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String email = req.getParameter(Constants.ATTR_EMAIL);
-		String password = req.getParameter(Constants.ATTR_PASSWORD);
-		User user = Helpers.createUser(email, password);
+		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
+		String password = req.getParameter(Constants.ATTR_PASSWORD).trim();
+		User user;
 
 		try {
 			boolean validate;
-			validate = authenticationBusiness.checkLogin(user);
+			validate = authenticationBusiness.checkLogin(email, password);
 
 			if (validate) {
 				user = authenticationBusiness.getUser(email);

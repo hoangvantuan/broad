@@ -26,14 +26,14 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean checkLogin(User user) throws SQLException {
+	public boolean checkLogin(String email, String password) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-			User tempUser = userDAO.findByEmail(user.getEmail());
+			User tempUser = userDAO.findByEmail(email);
 
 			if (!Helpers.isEmpty(tempUser) && tempUser.getIsActive() == true
-					&& tempUser.getPassword().equals(user.getPassword())) {
+					&& tempUser.getPassword().equals(password)) {
 				return true;
 			} else {
 				return false;
@@ -85,17 +85,11 @@ public class AuthenticationBusiness {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			User tempUser = userDAO.findByEmail(email);
 
-			if (Helpers.isEmpty(tempUser)) {
+			if (!Helpers.isEmpty(tempUser) && !tempUser.getIsActive() && code.equals(Helpers.getCodeActive(email))) {
+				return true;
+			} else {
 				return false;
 			}
-			if (tempUser.getIsActive()) {
-				return false;
-			}
-			if (!code.equals(Helpers.getCodeActive(email))) {
-				return false;
-			}
-
-			return true;
 
 		} catch (SQLException | NoSuchAlgorithmException e) {
 			throw e;

@@ -53,16 +53,6 @@ public class Helpers {
 		}
 	}
 
-	public static User createUser(String email, String password) {
-
-		User user = new User();
-
-		user.setEmail(email);
-		user.setPassword(password);
-
-		return user;
-	}
-
 	public static Timestamp getCurrenTimeStamp() {
 
 		Date date = new java.util.Date();
@@ -96,5 +86,10 @@ public class Helpers {
 		} else
 			return str;
 
+	}
+
+	public static boolean isNumber(String str) {
+
+		return str.matches("\\d+") ? true : false;
 	}
 }

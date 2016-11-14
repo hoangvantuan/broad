@@ -53,7 +53,6 @@ public class DeleteFilter implements Filter {
 		if (user.getIsRole()) {
 			arg2.doFilter(arg0, arg1);
 		} else {
-
 			Links.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 

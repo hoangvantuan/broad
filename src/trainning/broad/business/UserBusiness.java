@@ -33,7 +33,9 @@ public class UserBusiness {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+
 			return userDAO.findById(userId);
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -46,7 +48,9 @@ public class UserBusiness {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+
 			return userDAO.findByEmail(email);
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -63,6 +67,7 @@ public class UserBusiness {
 			posts = postDAO.findByProperty(Constants.ATTR_USER_ID, userId);
 
 			return posts.size();
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -79,6 +84,7 @@ public class UserBusiness {
 			comments = commentDAO.findByProperty(Constants.ATTR_USER_ID, userId);
 
 			return comments.size();
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -87,9 +93,23 @@ public class UserBusiness {
 	}
 
 	public void updateUser(User user) throws SQLException {
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			userDAO.save(user);
+		} catch (SQLException e) {
+			throw e;
+		}
 	}
 
 	public void deleteUser(int userId) throws SQLException {
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			userDAO.delete(userId);
+		} catch (SQLException e) {
+			throw e;
+		}
 
 	}
 }

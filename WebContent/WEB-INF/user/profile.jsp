@@ -34,8 +34,10 @@
 						</p>
 					</div>
 					<div class="col-xs-12 col-sm-4">
-						<a href="${pageContext.request.contextPath }/user/edit"
-							class="pull-right"><i class="glyphicon glyphicon-edit"></i></a>
+						<c:if test="${sessionScope.user.email == user.email }">
+							<a href="${pageContext.request.contextPath }/user/edit"
+								class="pull-right"><i class="glyphicon glyphicon-edit"></i></a>
+						</c:if>
 					</div>
 				</div>
 				<div class="col-xs-12 divider text-center">

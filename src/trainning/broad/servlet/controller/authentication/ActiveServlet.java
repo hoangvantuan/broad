@@ -33,8 +33,8 @@ public class ActiveServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String email = req.getParameter(Constants.ATTR_EMAIL);
-		String code = req.getParameter(Constants.CODE);
+		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
+		String code = req.getParameter(Constants.CODE).trim();
 
 		if (Helpers.isEmpty(email) || Helpers.isEmpty(code)) {
 			Links.redirectTo(req, resp, Constants.HOME_PATH);
@@ -50,20 +50,20 @@ public class ActiveServlet extends HttpServlet {
 				e.printStackTrace();
 				Links.fowardTo(req, resp, Constants.HOME_PATH);
 			}
-
 		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String email = req.getParameter(Constants.ATTR_EMAIL);
-		String password = req.getParameter(Constants.ATTR_PASSWORD);
-		User user = Helpers.createUser(email, password);
+		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
+		String password = req.getParameter(Constants.ATTR_PASSWORD).trim();
+		User user;
 
 		if (!Helpers.isEmpty(email) && !Helpers.isEmpty(password)) {
 			try {
 				authenticationBusiness.active(email, password);
+				user = authenticationBusiness.getUser(email);
 				Helpers.storeUserToSession(req, user);
 				req.setAttribute(Constants.MESSAGE, Constants.ACTIVE_SUCCESS);
 				Links.fowardTo(req, resp, Constants.HOME_PATH);
@@ -75,4 +75,3 @@ public class ActiveServlet extends HttpServlet {
 			Links.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 }
-

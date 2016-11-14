@@ -32,32 +32,23 @@ public class DeleteCommentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
-		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
-		if (Helpers.isEmpty(commentId) || Helpers.isEmpty(postId)) {
+		if (Helpers.isEmpty(commentId)) {
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 			Links.fowardTo(req, resp, Constants.HOME_PATH);
 		} else {
 			try {
-				int commentIdTemp = Integer.parseInt(commentId);
-				int postIdTemp = Integer.parseInt(postId);
-				boolean check = commentBusiness.checkCommentOfPost(commentIdTemp, postIdTemp);
-
-				if (!check) {
-					req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-					Links.fowardTo(req, resp, Constants.HOME_PATH);
-				} else {
-					commentBusiness.deleteComment(commentIdTemp);
-				}
+				int id = Integer.parseInt(commentId);
+				commentBusiness.deleteComment(id);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
+		Links.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
+		super.doGet(req, resp);
 	}
 }

@@ -50,21 +50,26 @@ public class DeleteFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) arg0;
 		HttpServletResponse resp = (HttpServletResponse) arg1;
 		User user = Helpers.getUserFromSession(req);
+		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
-		try {
-			boolean check;
-			check = postBusiness.isMyPost(user.getEmail());
+		if (Helpers.isEmpty(postId)) {
+			Links.redirectTo(req, resp, Constants.HOME_PATH);
+		} else {
+			try {
+				boolean check;
+				int id = Integer.parseInt(postId);
+				check = postBusiness.isMyPost(user.getEmail(), id);
 
-			if (check || user.getIsRole()) {
-				arg2.doFilter(arg0, arg1);
-			} else {
+				if (check || user.getIsRole()) {
+					arg2.doFilter(arg0, arg1);
+				} else {
 
+					Links.redirectTo(req, resp, Constants.HOME_PATH);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
 		}
-
 	}
 }
