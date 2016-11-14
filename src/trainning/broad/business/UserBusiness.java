@@ -99,6 +99,8 @@ public class UserBusiness {
 			userDAO.save(user);
 		} catch (SQLException e) {
 			throw e;
+		} finally {
+			daoManager.close();
 		}
 	}
 
@@ -109,7 +111,8 @@ public class UserBusiness {
 			userDAO.delete(userId);
 		} catch (SQLException e) {
 			throw e;
+		} finally {
+			daoManager.close();
 		}
-
 	}
 }

@@ -16,11 +16,11 @@ import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
 @WebServlet(urlPatterns = { "/user/profile" })
-public class ProfileUserServlet extends HttpServlet {
+public class AllUserServlet extends HttpServlet {
 
 	UserBusiness userBusiness;
 
-	public ProfileUserServlet() {
+	public AllUserServlet() {
 
 		try {
 			userBusiness = new UserBusiness();

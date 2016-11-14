@@ -76,3 +76,4 @@ public class Comment implements Serializable {
 		this.userId = userId;
 	}
 }
+

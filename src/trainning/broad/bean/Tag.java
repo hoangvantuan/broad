@@ -35,5 +35,5 @@ public class Tag implements Serializable {
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
-
 }
+

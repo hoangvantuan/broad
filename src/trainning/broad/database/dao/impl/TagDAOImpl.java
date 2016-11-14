@@ -35,3 +35,4 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
 
 	}
 }
+

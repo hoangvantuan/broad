@@ -54,3 +54,4 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO {
 		statement.executeUpdate();
 	}
 }
+

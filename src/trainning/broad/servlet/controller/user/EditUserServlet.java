@@ -33,36 +33,30 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		User user = Helpers.getUserFromSession(req);
-
-		try {
-			user = userBusiness.getUser(user.getEmail());
-			req.setAttribute(Constants.ATTR_USER, user);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			Links.fowardTo(req, resp, Constants.HOME_PATH);
-		}
+		req.setAttribute(Constants.ATTR_USER, user);
 		Links.fowardTo(req, resp, Constants.USER_EDIT_JSP);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String userName = req.getParameter(Constants.ATTR_USER_NAME);
-		String password = req.getParameter(Constants.ATTR_PASSWORD);
-		String confirmPassword = req.getParameter("confirmpassword");
+		String userName = req.getParameter(Constants.ATTR_USER_NAME).trim();
+		String password = req.getParameter(Constants.ATTR_PASSWORD).trim();
+		String confirmPassword = req.getParameter(Constants.CONFIRM_PASSWORD).trim();
 		User user = Helpers.getUserFromSession(req);
 
 		try {
-			user = userBusiness.getUser(user.getEmail());
-
 			if (!password.equals(confirmPassword)) {
 				req.setAttribute(Constants.ERROR, Constants.CONFIRM_PASSWORD_WRONG);
+				user.setUserName(userName);
+				user.setPassword("");
 				req.setAttribute(Constants.ATTR_USER, user);
 				Links.fowardTo(req, resp, Constants.USER_EDIT_JSP);
 			} else {
 				user.setUserName(userName);
 				user.setPassword(password);
 				userBusiness.updateUser(user);
+				Helpers.storeUserToSession(req, user);
 				req.setAttribute(Constants.MESSAGE, Constants.EDIT_SUCCESS);
 				Links.fowardTo(req, resp, Constants.USER_PROFILE_PATH);
 			}

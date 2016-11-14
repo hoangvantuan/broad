@@ -24,6 +24,7 @@ public class Constants {
 	public final static String USER_COMMENT = "user_comment";
 	public final static String POST_NAME = "post_name";
 	public final static String TAG = "tag";
+	public final static String CONFIRM_PASSWORD = "confirmpassword";
 
 	// Links
 	public final static String HOME_PATH = "/";
@@ -55,6 +56,7 @@ public class Constants {
 	public final static String EDIT_ERROR = "編集失敗しました。";
 	public final static String DELETE_SUCCESS = "削除成功しました。";
 	public final static String CONFIRM_PASSWORD_WRONG = "確認パスワードは違いました";
+	public final static String INVALID_DATA = "データが違うそうです";
 
 	// table
 	public final static String TABLE_USER = "public.user";
@@ -74,3 +76,4 @@ public class Constants {
 	public final static String CODE = "code";
 
 }
+

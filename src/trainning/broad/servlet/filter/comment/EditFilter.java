@@ -50,22 +50,26 @@ public class EditFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) arg0;
 		HttpServletResponse resp = (HttpServletResponse) arg1;
 		User user = Helpers.getUserFromSession(req);
-		int commentId = (Integer) req.getAttribute(Constants.ATTR_COMMENT_ID);
+		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
 
-		try {
-			boolean check;
-			check = commentBusiness.isMyComment(user.getEmail(), commentId);
+		if (Helpers.isEmpty(commentId) || !Helpers.isNumber(commentId)) {
+			Links.redirectTo(req, resp, Constants.HOME_PATH);
+		} else {
+			int id = Integer.parseInt(commentId);
+			try {
+				boolean check;
+				check = commentBusiness.isMyComment(user.getUserId(), id);
 
-			if (check) {
-				arg2.doFilter(arg0, arg1);
-			} else {
+				if (check) {
+					arg2.doFilter(arg0, arg1);
+				} else {
+					Links.redirectTo(req, resp, Constants.HOME_PATH);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
 		}
-
 	}
 }

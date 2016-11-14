@@ -17,3 +17,4 @@ public interface UserDAO extends GenericDAO<User> {
 	public void save(User user) throws SQLException;
 
 }
+

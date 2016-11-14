@@ -34,22 +34,28 @@ public class DetailsPostServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		int postId = Integer.parseInt(req.getParameter(Constants.ATTR_POST_ID));
+		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
-		try {
-			PostUserTag postUserTag = postBusiness.getPostDetails(postId);
-			List<UserComment> postComments = postBusiness.getPostComment(postId);
-			int numOfComment = postComments.size();
-			if (Helpers.isEmpty(postUserTag)) {
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
-			} else {
-				req.setAttribute(Constants.POST_USER_TAG, postUserTag);
-				req.setAttribute(Constants.USER_COMMENT, postComments);
-				req.setAttribute("num_of_comments", numOfComment);
-				Links.fowardTo(req, resp, Constants.POST_DETAIL_JSP);
+		if (Helpers.isEmpty(postId) || !Helpers.isNumber(postId)) {
+			Links.redirectTo(req, resp, Constants.HOME_PATH);
+		} else {
+			int id = Integer.parseInt(postId);
+			try {
+				PostUserTag postUserTag = postBusiness.getPostDetails(id);
+				List<UserComment> postComments = postBusiness.getPostComment(id);
+				int numOfComment = postComments.size();
+
+				if (Helpers.isEmpty(postUserTag)) {
+					Links.redirectTo(req, resp, Constants.HOME_PATH);
+				} else {
+					req.setAttribute(Constants.POST_USER_TAG, postUserTag);
+					req.setAttribute(Constants.USER_COMMENT, postComments);
+					req.setAttribute("num_of_comments", numOfComment);
+					Links.fowardTo(req, resp, Constants.POST_DETAIL_JSP);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 

@@ -45,5 +45,5 @@ public class PostTag implements Serializable {
 	public void setTagId(Integer tagId) {
 		this.tagId = tagId;
 	}
-
 }
+

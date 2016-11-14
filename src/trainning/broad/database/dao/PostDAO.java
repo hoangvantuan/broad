@@ -10,3 +10,4 @@ public interface PostDAO extends GenericDAO<Post> {
 
 	public void update(int postId, String postName, String content) throws SQLException;
 }
+

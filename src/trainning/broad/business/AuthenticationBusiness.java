@@ -46,7 +46,7 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean hasAvalibleEmail(String email) throws SQLException {
+	public boolean isAvalibledEmail(String email) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
@@ -123,5 +123,5 @@ public class AuthenticationBusiness {
 			daoManager.close();
 		}
 	}
-
 }
+

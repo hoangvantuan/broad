@@ -48,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
 		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
 
 		try {
-			if (!authenticationBusiness.hasAvalibleEmail(email)) {
+			if (!authenticationBusiness.isAvalibledEmail(email)) {
 				req.setAttribute(Constants.ERROR, Constants.ACCOUNT_HAS_AVALIBLE);
 				req.setAttribute(Constants.ATTR_EMAIL, email);
 				Links.fowardTo(req, resp, Constants.REGISTER_JSP);
@@ -64,3 +64,4 @@ public class RegisterServlet extends HttpServlet {
 		}
 	}
 }
+

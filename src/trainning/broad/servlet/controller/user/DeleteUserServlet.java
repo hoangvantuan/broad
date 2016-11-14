@@ -33,7 +33,7 @@ public class DeleteUserServlet extends HttpServlet {
 
 		String userId = req.getParameter(Constants.ATTR_USER_ID);
 
-		if (!Helpers.isEmpty(userId)) {
+		if (!Helpers.isEmpty(userId) && Helpers.isNumber(userId)) {
 			try {
 				int id = Integer.parseInt(userId);
 				userBusiness.deleteUser(id);

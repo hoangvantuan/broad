@@ -52,18 +52,17 @@ public class DeleteFilter implements Filter {
 		User user = Helpers.getUserFromSession(req);
 		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
 
-		if (Helpers.isEmpty(commentId)) {
+		if (Helpers.isEmpty(commentId) || !Helpers.isNumber(commentId)) {
 			Links.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
 			try {
 				boolean check;
 				int id = Integer.parseInt(commentId);
-				check = commentBusiness.isMyComment(user.getEmail(), id);
+				check = commentBusiness.isMyComment(user.getUserId(), id);
 
 				if (check || user.getIsRole()) {
 					arg2.doFilter(arg0, arg1);
 				} else {
-
 					Links.redirectTo(req, resp, Constants.HOME_PATH);
 				}
 

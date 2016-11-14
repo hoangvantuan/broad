@@ -9,3 +9,4 @@ public interface PostTagDAO extends GenericDAO<PostTag> {
 	public void save(int postId, int tagId) throws SQLException;
 
 }
+

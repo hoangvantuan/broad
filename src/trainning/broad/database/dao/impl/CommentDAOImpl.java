@@ -16,3 +16,4 @@ public class CommentDAOImpl extends GenericDAOImpl<Comment> implements CommentDA
 
 	}
 }
+

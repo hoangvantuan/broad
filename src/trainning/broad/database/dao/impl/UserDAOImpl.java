@@ -81,3 +81,4 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		statement.executeUpdate();
 	}
 }
+

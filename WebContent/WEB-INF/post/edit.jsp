@@ -26,7 +26,7 @@
 			<label for="content" class="col-sm-2 control-label">内容</label>
 			<div class="col-sm-10">
 				<textarea class="form-control" id="content" rows="10" name="content"
-					required="required">${post_user_tag.post.content }</textarea>
+					required="required" placeholder="内容">${post_user_tag.post.content }</textarea>
 			</div>
 		</div>
 		<div class="form-group">

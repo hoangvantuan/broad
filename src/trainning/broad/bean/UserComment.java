@@ -20,5 +20,5 @@ public class UserComment {
 	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-
 }
+

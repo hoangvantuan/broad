@@ -28,6 +28,6 @@ public class Mails {
 		} catch (EmailException e) {
 			throw e;
 		}
-
 	}
 }
+

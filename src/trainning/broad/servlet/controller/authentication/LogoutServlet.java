@@ -34,3 +34,4 @@ public class LogoutServlet extends HttpServlet {
 		this.doGet(req, resp);
 	}
 }
+

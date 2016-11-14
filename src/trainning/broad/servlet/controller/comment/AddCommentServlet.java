@@ -27,3 +27,4 @@ public class AddCommentServlet extends HttpServlet {
 		super.doPost(req, resp);
 	}
 }
+

@@ -5,3 +5,4 @@ import trainning.broad.bean.Comment;
 public interface CommentDAO extends GenericDAO<Comment> {
 
 }
+

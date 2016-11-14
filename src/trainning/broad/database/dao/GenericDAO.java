@@ -16,3 +16,4 @@ public interface GenericDAO<T> {
 	public List<T> findByProperty(String property, String value) throws SQLException;
 
 }
+

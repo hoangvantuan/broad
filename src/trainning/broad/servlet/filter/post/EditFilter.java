@@ -52,13 +52,13 @@ public class EditFilter implements Filter {
 		User user = Helpers.getUserFromSession(req);
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
-		if (Helpers.isEmpty(postId)) {
+		if (Helpers.isEmpty(postId) || !Helpers.isNumber(postId)) {
 			Links.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
 			try {
 				boolean check;
 				int id = Integer.parseInt(postId);
-				check = postBusiness.isMyPost(user.getEmail(), id);
+				check = postBusiness.isMyPost(user.getUserId(), id);
 
 				if (check) {
 					arg2.doFilter(arg0, arg1);
@@ -72,3 +72,4 @@ public class EditFilter implements Filter {
 		}
 	}
 }
+

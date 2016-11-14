@@ -30,3 +30,4 @@ public class PostTagDAOImpl extends GenericDAOImpl<PostTag> implements PostTagDA
 		statement.executeUpdate();
 	}
 }
+

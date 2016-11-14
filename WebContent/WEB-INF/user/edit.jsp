@@ -34,7 +34,7 @@
 					<label class="control-label" for="confirmpassword">確認パスワード</label>
 					<div class="controls">
 						<input id="confirmpassword" name="confirmpassword" type="password"
-							placeholder="" value=${user.password } class="form-control" required="required">
+							placeholder="" value="${user.password }" class="form-control" required="required">
 
 					</div>
 				</div>

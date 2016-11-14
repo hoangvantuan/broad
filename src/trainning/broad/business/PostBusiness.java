@@ -91,10 +91,6 @@ public class PostBusiness {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			comments = commentDAO.findByProperty(Constants.ATTR_POST_ID, postId);
 
-			if (Helpers.isEmpty(comments)) {
-				return null;
-			}
-
 			for (Comment comment : comments) {
 				userComment = new UserComment();
 				user = userDAO.findById(comment.getUserId());
@@ -107,6 +103,8 @@ public class PostBusiness {
 
 		} catch (SQLException e) {
 			throw e;
+		} finally {
+			daoManager.close();
 		}
 	}
 
@@ -127,9 +125,9 @@ public class PostBusiness {
 
 			if (!Helpers.isEmpty(tags)) {
 				for (int i = 0; i < tags.length; i++) {
-					List<Tag> temps = tagDAO.findByProperty(Constants.ATTR_TAG_NAME, tags[i]);
+					List<Tag> temps = tagDAO.findByProperty(Constants.ATTR_TAG_NAME, tags[i].toLowerCase());
 					if (Helpers.isEmpty(temps)) {
-						tagId = tagDAO.save(tags[i]);
+						tagId = tagDAO.save(tags[i].toLowerCase());
 					} else {
 						tagId = temps.get(0).getTagId();
 					}
@@ -192,22 +190,26 @@ public class PostBusiness {
 		}
 	}
 
-	public boolean isMyPost(String email, int postId) throws SQLException {
+	public boolean isMyPost(int userId, int postId) throws SQLException {
 
-		User user;
 		Post post;
 
 		try {
-			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
-
-			user = userDAO.findByEmail(email);
 			post = postDAO.findById(postId);
-
-			return user.getUserId() == post.getUserId() ? true : false;
+			if (Helpers.isEmpty(post))
+				return false;
+			else
+				return userId == post.getUserId() ? true : false;
 
 		} catch (SQLException e) {
 			throw e;
+		} finally {
+			daoManager.close();
 		}
+	}
+
+	public List<PostUserTag> getMyPosts(User user) throws SQLException{
+		return null;
 	}
 }

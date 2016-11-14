@@ -33,7 +33,7 @@ public class DeleteCommentServlet extends HttpServlet {
 
 		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
 
-		if (Helpers.isEmpty(commentId)) {
+		if (Helpers.isEmpty(commentId) && !Helpers.isNumber(commentId)) {
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 			Links.fowardTo(req, resp, Constants.HOME_PATH);
 		} else {

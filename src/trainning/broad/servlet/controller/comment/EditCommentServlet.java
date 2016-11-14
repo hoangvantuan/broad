@@ -27,3 +27,4 @@ public class EditCommentServlet extends HttpServlet {
 		super.doPost(req, resp);
 	}
 }
+

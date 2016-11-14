@@ -75,3 +75,4 @@ public class ActiveServlet extends HttpServlet {
 			Links.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 }
+

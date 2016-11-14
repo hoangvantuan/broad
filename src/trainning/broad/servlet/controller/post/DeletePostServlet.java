@@ -31,17 +31,16 @@ public class DeletePostServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		int postId;
+		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
-		if (!Helpers.isEmpty(req.getParameter(Constants.ATTR_POST_ID))) {
-			postId = Integer.parseInt(req.getParameter(Constants.ATTR_POST_ID));
+		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
+			int id = Integer.parseInt(postId);
 			try {
-				postBusiness.deletePost(postId);
+				postBusiness.deletePost(id);
 				req.setAttribute(Constants.MESSAGE, Constants.DELETE_SUCCESS);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-
 			}
 		}
 		Links.fowardTo(req, resp, Constants.HOME_PATH);

@@ -27,3 +27,4 @@ public class SearchServlet extends HttpServlet {
 		super.doPost(req, resp);
 	}
 }
+

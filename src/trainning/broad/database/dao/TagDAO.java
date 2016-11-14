@@ -8,3 +8,4 @@ public interface TagDAO extends GenericDAO<Tag> {
 
 	public int save(String tagName) throws SQLException;
 }
+

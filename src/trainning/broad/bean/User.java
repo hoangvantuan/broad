@@ -96,5 +96,5 @@ public class User implements Serializable {
 	public void setUpdateAt(Timestamp updateAt) {
 		this.updateAt = updateAt;
 	}
-
 }
+
