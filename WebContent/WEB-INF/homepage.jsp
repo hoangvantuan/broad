@@ -36,7 +36,7 @@
 						</small>
 					</h5>
 					<c:forEach var="tag" items="${data.tags }">
-						<small><a href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a></small>
+						<small><a href="${pageContext.request.contextPath }/tag/search?tag_id=${tag.tagId }"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a></small>
 					</c:forEach>
 				</div>
 			</div>

@@ -50,4 +50,19 @@ public class CommentBusiness {
 			daoManager.close();
 		}
 	}
+
+	public Comment addComment(int userId, int postId, String content) throws SQLException {
+
+		try {
+			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
+			int id = commentDAO.save(userId, postId, content.trim());
+
+			return commentDAO.findById(id);
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			daoManager.close();
+		}
+	}
+
 }

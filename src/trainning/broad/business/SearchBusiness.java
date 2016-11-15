@@ -94,6 +94,44 @@ public class SearchBusiness {
 		}
 	}
 
+	public List<PostUserTag> searchByTag(int tagId) throws SQLException {
+
+		List<PostTag> postTags;
+		PostUserTag postUserTag;
+		List<Tag> tags;
+		List<PostUserTag> postUserTags = new ArrayList<PostUserTag>();
+
+		try {
+			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
+			postTags = postTagDAO.findByProperty(Constants.ATTR_TAG_ID, tagId);
+
+			for (PostTag postTag : postTags) {
+				postUserTag = new PostUserTag();
+				Post post = postDAO.findById(postTag.getPostId());
+				User user = userDAO.findById(post.getUserId());
+				tags = new ArrayList<Tag>();
+				List<PostTag> tempPostTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
+
+				for (PostTag tempPostTag : tempPostTags) {
+					tags.add(tagDAO.findById(tempPostTag.getTagId()));
+				}
+
+				postUserTag.setUser(user);
+				postUserTag.setPost(post);
+				postUserTag.setTags(tags);
+				postUserTags.add(postUserTag);
+			}
+			return postUserTags;
+
+		} catch (SQLException e) {
+			throw e;
+		}
+
+	}
+
 	public List<UserPostComment> searchUser(String keyWord) throws SQLException {
 
 		List<User> users;

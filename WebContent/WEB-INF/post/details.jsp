@@ -28,7 +28,9 @@
 			<p>
 				<span class="text-primary">タグ：</span>
 				<c:forEach var="tag" items="${post_user_tag.tags }">
-					<a href="#"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a>
+					<a
+						href="${pageContext.request.contextPath }/tag/search?tag_id=${tag.tagId }"><i
+						class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a>
 				</c:forEach>
 			</p>
 			<hr>
@@ -36,39 +38,44 @@
 			<div>
 				<form method="post">
 					<div class="form-group">
-						<textarea class="form-control" rows="3" name="comment"
-							placeholder="コメント"></textarea>
+						<textarea class="form-control comment-content" rows="3"
+							name="content" placeholder="コメント"></textarea>
 					</div>
-					<button type="submit" class="btn btn-primary pull-right">コメント</button>
+					<input type="hidden" value="${post_user_tag.post.postId }"
+						name="post_id" />
+					<button type="submit"
+						class="btn btn-primary pull-right add-comment">コメント</button>
 				</form>
 			</div>
 			<br> <br> <br>
 			<div>
-				<c:forEach var="userComment" items="${user_comment }">
-					<div class="row">
-						<div class="col-sm-1">
-							<div class="thumbnail">
-								<img class="img-responsive user-photo"
-									src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-							</div>
-						</div>
-						<div class="col-sm-11">
-							<div class="panel comment panel-info">
-								<div class="panel-heading">
-									<strong>${userComment.user.email }</strong> <span
-										class="text-muted">コメント <span class="date"> <small
-											class=""> <fmt:formatDate
-													value="${userComment.comment.createAt }"
-													pattern="yyyy年MM月dd日（E） a KK時mm分" />
-										</small>
-									</span>
-									</span>
+				<div class="comment">
+					<c:forEach var="userComment" items="${user_comment }">
+						<div class="row">
+							<div class="col-sm-1">
+								<div class="thumbnail">
+									<img class="img-responsive user-photo"
+										src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
 								</div>
-								<div class="panel-body">${userComment.comment.content }</div>
+							</div>
+							<div class="col-sm-11">
+								<div class="panel comment panel-info">
+									<div class="panel-heading">
+										<strong>${userComment.user.email }</strong> <span
+											class="text-muted">コメント <span class="date"> <small
+												class=""> <fmt:formatDate
+														value="${userComment.comment.createAt }"
+														pattern="yyyy年MM月dd日（E） a KK時mm分" />
+											</small>
+										</span>
+										</span>
+									</div>
+									<div class="panel-body">${userComment.comment.content }</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
