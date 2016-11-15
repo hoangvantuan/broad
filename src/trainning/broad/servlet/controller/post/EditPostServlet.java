@@ -32,7 +32,6 @@ public class EditPostServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8");
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
@@ -61,8 +60,8 @@ public class EditPostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		String postName = req.getParameter(Constants.POST_NAME).trim();
-		String content = req.getParameter(Constants.ATTR_CONNTENT).trim();
+		String postName = req.getParameter(Constants.POST_NAME);
+		String content = req.getParameter(Constants.ATTR_CONNTENT);
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {

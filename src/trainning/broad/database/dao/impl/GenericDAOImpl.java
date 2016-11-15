@@ -76,7 +76,14 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	@Override
 	public List<T> findByProperty(String property, int value) throws SQLException {
 
-		String query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?";
+		String query;
+		if (tableName == Constants.TABLE_USER || tableName == Constants.TABLE_POST
+				|| tableName == Constants.TABLE_COMMENT) {
+			query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?" + " ORDER BY "
+					+ Constants.ATTR_CREATE_AT + " DESC";
+		} else {
+			query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?";
+		}
 		statement = con.prepareStatement(query);
 		statement.setInt(1, value);
 		result = statement.executeQuery();
@@ -101,7 +108,15 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	@Override
 	public List<T> findByProperty(String property, String value) throws SQLException {
 
-		String query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?";
+		String query;
+		if (tableName == Constants.TABLE_USER || tableName == Constants.TABLE_POST
+				|| tableName == Constants.TABLE_COMMENT) {
+			query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?" + " ORDER BY "
+					+ Constants.ATTR_CREATE_AT + " DESC";
+		} else {
+			query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?";
+		}
+
 		statement = con.prepareStatement(query);
 		statement.setString(1, value);
 		result = statement.executeQuery();
@@ -123,4 +138,3 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 		}
 	}
 }
-

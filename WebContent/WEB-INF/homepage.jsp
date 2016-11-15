@@ -18,7 +18,15 @@
 							test="${sessionScope.user.isRole == true or sessionScope.user.userId == data.user.userId}">
 							<a
 								href="${pageContext.request.contextPath }/post/delete?post_id=${data.post.postId }&user_id=${user_id }"
-								class="pull-right delete"><i class="glyphicon glyphicon-remove"></i></a>
+								class="pull-right delete"><i
+								class="glyphicon glyphicon-remove"></i></a>
+						</c:if>
+
+						<c:if test="${sessionScope.user.userId == data.user.userId }">
+							<a
+								href="${pageContext.request.contextPath }/post/edit?post_id=${data.post.postId }"
+								class="pull-right"><i
+								class="glyphicon glyphicon-edit">&nbsp;</i></a>
 						</c:if>
 					</h4>
 				</div>
@@ -36,7 +44,9 @@
 						</small>
 					</h5>
 					<c:forEach var="tag" items="${data.tags }">
-						<small><a href="${pageContext.request.contextPath }/tag/search?tag_id=${tag.tagId }"><i class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a></small>
+						<small><a
+							href="${pageContext.request.contextPath }/tag/search?tag_id=${tag.tagId }"><i
+								class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a></small>
 					</c:forEach>
 				</div>
 			</div>
