@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- include header -->
 <jsp:include page="layout/header.jsp"></jsp:include>
+<jsp:include page="layout/search_post.jsp"></jsp:include>
+
 <div class="container">
 	<div class="text-center text-success">${message }</div>
 	<div class="text-center text-danger">${error }</div>
@@ -16,7 +18,7 @@
 							test="${sessionScope.user.isRole == true or sessionScope.user.userId == data.user.userId}">
 							<a
 								href="${pageContext.request.contextPath }/post/delete?post_id=${data.post.postId }&user_id=${user_id }"
-								class="pull-right"><i class="glyphicon glyphicon-remove"></i></a>
+								class="pull-right delete"><i class="glyphicon glyphicon-remove"></i></a>
 						</c:if>
 					</h4>
 				</div>

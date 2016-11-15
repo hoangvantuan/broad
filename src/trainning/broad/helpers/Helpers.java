@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import trainning.broad.bean.Post;
 import trainning.broad.bean.User;
 
 public class Helpers {
@@ -91,5 +92,14 @@ public class Helpers {
 	public static boolean isNumber(String str) {
 
 		return str.matches("\\d+") ? true : false;
+	}
+
+	public static boolean isDuplicatePostId(List<Post> posts, Post post) {
+
+		for (Post temp : posts) {
+			if (temp.getPostId() == post.getPostId())
+				return true;
+		}
+		return false;
 	}
 }

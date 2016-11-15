@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import trainning.broad.bean.Post;
 import trainning.broad.database.dao.PostDAO;
@@ -53,5 +54,16 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO {
 		statement.setInt(4, postId);
 		statement.executeUpdate();
 	}
-}
 
+	@Override
+	public List<Post> search(String keyWord) throws SQLException {
+
+		PreparedStatement statement = null;
+		ResultSet result;
+		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.POST_NAME + " LIKE ? ";
+		statement = con.prepareStatement(query);
+		statement.setString(1, "%" + keyWord + "%");
+		result = statement.executeQuery();
+		return DAOHelpers.convertResultToPosts(result);
+	}
+}

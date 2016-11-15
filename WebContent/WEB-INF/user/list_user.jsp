@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- include header -->
 <jsp:include page="../layout/header.jsp"></jsp:include>
+<jsp:include page="../layout/search_user.jsp"></jsp:include>
 <!-- body -->
 <div class="container">
 	<div class="row">
@@ -48,7 +49,8 @@
 							<c:if test="${sessionScope.user.isRole == true }">
 								<td><a
 									href="${pageContext.request.contextPath }/user/delete?user_id=${data.user.userId}"
-									class="text-danger"><i class="glyphicon glyphicon-trash"></i></a></td>
+									class="text-danger delete"><i
+										class="glyphicon glyphicon-trash"></i></a></td>
 							</c:if>
 						</tr>
 					</c:forEach>

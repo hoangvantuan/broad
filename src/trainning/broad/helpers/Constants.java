@@ -27,6 +27,8 @@ public class Constants {
 	public final static String CONFIRM_PASSWORD = "confirmpassword";
 	public final static String POST_USER_TAGS = "post_user_tags";
 	public final static String USER_POST_COMMENTS = "user_post_comments";
+	public final static String KEY_WORD = "key_word";
+	public final static int NO_USER_ID = -1;
 
 	// Links
 	public final static String HOME_PATH = "/";

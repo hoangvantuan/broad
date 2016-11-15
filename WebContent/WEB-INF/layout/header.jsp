@@ -12,4 +12,3 @@
 </head>
 <body>
 	<%@ include file="navigation.jsp"%>
-	<%@ include file="search.jsp"%>

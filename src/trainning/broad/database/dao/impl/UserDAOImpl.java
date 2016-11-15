@@ -1,7 +1,10 @@
 package trainning.broad.database.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import trainning.broad.bean.User;
 import trainning.broad.database.dao.UserDAO;
@@ -80,5 +83,19 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		statement.setString(4, user.getEmail());
 		statement.executeUpdate();
 	}
-}
 
+	@Override
+	public List<User> search(String keyWord) throws SQLException {
+
+		PreparedStatement statement = null;
+		ResultSet result;
+		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.ATTR_USER_NAME + " LIKE ? OR "
+				+ Constants.ATTR_EMAIL + " LIKE ? ";
+		statement = con.prepareStatement(query);
+		statement.setString(1, "%" + keyWord + "%");
+		statement.setString(2, "%" + keyWord + "%");
+		result = statement.executeQuery();
+
+		return DAOHelpers.convertResultToUsers(result);
+	}
+}

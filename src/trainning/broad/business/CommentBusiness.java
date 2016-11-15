@@ -6,15 +6,11 @@ import trainning.broad.bean.Comment;
 import trainning.broad.database.DAOManager;
 import trainning.broad.database.connection.PostgresSQLConnection;
 import trainning.broad.database.dao.CommentDAO;
-import trainning.broad.database.dao.PostDAO;
-import trainning.broad.database.dao.UserDAO;
 import trainning.broad.helpers.Constants;
 
 public class CommentBusiness {
 
 	private DAOManager daoManager;
-	private UserDAO userDAO;
-	private PostDAO postDAO;
 	private CommentDAO commentDAO;
 
 	public CommentBusiness() throws ClassNotFoundException {
