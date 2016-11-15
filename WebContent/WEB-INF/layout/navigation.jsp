@@ -27,6 +27,10 @@
 						<ul class="dropdown-menu">
 							<li><a href="/broad/user/profile"><i
 									class="glyphicon glyphicon-user"></i>&nbsp;個人情報</a></li>
+							<li><a href="/broad/user/posts"><i
+									class="glyphicon glyphicon-list"></i>&nbsp;マイ投稿</a></li>
+							<li><a href="/broad/user/users"><i
+									class="glyphicon glyphicon-list-alt"></i>&nbsp;一覧ユーザー</a></li>
 							<li><a href="/broad/logout"><i
 									class="glyphicon glyphicon-off"></i>&nbsp;ログアウト</a></li>
 						</ul></li>

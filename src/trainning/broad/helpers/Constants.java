@@ -25,12 +25,16 @@ public class Constants {
 	public final static String POST_NAME = "post_name";
 	public final static String TAG = "tag";
 	public final static String CONFIRM_PASSWORD = "confirmpassword";
+	public final static String POST_USER_TAGS = "post_user_tags";
+	public final static String USER_POST_COMMENTS = "user_post_comments";
 
 	// Links
 	public final static String HOME_PATH = "/";
 	public final static String LOGIN_PATH = "/login";
 	public final static String REGISTER_PATH = "/register";
 	public final static String USER_PROFILE_PATH = "/user/profile";
+	public final static String USER_LIST_PATH = "/user/users";
+	public final static String LIST_POST_PATH = "/user/posts";
 	public final static String HOMEPAGE_JSP = "/WEB-INF/homepage.jsp";
 	public final static String LOGIN_JSP = "/WEB-INF/authentication/login.jsp";
 	public final static String REGISTER_JSP = "/WEB-INF/authentication/register.jsp";
@@ -40,6 +44,7 @@ public class Constants {
 	public final static String POST_EDIT_JSP = "/WEB-INF/post/edit.jsp";
 	public final static String USER_PROFILE_JSP = "/WEB-INF/user/profile.jsp";
 	public final static String USER_EDIT_JSP = "/WEB-INF/user/edit.jsp";
+	public final static String USER_LIST_JSP = "/WEB-INF/user/list_user.jsp";
 
 	// Messages
 	public final static String ERROR = "error";
@@ -57,6 +62,7 @@ public class Constants {
 	public final static String DELETE_SUCCESS = "削除成功しました。";
 	public final static String CONFIRM_PASSWORD_WRONG = "確認パスワードは違いました";
 	public final static String INVALID_DATA = "データが違うそうです";
+	public final static String NO_DATA = "データがありません";
 
 	// table
 	public final static String TABLE_USER = "public.user";
@@ -76,4 +82,3 @@ public class Constants {
 	public final static String CODE = "code";
 
 }
-

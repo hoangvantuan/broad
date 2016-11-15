@@ -55,7 +55,7 @@ public class EditUserServlet extends HttpServlet {
 			} else {
 				user.setUserName(userName);
 				user.setPassword(password);
-				userBusiness.updateUser(user);
+				userBusiness.update(user);
 				Helpers.storeUserToSession(req, user);
 				req.setAttribute(Constants.MESSAGE, Constants.EDIT_SUCCESS);
 				Links.fowardTo(req, resp, Constants.USER_PROFILE_PATH);

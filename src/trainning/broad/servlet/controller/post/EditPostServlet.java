@@ -38,7 +38,7 @@ public class EditPostServlet extends HttpServlet {
 			int id = Integer.parseInt(postId);
 
 			try {
-				PostUserTag postUserTag = postBusiness.getPostDetails(id);
+				PostUserTag postUserTag = postBusiness.getPost(id);
 
 				if (Helpers.isEmpty(postUserTag)) {
 					req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);

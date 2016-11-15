@@ -15,26 +15,27 @@
 			<div class="profile">
 				<div class="col-sm-12">
 					<div class="col-xs-12 col-sm-8">
-						<h2>${user.userName }</h2>
+						<h2>${user.user.userName }</h2>
 						<p>
-							<strong>メール: </strong> ${user.email }
+							<strong>メール: </strong> ${user.user.email }
 						</p>
 						<p>
 							<strong>デイ参加: </strong>
-							<fmt:formatDate value="${user.createAt }" pattern="yyyy年MM月dd日" />
+							<fmt:formatDate value="${user.user.createAt }"
+								pattern="yyyy年MM月dd日" />
 						</p>
 						<p>
 							<strong>役割: </strong>
-							<c:if test="${user.isRole }">
+							<c:if test="${user.user.isRole }">
 								管理者
 							</c:if>
-							<c:if test="${user.isRole == false}">
+							<c:if test="${user.user.isRole == false}">
 								ユーザー
 							</c:if>
 						</p>
 					</div>
 					<div class="col-xs-12 col-sm-4">
-						<c:if test="${sessionScope.user.email == user.email }">
+						<c:if test="${sessionScope.user.email == user.user.email }">
 							<a href="${pageContext.request.contextPath }/user/edit"
 								class="pull-right"><i class="glyphicon glyphicon-edit"></i></a>
 						</c:if>
@@ -43,15 +44,15 @@
 				<div class="col-xs-12 divider text-center">
 					<div class="col-xs-12 col-sm-6 emphasis">
 						<h2>
-							<strong> ${num_of_post } </strong>
+							<strong> ${user.posts.size() } </strong>
 						</h2>
-						<button class="btn btn-success btn-block">
+						<a class="btn btn-success btn-block" href="${pageContext.request.contextPath }/user/posts?user_id=${user.user.userId }">
 							<span class="fa fa-plus-circle"></span> 投稿
-						</button>
+						</a>
 					</div>
 					<div class="col-xs-12 col-sm-6 emphasis">
 						<h2>
-							<strong>${num_of_comment }</strong>
+							<strong>${user.comments.size() }</strong>
 						</h2>
 						<button class="btn btn-info btn-block">
 							<span class="fa fa-user"></span> コメント

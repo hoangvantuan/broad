@@ -2,6 +2,8 @@ package trainning.broad.servlet.controller.user;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,19 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import trainning.broad.bean.User;
 import trainning.broad.bean.UserPostComment;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
-@WebServlet(urlPatterns = { "/user/profile" })
-public class ProfileUserServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/user/users" })
+public class ListUserServlet extends HttpServlet {
 
 	UserBusiness userBusiness;
 
-	public ProfileUserServlet() {
+	public ListUserServlet() {
 
 		try {
 			userBusiness = new UserBusiness();
@@ -33,26 +33,12 @@ public class ProfileUserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String userId = req.getParameter(Constants.ATTR_USER_ID);
-		User user;
-		UserPostComment userPostComment;
+		List<UserPostComment> userPostComments = new ArrayList<UserPostComment>();
 
 		try {
-			if (Helpers.isEmpty(userId) || !Helpers.isNumber(userId)) {
-				user = Helpers.getUserFromSession(req);
-			} else {
-				int id = Integer.parseInt(userId);
-				user = userBusiness.getUser(id);
-			}
-
-			if (Helpers.isEmpty(user)) {
-				req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-				Links.fowardTo(req, resp, Constants.HOME_PATH);
-			} else {
-				userPostComment = userBusiness.getUserPostComment(user.getUserId());
-				req.setAttribute(Constants.ATTR_USER, userPostComment);
-				Links.fowardTo(req, resp, Constants.USER_PROFILE_JSP);
-			}
+			userPostComments = userBusiness.getUserPostComments();
+			req.setAttribute(Constants.USER_POST_COMMENTS, userPostComments);
+			Links.fowardTo(req, resp, Constants.USER_LIST_JSP);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			Links.redirectTo(req, resp, Constants.HOME_PATH);

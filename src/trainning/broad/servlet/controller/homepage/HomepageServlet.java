@@ -35,8 +35,8 @@ public class HomepageServlet extends HttpServlet {
 
 		if (Helpers.isOnline(req)) {
 			try {
-				List<PostUserTag> infoPostHomepages = homepageBusiness.getDataForHomepage();
-				req.setAttribute("datas", infoPostHomepages);
+				List<PostUserTag> postUserTags = homepageBusiness.getDataForHomepage();
+				req.setAttribute(Constants.POST_USER_TAGS, postUserTags);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
@@ -52,4 +52,3 @@ public class HomepageServlet extends HttpServlet {
 		this.doGet(req, resp);
 	}
 }
-

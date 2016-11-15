@@ -1,11 +1,13 @@
 package trainning.broad.business;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import trainning.broad.bean.Comment;
 import trainning.broad.bean.Post;
 import trainning.broad.bean.User;
+import trainning.broad.bean.UserPostComment;
 import trainning.broad.database.DAOManager;
 import trainning.broad.database.connection.PostgresSQLConnection;
 import trainning.broad.database.dao.CommentDAO;
@@ -58,7 +60,61 @@ public class UserBusiness {
 		}
 	}
 
-	public int getNumPost(int userId) throws SQLException {
+	public List<UserPostComment> getUserPostComments() throws SQLException {
+
+		List<UserPostComment> userPostComments = new ArrayList<UserPostComment>();
+		UserPostComment userPostComment;
+		List<User> users;
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
+
+			users = userDAO.findAll();
+
+			for (User user : users) {
+				userPostComment = new UserPostComment();
+				userPostComment.setUser(user);
+				userPostComment.setPosts(postDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+				userPostComment.setComments(commentDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+				userPostComments.add(userPostComment);
+			}
+
+			return userPostComments;
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			daoManager.close();
+		}
+	}
+
+	public UserPostComment getUserPostComment(int userId) throws SQLException {
+
+		UserPostComment userPostComment = new UserPostComment();
+		User user;
+
+		try {
+			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
+
+			user = userDAO.findById(userId);
+			userPostComment.setUser(user);
+			userPostComment.setPosts(postDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+			userPostComment.setComments(commentDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+
+			return userPostComment;
+		} catch (
+
+		SQLException e) {
+			throw e;
+		} finally {
+			daoManager.close();
+		}
+	}
+
+	public List<Post> getPosts(int userId) throws SQLException {
 
 		List<Post> posts;
 
@@ -66,7 +122,7 @@ public class UserBusiness {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			posts = postDAO.findByProperty(Constants.ATTR_USER_ID, userId);
 
-			return posts.size();
+			return posts;
 
 		} catch (SQLException e) {
 			throw e;
@@ -75,7 +131,7 @@ public class UserBusiness {
 		}
 	}
 
-	public int getNumComment(int userId) throws SQLException {
+	public List<Comment> getComments(int userId) throws SQLException {
 
 		List<Comment> comments;
 
@@ -83,7 +139,7 @@ public class UserBusiness {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			comments = commentDAO.findByProperty(Constants.ATTR_USER_ID, userId);
 
-			return comments.size();
+			return comments;
 
 		} catch (SQLException e) {
 			throw e;
@@ -92,7 +148,7 @@ public class UserBusiness {
 		}
 	}
 
-	public void updateUser(User user) throws SQLException {
+	public void update(User user) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
@@ -104,7 +160,7 @@ public class UserBusiness {
 		}
 	}
 
-	public void deleteUser(int userId) throws SQLException {
+	public void delete(int userId) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);

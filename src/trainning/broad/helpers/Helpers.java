@@ -76,8 +76,6 @@ public class Helpers {
 
 	public static boolean isEmpty(List list) {
 
-		System.out.println("Hello " + list.size());
-
 		return list == null || list.size() == 0;
 	}
 
@@ -95,4 +93,3 @@ public class Helpers {
 		return str.matches("\\d+") ? true : false;
 	}
 }
-

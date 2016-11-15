@@ -41,7 +41,7 @@ public class DetailsPostServlet extends HttpServlet {
 		} else {
 			int id = Integer.parseInt(postId);
 			try {
-				PostUserTag postUserTag = postBusiness.getPostDetails(id);
+				PostUserTag postUserTag = postBusiness.getPost(id);
 				List<UserComment> postComments = postBusiness.getPostComment(id);
 				int numOfComment = postComments.size();
 

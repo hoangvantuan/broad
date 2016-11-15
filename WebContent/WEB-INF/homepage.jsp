@@ -7,11 +7,18 @@
 <div class="container">
 	<div class="text-center text-success">${message }</div>
 	<div class="text-center text-danger">${error }</div>
-	<c:forEach var="data" items="${datas }">
+	<c:forEach var="data" items="${post_user_tags }">
 		<div class="col-md-4">
 			<div class="panel panel-info post-body">
-				<div class="panel-heading">
-					<h4 class="panel-title">${data.post.postName }</h4>
+				<div class="panel-heading ">
+					<h4 class="panel-title">${data.post.postName }
+						<c:if
+							test="${sessionScope.user.isRole == true or sessionScope.user.userId == data.user.userId}">
+							<a
+								href="${pageContext.request.contextPath }/post/delete?post_id=${data.post.postId }&user_id=${user_id }"
+								class="pull-right"><i class="glyphicon glyphicon-remove"></i></a>
+						</c:if>
+					</h4>
 				</div>
 				<div class="panel-body">${data.post.content }...<a
 						href="${pageContext.request.contextPath}/post/details?post_id=

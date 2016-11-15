@@ -18,6 +18,7 @@ import trainning.broad.helpers.Links;
 public class DeletePostServlet extends HttpServlet {
 
 	PostBusiness postBusiness;
+	String userId;
 
 	public DeletePostServlet() {
 
@@ -32,6 +33,7 @@ public class DeletePostServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
+		userId = req.getParameter(Constants.ATTR_USER_ID);
 
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
 			int id = Integer.parseInt(postId);
@@ -43,7 +45,13 @@ public class DeletePostServlet extends HttpServlet {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 			}
 		}
-		Links.fowardTo(req, resp, Constants.HOME_PATH);
+
+		if (Helpers.isEmpty(userId))
+			Links.fowardTo(req, resp, Constants.HOME_PATH);
+		else {
+			req.setAttribute(Constants.ATTR_USER_ID, userId);
+			Links.fowardTo(req, resp, Constants.LIST_POST_PATH);
+		}
 	}
 
 	@Override

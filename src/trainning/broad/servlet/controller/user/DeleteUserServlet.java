@@ -36,13 +36,14 @@ public class DeleteUserServlet extends HttpServlet {
 		if (!Helpers.isEmpty(userId) && Helpers.isNumber(userId)) {
 			try {
 				int id = Integer.parseInt(userId);
-				userBusiness.deleteUser(id);
+				userBusiness.delete(id);
+				req.setAttribute(Constants.MESSAGE, Constants.DELETE_SUCCESS);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				Links.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
-		Links.redirectTo(req, resp, Constants.HOME_PATH);
+		Links.fowardTo(req, resp, Constants.USER_LIST_PATH);
 
 	}
 
