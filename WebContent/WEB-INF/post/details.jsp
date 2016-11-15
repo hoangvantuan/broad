@@ -19,7 +19,7 @@
 			<h5 class="date">
 				<small> <span class="text-primary">日時：</span> <fmt:formatDate
 						value="${post_user_tag.post.createAt }"
-						pattern="yyyy年MM月dd日（E） a KK時mm分" />
+						pattern="MMM dd, yyyy KK:mm:ss a" />
 				</small>
 			</h5>
 			<br>
@@ -34,7 +34,9 @@
 				</c:forEach>
 			</p>
 			<hr>
-			<h3 class="text-primary">コメント(${num_of_comments })</h3>
+			<h3 class="text-primary">
+				コメント(<span class="num_of_comment">${num_of_comments }</span>)
+			</h3>
 			<div>
 				<form method="post">
 					<div class="form-group">
@@ -49,33 +51,37 @@
 			</div>
 			<br> <br> <br>
 			<div>
-				<div class="comment">
-					<c:forEach var="userComment" items="${user_comment }">
-						<div class="row">
-							<div class="col-sm-1">
-								<div class="thumbnail">
-									<img class="img-responsive user-photo"
-										src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-								</div>
-							</div>
-							<div class="col-sm-11">
-								<div class="panel comment panel-info">
-									<div class="panel-heading">
-										<strong>${userComment.user.email }</strong> <span
-											class="text-muted">コメント <span class="date"> <small
-												class=""> <fmt:formatDate
-														value="${userComment.comment.createAt }"
-														pattern="yyyy年MM月dd日（E） a KK時mm分" />
-											</small>
-										</span>
-										</span>
-									</div>
-									<div class="panel-body">${userComment.comment.content }</div>
-								</div>
+				<div class="list_comment"></div>
+				<c:forEach var="userComment" items="${user_comment }">
+					<div class="row ${userComment.comment.commentId }">
+						<div class="col-sm-1">
+							<div class="thumbnail">
+								<img class="img-responsive user-photo"
+									src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
 							</div>
 						</div>
-					</c:forEach>
-				</div>
+						<div class="col-sm-11">
+							<div class="panel comment panel-info">
+								<div class="panel-heading">
+									<strong>${userComment.user.email }</strong><span
+										class="text-muted">コメント <span class="date"> <small
+											class=""> <fmt:formatDate
+													value="${userComment.comment.createAt }"
+													pattern="MMM dd, yyyy KK:mm:ss a"></fmt:formatDate>
+										</small> <c:if
+												test="${sessionScope.user.isRole == true or userComment.user.userId == sessionScope.user.userId or sessionScope.user.userId == post_user_tag.user.userId}">
+												<a href="javascript:void(0);" class="pull-right"
+													onClick="deleteComment(${userComment.comment.commentId } );return false;"><i
+													class="glyphicon glyphicon-remove"></i></a>
+											</c:if>
+									</span>
+									</span>
+								</div>
+								<div class="panel-body">${userComment.comment.content }</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

@@ -3,6 +3,7 @@ package trainning.broad.business;
 import java.sql.SQLException;
 
 import trainning.broad.bean.Comment;
+import trainning.broad.bean.UserComment;
 import trainning.broad.database.DAOManager;
 import trainning.broad.database.connection.PostgresSQLConnection;
 import trainning.broad.database.dao.CommentDAO;
@@ -51,13 +52,15 @@ public class CommentBusiness {
 		}
 	}
 
-	public Comment addComment(int userId, int postId, String content) throws SQLException {
+	public UserComment addComment(int userId, int postId, String content) throws SQLException {
+
+		UserComment userComment = new UserComment();
 
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			int id = commentDAO.save(userId, postId, content.trim());
-
-			return commentDAO.findById(id);
+			userComment.setComment(commentDAO.findById(id));
+			return userComment;
 		} catch (SQLException e) {
 			throw e;
 		} finally {

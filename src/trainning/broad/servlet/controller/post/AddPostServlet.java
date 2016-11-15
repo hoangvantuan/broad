@@ -37,10 +37,11 @@ public class AddPostServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
 		String postName = req.getParameter(Constants.POST_NAME);
 		String content = req.getParameter(Constants.ATTR_CONNTENT);
 		String[] tags = req.getParameterValues(Constants.TAG);
-
+		System.out.println(postName);
 		try {
 			int userId = Helpers.getUserFromSession(req).getUserId();
 			postBusiness.addPost(postName, content, tags, userId);

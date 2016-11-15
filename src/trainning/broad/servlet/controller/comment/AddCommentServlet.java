@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import trainning.broad.bean.Comment;
 import trainning.broad.bean.User;
+import trainning.broad.bean.UserComment;
 import trainning.broad.business.CommentBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
@@ -41,18 +41,21 @@ public class AddCommentServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF8");
+
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 		String content = req.getParameter(Constants.ATTR_CONNTENT);
 		User user = Helpers.getUserFromSession(req);
-		Comment comment;
+		UserComment userComment;
 		Gson json = new Gson();
-
 		if (!Helpers.isEmpty(postId) && !Helpers.isEmpty(content)) {
 			int id = Integer.parseInt(postId);
 
 			try {
-				comment = commentBusiness.addComment(user.getUserId(), id, content);
-				resp.getWriter().print(json.toJson(comment));
+				userComment = commentBusiness.addComment(user.getUserId(), id, content);
+				userComment.setUser(user);
+				resp.getWriter().print(json.toJson(userComment));
 
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -111,6 +111,7 @@ public class SearchBusiness {
 			for (PostTag postTag : postTags) {
 				postUserTag = new PostUserTag();
 				Post post = postDAO.findById(postTag.getPostId());
+				post.setContent(Helpers.cutString(post.getContent()));
 				User user = userDAO.findById(post.getUserId());
 				tags = new ArrayList<Tag>();
 				List<PostTag> tempPostTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());

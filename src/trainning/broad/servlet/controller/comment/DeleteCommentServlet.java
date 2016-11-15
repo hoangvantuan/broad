@@ -44,7 +44,6 @@ public class DeleteCommentServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		Links.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 
 	@Override

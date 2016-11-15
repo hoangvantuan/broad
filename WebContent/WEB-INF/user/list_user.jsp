@@ -42,7 +42,7 @@
 							<td class="text-center">${data.posts.size() }</td>
 							<td class="text-center">${data.comments.size() }</td>
 							<td><fmt:formatDate value="${data.user.createAt }"
-									pattern="yyyy年MM月dd日" /></td>
+									pattern="MMM dd, yyyy" /></td>
 							<td><a
 								href="${pageContext.request.contextPath }/user/profile?user_id=${data.user.userId }"
 								class="btn btn-primary btn-block">閲覧</a></td>

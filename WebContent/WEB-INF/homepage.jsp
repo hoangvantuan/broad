@@ -32,7 +32,7 @@
 					</h5>
 					<h5 class="date">
 						<small> <span class="text-primary">日時：</span> <fmt:formatDate
-								value="${data.post.updateAt }" pattern="yyyy年MM月dd日（E） a KK時mm分" />
+								value="${data.post.updateAt }" pattern="MMM dd, yyyy KK:mm a" />
 						</small>
 					</h5>
 					<c:forEach var="tag" items="${data.tags }">

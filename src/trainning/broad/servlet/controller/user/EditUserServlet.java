@@ -40,6 +40,7 @@ public class EditUserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
 		String userName = req.getParameter(Constants.ATTR_USER_NAME).trim();
 		String password = req.getParameter(Constants.ATTR_PASSWORD).trim();
 		String confirmPassword = req.getParameter(Constants.CONFIRM_PASSWORD).trim();
