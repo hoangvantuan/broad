@@ -13,7 +13,10 @@
 		<div class="col-md-4">
 			<div class="panel panel-info post-body">
 				<div class="panel-heading ">
-					<div class="panel-title">${data.post.postName }
+					<div class="panel-title">
+						<a
+							href="${pageContext.request.contextPath}/post/details?post_id=
+						${data.post.postId }">${data.post.postName }</a>
 						<c:if
 							test="${sessionScope.user.isRole == true or sessionScope.user.userId == data.user.userId}">
 							<div class="btn-group pull-right">

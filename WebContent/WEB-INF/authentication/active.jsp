@@ -13,7 +13,7 @@
 		<form method="post" action="${pageContext.request.contextPath}/active">
 			<input type="hidden" name="email" value="${email }" />
 			<div class="form-group">
-				<label for="password">パスワード</label> <input type="text"
+				<label for="password">パスワード</label> <input type="password"
 					class="form-control" name="password" id="password"
 					placeholder="パスワード">
 			</div>

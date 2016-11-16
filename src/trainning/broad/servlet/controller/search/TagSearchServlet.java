@@ -48,7 +48,7 @@ public class TagSearchServlet extends HttpServlet {
 				if (Helpers.isEmpty(userPostTags)) {
 					req.setAttribute(Constants.ERROR, Constants.NO_DATA);
 				} else {
-					req.setAttribute(Constants.MESSAGE, "検索結果の" + (":"));
+					req.setAttribute(Constants.MESSAGE, userPostTags.size() + " 検索結果の " + (":"));
 					req.setAttribute(Constants.POST_USER_TAGS, userPostTags);
 				}
 				Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);

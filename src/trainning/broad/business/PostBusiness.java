@@ -133,7 +133,7 @@ public class PostBusiness {
 					}
 					tagsId.add(tagId);
 				}
-
+				tagsId = Helpers.removeDuplicateValue(tagsId);
 				for (Integer id : tagsId) {
 					postTagDAO.save(postId, id);
 				}

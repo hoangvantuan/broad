@@ -41,7 +41,7 @@ public class UserSearchServlet extends HttpServlet {
 			if (Helpers.isEmpty(userPostComments)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
 			} else {
-				req.setAttribute(Constants.MESSAGE, "検索結果の" + keyWord + (":"));
+				req.setAttribute(Constants.MESSAGE, userPostComments.size() + " 検索結果の " + keyWord + (":"));
 				req.setAttribute(Constants.USER_POST_COMMENTS, userPostComments);
 			}
 			Links.fowardTo(req, resp, Constants.USER_LIST_JSP);

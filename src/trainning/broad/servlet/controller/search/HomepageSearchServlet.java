@@ -42,7 +42,7 @@ public class HomepageSearchServlet extends HttpServlet {
 			if (Helpers.isEmpty(postUserTags)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
 			} else {
-				req.setAttribute(Constants.MESSAGE, "検索結果の" + keyWord + (":"));
+				req.setAttribute(Constants.MESSAGE, postUserTags.size() + " 検索結果の " + keyWord + (":"));
 				req.setAttribute(Constants.POST_USER_TAGS, postUserTags);
 			}
 			Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);

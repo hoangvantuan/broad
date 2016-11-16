@@ -25,14 +25,12 @@
 					class="pull-right"><i class="glyphicon glyphicon-edit">&nbsp;</i></a>
 			</c:if>
 			<h5>
-				<small> <span class="text-primary">作者：</span>${post_user_tag.user.email }
-				</small>
+				<span class="text-primary">作者：</span>${post_user_tag.user.email }
 			</h5>
 			<h5 class="date">
-				<small> <span class="text-primary">作成日：</span> <fmt:formatDate
+				<span class="text-primary">作成日：</span> <fmt:formatDate
 						value="${post_user_tag.post.createAt }"
 						pattern="MMM dd, yyyy KK:mm" />
-				</small>
 			</h5>
 			<br>
 			<p>${post_user_tag.post.content }</p>
