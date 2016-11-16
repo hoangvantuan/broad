@@ -159,11 +159,9 @@ public class PostBusiness {
 
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
-
-			if (Helpers.isEmpty(tags))
-				postDAO.update(postId, postName, content);
-			else {
-				daoManager.setAutoCommit(false);
+			daoManager.setAutoCommit(false);
+			postDAO.update(postId, postName, content);
+			if (!Helpers.isEmpty(tags)) {
 				tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 				postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 

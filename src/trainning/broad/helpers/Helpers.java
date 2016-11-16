@@ -88,8 +88,8 @@ public class Helpers {
 
 	public static String cutString(String str) {
 
-		if (str.length() >= 100) {
-			return str.substring(0, 100);
+		if (str.length() > 65) {
+			return str.substring(0, 65);
 		} else
 			return str;
 
