@@ -63,13 +63,15 @@ public class EditPostServlet extends HttpServlet {
 		String postName = req.getParameter(Constants.POST_NAME);
 		String content = req.getParameter(Constants.ATTR_CONNTENT);
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
+		String[] tags = req.getParameterValues(Constants.TAG);
 
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
 			int id = Integer.parseInt(postId);
 			try {
-				postBusiness.editPost(id, postName, content);
+				postBusiness.editPost(id, postName, content, tags);
 				req.setAttribute(Constants.MESSAGE, Constants.EDIT_SUCCESS);
-				Links.fowardTo(req, resp, Constants.POST_EDIT_JSP);
+				req.setAttribute(Constants.ATTR_POST_ID, id);
+				Links.fowardTo(req, resp, Constants.POST_DETAIL);
 
 			} catch (SQLException e) {
 				e.printStackTrace();

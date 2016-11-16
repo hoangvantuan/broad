@@ -35,6 +35,9 @@
 					</div>
 				</div>
 			</form>
+			<div class="pull-right">
+				<a href="${pageContext.request.contextPath }/fogetpassword">パスワードを忘れてしまった？</a>
+			</div>
 		</div>
 	</div>
 </div>

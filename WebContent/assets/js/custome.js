@@ -29,6 +29,7 @@ $('.add-comment')
 								},
 								dataType : 'json',
 								success : function(data) {
+
 									$('.comment-content').val("");
 									$('.num_of_comment')
 											.text(
@@ -39,11 +40,13 @@ $('.add-comment')
 											+ '"><div class="col-sm-1"> <div class="thumbnail"> <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></div></div><div class="col-sm-11"> <div class="panel comment panel-info"> <div class="panel-heading"><strong>'
 											+ data.user["email"]
 											+ '</strong> <span class="text-muted">コメント <span class="date"> <small>'
-											+ data.comment['createAt']
+											+ $.format.date(
+													data.comment['createAt'],
+													"yyyy/MM/dd HH:mm:ss")
 											+ '</small>'
-											+ '<a href="#" class="pull-right" onClick="deleteComment('
+											+ '<a href="javascript:void(0);" class="pull-right" onClick="deleteComment('
 											+ data.comment['commentId']
-											+ ')"><i class="glyphicon glyphicon-remove"></i></a></span></span></div><div class="panel-body">'
+											+ ');return false;"><i class="glyphicon glyphicon-remove"></i></a></span></span></div><div class="panel-body">'
 											+ data.comment['content']
 											+ '</div></div> </div></div>';
 									$('.list_comment').after(new_content);
@@ -51,6 +54,7 @@ $('.add-comment')
 							});
 					return false;
 				});
+
 function deleteComment(commentId) {
 
 	comment = document.getElementsByClassName(commentId)[0];

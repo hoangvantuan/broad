@@ -13,22 +13,26 @@
 		<div class="col-md-4">
 			<div class="panel panel-info post-body">
 				<div class="panel-heading ">
-					<h4 class="panel-title">${data.post.postName }
+					<div class="panel-title">${data.post.postName }
 						<c:if
 							test="${sessionScope.user.isRole == true or sessionScope.user.userId == data.user.userId}">
-							<a
-								href="${pageContext.request.contextPath }/post/delete?post_id=${data.post.postId }&user_id=${user_id }"
-								class="pull-right delete"><i
-								class="glyphicon glyphicon-remove"></i></a>
+							<div class="btn-group pull-right">
+								<a class="dropdown-toggle" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false"><i
+									class="glyphicon glyphicon-cog"></i></a>
+								<ul class="dropdown-menu">
+									<c:if test="${sessionScope.user.userId == data.user.userId }">
+										<li><a
+											href="${pageContext.request.contextPath }/post/edit?post_id=${data.post.postId }"
+											class="text-primary">編集</a></li>
+									</c:if>
+									<li class="text-danger"><a
+										href="${pageContext.request.contextPath }/post/delete?post_id=${data.post.postId }&user_id=${user_id }"
+										class="delete text-danger">削除</a></li>
+								</ul>
+							</div>
 						</c:if>
-
-						<c:if test="${sessionScope.user.userId == data.user.userId }">
-							<a
-								href="${pageContext.request.contextPath }/post/edit?post_id=${data.post.postId }"
-								class="pull-right"><i
-								class="glyphicon glyphicon-edit">&nbsp;</i></a>
-						</c:if>
-					</h4>
+					</div>
 				</div>
 				<div class="panel-body">${data.post.content }...<a
 						href="${pageContext.request.contextPath}/post/details?post_id=
@@ -39,8 +43,8 @@
 						<small><span class="text-primary">作者: </span>${data.user.email }</small>
 					</h5>
 					<h5 class="date">
-						<small> <span class="text-primary">日時：</span> <fmt:formatDate
-								value="${data.post.updateAt }" pattern="MMM dd, yyyy KK:mm a" />
+						<small> <span class="text-primary">作成日：</span> <fmt:formatDate
+								value="${data.post.updateAt }" pattern="M dd, yyyy KK:mm" />
 						</small>
 					</h5>
 					<c:forEach var="tag" items="${data.tags }">

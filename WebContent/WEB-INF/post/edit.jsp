@@ -29,6 +29,13 @@
 					required="required" placeholder="内容">${post_user_tag.post.content }</textarea>
 			</div>
 		</div>
+		<div class="col-md-offset-2">
+			<c:forEach var="tag" items="${post_user_tag.tags }">
+				<a
+					href="${pageContext.request.contextPath }/tag/search?tag_id=${tag.tagId }"><i
+					class="glyphicon glyphicon-tag"></i>&nbsp;${tag.tagName }</a>
+			</c:forEach>
+		</div>
 		<div class="form-group">
 			<label for="tags" class="col-sm-2 control-label">タグ</label>
 			<div class="col-sm-10">
@@ -42,9 +49,6 @@
 			</div>
 		</div>
 	</form>
-	<c:forEach var="tag" items="${post_user_tag.tags }">
-		<div class="old-tag">${tag.tagName }</div>
-	</c:forEach>
 </div>
 <!-- include footer -->
 <jsp:include page="../layout/footer.jsp"></jsp:include>

@@ -37,6 +37,8 @@ public class Constants {
 	public final static String USER_PROFILE_PATH = "/user/profile";
 	public final static String USER_LIST_PATH = "/user/users";
 	public final static String LIST_POST_PATH = "/user/posts";
+	public final static String FOGOT_PASSWORD_JSP = "/WEB-INF/authentication/foget_password.jsp";
+	public final static String POST_DETAIL = "/post/details";
 	public final static String HOMEPAGE_JSP = "/WEB-INF/homepage.jsp";
 	public final static String LOGIN_JSP = "/WEB-INF/authentication/login.jsp";
 	public final static String REGISTER_JSP = "/WEB-INF/authentication/register.jsp";
@@ -65,6 +67,8 @@ public class Constants {
 	public final static String CONFIRM_PASSWORD_WRONG = "確認パスワードは違いました";
 	public final static String INVALID_DATA = "データが違うそうです";
 	public final static String NO_DATA = "データがありません";
+	public final static String NOT_REGISTER = "入力したメールはまだ登録していません";
+	public final static String SEND_PASSWORD = "入力したメールにパスワードを送信しました。チェックしてください。";
 
 	// table
 	public final static String TABLE_USER = "public.user";

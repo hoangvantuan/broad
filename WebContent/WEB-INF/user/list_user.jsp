@@ -42,11 +42,12 @@
 							<td class="text-center">${data.posts.size() }</td>
 							<td class="text-center">${data.comments.size() }</td>
 							<td><fmt:formatDate value="${data.user.createAt }"
-									pattern="MMM dd, yyyy" /></td>
+									pattern="MM月dd日, yyyy年" /></td>
 							<td><a
 								href="${pageContext.request.contextPath }/user/profile?user_id=${data.user.userId }"
 								class="btn btn-primary btn-block">閲覧</a></td>
-							<c:if test="${sessionScope.user.isRole == true }">
+							<c:if
+								test="${sessionScope.user.isRole == true and data.user.isRole == false }">
 								<td><a
 									href="${pageContext.request.contextPath }/user/delete?user_id=${data.user.userId}"
 									class="text-danger delete"><i
@@ -54,7 +55,6 @@
 							</c:if>
 						</tr>
 					</c:forEach>
-
 				</tbody>
 			</table>
 		</div>

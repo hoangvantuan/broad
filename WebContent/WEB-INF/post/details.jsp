@@ -12,14 +12,26 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="text-center text-danger">${error }</div>
 			<div class="text-center text-primary">${message }</div>
+			<c:if
+				test="${sessionScope.user.isRole == true or sessionScope.user.userId == post_user_tag.user.userId}">
+				<a
+					href="${pageContext.request.contextPath }/post/delete?post_id=${post_user_tag.post.postId }&user_id=${post_user_tag.user.userId }"
+					class="pull-right delete"><i class="glyphicon glyphicon-remove"></i></a>
+			</c:if>
+			<c:if
+				test="${sessionScope.user.userId == post_user_tag.user.userId }">
+				<a
+					href="${pageContext.request.contextPath }/post/edit?post_id=${post_user_tag.post.postId }"
+					class="pull-right"><i class="glyphicon glyphicon-edit">&nbsp;</i></a>
+			</c:if>
 			<h5>
 				<small> <span class="text-primary">作者：</span>${post_user_tag.user.email }
 				</small>
 			</h5>
 			<h5 class="date">
-				<small> <span class="text-primary">日時：</span> <fmt:formatDate
+				<small> <span class="text-primary">作成日：</span> <fmt:formatDate
 						value="${post_user_tag.post.createAt }"
-						pattern="MMM dd, yyyy KK:mm:ss a" />
+						pattern="MMM dd, yyyy KK:mm" />
 				</small>
 			</h5>
 			<br>
@@ -67,7 +79,7 @@
 										class="text-muted">コメント <span class="date"> <small
 											class=""> <fmt:formatDate
 													value="${userComment.comment.createAt }"
-													pattern="MMM dd, yyyy KK:mm:ss a"></fmt:formatDate>
+													pattern="MMM dd, yyyy KK:mm"></fmt:formatDate>
 										</small> <c:if
 												test="${sessionScope.user.isRole == true or userComment.user.userId == sessionScope.user.userId or sessionScope.user.userId == post_user_tag.user.userId}">
 												<a href="javascript:void(0);" class="pull-right"

@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,6 +81,11 @@ public class Helpers {
 		return list == null || list.size() == 0;
 	}
 
+	public static boolean isEmpty(String[] array) {
+
+		return array == null || array.length == 0;
+	}
+
 	public static String cutString(String str) {
 
 		if (str.length() >= 100) {
@@ -101,5 +107,14 @@ public class Helpers {
 				return true;
 		}
 		return false;
+	}
+
+	public static List<Integer> removeDuplicateValue(List<Integer> list) {
+
+		HashSet<Integer> hs = new HashSet<Integer>();
+		hs.addAll(list);
+		list.clear();
+		list.addAll(hs);
+		return list;
 	}
 }

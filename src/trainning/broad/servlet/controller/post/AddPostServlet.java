@@ -41,7 +41,6 @@ public class AddPostServlet extends HttpServlet {
 		String postName = req.getParameter(Constants.POST_NAME);
 		String content = req.getParameter(Constants.ATTR_CONNTENT);
 		String[] tags = req.getParameterValues(Constants.TAG);
-		System.out.println(postName);
 		try {
 			int userId = Helpers.getUserFromSession(req).getUserId();
 			postBusiness.addPost(postName, content, tags, userId);

@@ -22,7 +22,7 @@
 						<p>
 							<strong>デイ参加: </strong>
 							<fmt:formatDate value="${user.user.createAt }"
-								pattern="MMM dd, yyyy" />
+								pattern="MM月dd日, yyyy年" />
 						</p>
 						<p>
 							<strong>役割: </strong>

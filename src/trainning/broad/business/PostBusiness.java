@@ -45,7 +45,7 @@ public class PostBusiness {
 		User user;
 		List<PostTag> postTags;
 		List<Tag> tags = new ArrayList<Tag>();
-		PostUserTag postUserTagComment = new PostUserTag();
+		PostUserTag postUserTag = new PostUserTag();
 
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
@@ -66,11 +66,11 @@ public class PostBusiness {
 				tags.add(tagDAO.findById(postTag.getTagId()));
 			}
 
-			postUserTagComment.setPost(post);
-			postUserTagComment.setTags(tags);
-			postUserTagComment.setUser(user);
+			postUserTag.setPost(post);
+			postUserTag.setTags(tags);
+			postUserTag.setUser(user);
 
-			return postUserTagComment;
+			return postUserTag;
 
 		} catch (SQLException e) {
 			throw e;
@@ -150,14 +150,49 @@ public class PostBusiness {
 		}
 	}
 
-	public void editPost(int postId, String postName, String content) throws SQLException {
+	public void editPost(int postId, String postName, String content, String[] tags) throws SQLException {
+
+		List<Tag> temps;
+		List<PostTag> postTags;
+		int tagId;
+		List<Integer> tagsId = new ArrayList<Integer>();
 
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
-			postDAO.update(postId, postName, content);
+
+			if (Helpers.isEmpty(tags))
+				postDAO.update(postId, postName, content);
+			else {
+				daoManager.setAutoCommit(false);
+				tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
+				postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
+
+				postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, postId);
+
+				for (PostTag postTag : postTags) {
+					postTagDAO.delete(postTag.getPostTagId());
+				}
+
+				for (int i = 0; i < tags.length; i++) {
+					temps = tagDAO.findByProperty(Constants.ATTR_TAG_NAME, tags[i]);
+					if (Helpers.isEmpty(temps)) {
+						tagId = tagDAO.save(tags[i].toLowerCase());
+					} else {
+						tagId = temps.get(0).getTagId();
+					}
+					tagsId.add(tagId);
+				}
+				tagsId = Helpers.removeDuplicateValue(tagsId);
+				for (Integer id : tagsId) {
+					postTagDAO.save(postId, id);
+				}
+
+				daoManager.commit();
+			}
 		} catch (SQLException e) {
 			throw e;
 		} finally {
+			daoManager.setAutoCommit(true);
 			daoManager.close();
 		}
 
@@ -217,17 +252,31 @@ public class PostBusiness {
 
 	public List<PostUserTag> getPosts(int userId) throws SQLException {
 
-		List<Post> posts;
 		List<PostUserTag> postUserTags = new ArrayList<PostUserTag>();
-		PostUserTag postUserTag;
+		List<Tag> tags;
+		List<Post> posts;
+		List<PostTag> postTags;
+		postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+		postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
+		tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 
 		try {
-			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			posts = postDAO.findByProperty(Constants.ATTR_USER_ID, userId);
 
 			for (Post post : posts) {
-				postUserTag = this.getPost(post.getPostId());
-				postUserTag.getPost().setContent(Helpers.cutString(post.getContent()));
+				tags = new ArrayList<Tag>();
+				PostUserTag postUserTag = new PostUserTag();
+				post.setContent(Helpers.cutString(post.getContent()));
+				postUserTag.setPost(post);
+				postUserTag.setUser(userDAO.findById(post.getUserId()));
+				postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
+
+				for (PostTag postTag : postTags) {
+					tags.add(tagDAO.findById(postTag.getTagId()));
+				}
+
+				postUserTag.setTags(tags);
 				postUserTags.add(postUserTag);
 			}
 

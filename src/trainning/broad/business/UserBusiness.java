@@ -6,14 +6,17 @@ import java.util.List;
 
 import trainning.broad.bean.Comment;
 import trainning.broad.bean.Post;
+import trainning.broad.bean.PostTag;
 import trainning.broad.bean.User;
 import trainning.broad.bean.UserPostComment;
 import trainning.broad.database.DAOManager;
 import trainning.broad.database.connection.PostgresSQLConnection;
 import trainning.broad.database.dao.CommentDAO;
 import trainning.broad.database.dao.PostDAO;
+import trainning.broad.database.dao.PostTagDAO;
 import trainning.broad.database.dao.UserDAO;
 import trainning.broad.helpers.Constants;
+import trainning.broad.helpers.Helpers;
 
 public class UserBusiness {
 
@@ -21,6 +24,7 @@ public class UserBusiness {
 	private UserDAO userDAO;
 	private PostDAO postDAO;
 	private CommentDAO commentDAO;
+	private PostTagDAO postTagDAO;
 
 	public UserBusiness() throws ClassNotFoundException {
 
@@ -162,12 +166,44 @@ public class UserBusiness {
 
 	public void delete(int userId) throws SQLException {
 
+		List<Post> posts;
+		List<Comment> comments;
+		List<PostTag> postTags;
+
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
+			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
+			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
+			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
+
+			daoManager.setAutoCommit(false);
 			userDAO.delete(userId);
+			posts = postDAO.findByProperty(Constants.ATTR_USER_ID, userId);
+			if (!Helpers.isEmpty(posts)) {
+				for (Post post : posts) {
+					postDAO.delete(post.getPostId());
+					postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
+
+					if (!Helpers.isEmpty(postTags))
+						for (PostTag postTag : postTags) {
+							postTagDAO.delete(postTag.getPostTagId());
+						}
+				}
+			}
+
+			comments = commentDAO.findByProperty(Constants.ATTR_USER_ID, userId);
+			if (!Helpers.isEmpty(comments)) {
+				for (Comment comment : comments) {
+					commentDAO.delete(comment.getCommentId());
+				}
+			}
+
+			daoManager.commit();
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {
+			daoManager.setAutoCommit(true);
 			daoManager.close();
 		}
 	}

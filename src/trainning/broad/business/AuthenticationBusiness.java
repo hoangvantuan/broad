@@ -123,5 +123,16 @@ public class AuthenticationBusiness {
 			daoManager.close();
 		}
 	}
-}
 
+	public void sendPassword(User user, String email) throws EmailException {
+
+		try {
+			Mails mail = new Mails();
+			String subject = "パスワードを忘れてしまった";
+			String content = user.getPassword();
+			mail.sendEmail(Constants.FROM_EMAIL, email, subject, content);
+		} catch (EmailException e) {
+			throw e;
+		}
+	}
+}
