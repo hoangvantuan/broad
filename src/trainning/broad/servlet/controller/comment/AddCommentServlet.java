@@ -41,9 +41,6 @@ public class AddCommentServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8");
-		resp.setCharacterEncoding("UTF8");
-
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 		String content = req.getParameter(Constants.ATTR_CONNTENT);
 		User user = Helpers.getUserFromSession(req);

@@ -16,7 +16,7 @@ import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.Links;
 
-@WebFilter(urlPatterns = { "/post/*", "/user/*", "/comment/*","/tag/*" })
+@WebFilter(urlPatterns = { "/post/*", "/user/*", "/comment/*", "/tag/*" })
 public class AuthenticationFilter implements Filter {
 
 	public AuthenticationFilter() {
@@ -38,6 +38,9 @@ public class AuthenticationFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) arg0;
 		HttpServletResponse resp = (HttpServletResponse) arg1;
+
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 
 		if (Helpers.isOnline(req)) {
 			arg2.doFilter(arg0, arg1);
