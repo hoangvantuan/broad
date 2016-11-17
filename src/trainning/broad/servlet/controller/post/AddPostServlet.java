@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/post/add" })
 public class AddPostServlet extends HttpServlet {
@@ -31,7 +31,7 @@ public class AddPostServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Links.fowardTo(req, resp, Constants.POST_ADD_JSP);
+		GoTo.fowardTo(req, resp, Constants.POST_ADD_JSP);
 	}
 
 	@Override
@@ -44,11 +44,11 @@ public class AddPostServlet extends HttpServlet {
 			int userId = Helpers.getUserFromSession(req).getUserId();
 			postBusiness.addPost(postName, content, tags, userId);
 			req.setAttribute(Constants.MESSAGE, Constants.ADD_SUCCESS);
-			Links.fowardTo(req, resp, Constants.POST_ADD_JSP);
+			GoTo.fowardTo(req, resp, Constants.POST_ADD_JSP);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			req.setAttribute(Constants.ERROR, Constants.ADD_ERROR);
-			Links.fowardTo(req, resp, Constants.POST_ADD_JSP);
+			GoTo.fowardTo(req, resp, Constants.POST_ADD_JSP);
 		}
 	}
 }

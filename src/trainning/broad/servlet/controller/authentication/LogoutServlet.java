@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/logout" })
 public class LogoutServlet extends HttpServlet {
@@ -25,7 +25,7 @@ public class LogoutServlet extends HttpServlet {
 
 		session.removeAttribute(Constants.ATTR_USER);
 		session.invalidate();
-		Links.redirectTo(req, resp, Constants.HOME_PATH);
+		GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 
 	@Override

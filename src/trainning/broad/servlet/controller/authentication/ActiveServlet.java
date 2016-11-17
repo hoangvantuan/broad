@@ -14,7 +14,7 @@ import trainning.broad.bean.User;
 import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/active" })
 public class ActiveServlet extends HttpServlet {
@@ -37,18 +37,18 @@ public class ActiveServlet extends HttpServlet {
 		String code = req.getParameter(Constants.CODE).trim();
 
 		if (Helpers.isEmpty(email) || Helpers.isEmpty(code)) {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
 			try {
-				if (authenticationBusiness.checkActiveInfo(email, code)) {
+				if (authenticationBusiness.checkActiveLink(email, code)) {
 					req.setAttribute(Constants.ATTR_EMAIL, email);
-					Links.fowardTo(req, resp, Constants.CONFIRM_PASSWORD_JSP);
+					GoTo.fowardTo(req, resp, Constants.CONFIRM_PASSWORD_JSP);
 				} else {
-					Links.redirectTo(req, resp, Constants.HOME_PATH);
+					GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 				}
 			} catch (SQLException | NoSuchAlgorithmException e) {
 				e.printStackTrace();
-				Links.fowardTo(req, resp, Constants.HOME_PATH);
+				GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 			}
 		}
 	}
@@ -66,13 +66,13 @@ public class ActiveServlet extends HttpServlet {
 				user = authenticationBusiness.getUser(email);
 				Helpers.storeUserToSession(req, user);
 				req.setAttribute(Constants.MESSAGE, Constants.ACTIVE_SUCCESS);
-				Links.fowardTo(req, resp, Constants.HOME_PATH);
+				GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		} else
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 }
 

@@ -23,7 +23,7 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 	}
 
 	@Override
-	public User findByEmail(String email) throws SQLException {
+	public User getByEmail(String email) throws SQLException {
 
 		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.ATTR_EMAIL + " = ?";
 		statement = con.prepareStatement(query);

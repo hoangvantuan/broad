@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.business.CommentBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/comment/delete" })
 public class DeleteCommentServlet extends HttpServlet {
@@ -35,7 +35,7 @@ public class DeleteCommentServlet extends HttpServlet {
 
 		if (Helpers.isEmpty(commentId) && !Helpers.isNumber(commentId)) {
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-			Links.fowardTo(req, resp, Constants.HOME_PATH);
+			GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 		} else {
 			try {
 				int id = Integer.parseInt(commentId);

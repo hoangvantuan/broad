@@ -15,7 +15,7 @@ import org.apache.commons.mail.EmailException;
 import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/register" })
 public class RegisterServlet extends HttpServlet {
@@ -35,9 +35,9 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		if (Helpers.isOnline(req)) {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
-			Links.fowardTo(req, resp, Constants.REGISTER_JSP);
+			GoTo.fowardTo(req, resp, Constants.REGISTER_JSP);
 		}
 
 	}
@@ -48,19 +48,19 @@ public class RegisterServlet extends HttpServlet {
 		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
 
 		try {
-			if (!authenticationBusiness.isAvalibledEmail(email)) {
+			if (!authenticationBusiness.isExitsEmail(email)) {
 				req.setAttribute(Constants.ERROR, Constants.ACCOUNT_HAS_AVALIBLE);
 				req.setAttribute(Constants.ATTR_EMAIL, email);
-				Links.fowardTo(req, resp, Constants.REGISTER_JSP);
+				GoTo.fowardTo(req, resp, Constants.REGISTER_JSP);
 			} else {
-				authenticationBusiness.register(email);
+				authenticationBusiness.sendActiveLink(email);
 				req.setAttribute(Constants.MESSAGE, Constants.REGISTER_SUCCESS);
-				Links.fowardTo(req, resp, Constants.REGISTER_JSP);
+				GoTo.fowardTo(req, resp, Constants.REGISTER_JSP);
 			}
 		} catch (NoSuchAlgorithmException | SQLException | EmailException e) {
 			e.printStackTrace();
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-			Links.fowardTo(req, resp, Constants.REGISTER_JSP);
+			GoTo.fowardTo(req, resp, Constants.REGISTER_JSP);
 		}
 	}
 }

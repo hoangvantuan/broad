@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.UserPostComment;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/user/users" })
 public class ListUserServlet extends HttpServlet {
@@ -38,10 +38,10 @@ public class ListUserServlet extends HttpServlet {
 		try {
 			userPostComments = userBusiness.getUserPostComments();
 			req.setAttribute(Constants.USER_POST_COMMENTS, userPostComments);
-			Links.fowardTo(req, resp, Constants.USER_LIST_JSP);
+			GoTo.fowardTo(req, resp, Constants.USER_LIST_JSP);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 

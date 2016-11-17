@@ -11,6 +11,7 @@ import trainning.broad.database.dao.impl.PostTagDAOImpl;
 import trainning.broad.database.dao.impl.TagDAOImpl;
 import trainning.broad.database.dao.impl.UserDAOImpl;
 import trainning.broad.helpers.Constants;
+import trainning.broad.helpers.Helpers;
 
 public class DAOManager {
 
@@ -38,13 +39,20 @@ public class DAOManager {
 		}
 	}
 
-	public void setAutoCommit(boolean b) throws SQLException {
+	public void autoCommit() throws SQLException {
 
 		if (this.con != null && !this.con.isClosed()) {
 
-			this.con.setAutoCommit(b);
+			this.con.setAutoCommit(true);
 		}
 
+	}
+
+	public void noAutoCommit() throws SQLException {
+
+		if (!Helpers.isEmpty(con) && !this.con.isClosed()) {
+			this.con.setAutoCommit(false);
+		}
 	}
 
 	public void commit() throws SQLException {
@@ -86,4 +94,3 @@ public class DAOManager {
 		}
 	}
 }
-

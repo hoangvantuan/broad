@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebFilter(urlPatterns = { "/post/*", "/user/*", "/comment/*", "/tag/*" })
 public class AuthenticationFilter implements Filter {
@@ -45,7 +45,7 @@ public class AuthenticationFilter implements Filter {
 		if (Helpers.isOnline(req)) {
 			arg2.doFilter(arg0, arg1);
 		} else {
-			Links.redirectTo(req, resp, Constants.LOGIN_PATH);
+			GoTo.redirectTo(req, resp, Constants.LOGIN_PATH);
 		}
 
 	}

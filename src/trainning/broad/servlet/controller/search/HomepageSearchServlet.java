@@ -14,7 +14,7 @@ import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.SearchBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/post/search" })
 public class HomepageSearchServlet extends HttpServlet {
@@ -37,7 +37,7 @@ public class HomepageSearchServlet extends HttpServlet {
 		String keyWord = req.getParameter(Constants.KEY_WORD);
 
 		try {
-			postUserTags = searchBusiness.searchPost(keyWord);
+			postUserTags = searchBusiness.searchByAttributeOfPost(keyWord);
 
 			if (Helpers.isEmpty(postUserTags)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
@@ -45,10 +45,10 @@ public class HomepageSearchServlet extends HttpServlet {
 				req.setAttribute(Constants.MESSAGE, postUserTags.size() + " 検索結果の " + keyWord + (":"));
 				req.setAttribute(Constants.POST_USER_TAGS, postUserTags);
 			}
-			Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+			GoTo.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 

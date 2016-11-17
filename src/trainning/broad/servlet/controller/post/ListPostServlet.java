@@ -14,7 +14,7 @@ import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/user/posts" })
 public class ListPostServlet extends HttpServlet {
@@ -54,15 +54,15 @@ public class ListPostServlet extends HttpServlet {
 
 			if (Helpers.isEmpty(postUserTags)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
-				Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+				GoTo.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
 			} else {
 				req.setAttribute(Constants.ATTR_USER_ID, id);
 				req.setAttribute(Constants.POST_USER_TAGS, postUserTags);
-				Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+				GoTo.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Links.fowardTo(req, resp, Constants.HOME_PATH);
+			GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 

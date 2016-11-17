@@ -40,7 +40,7 @@ public class UserBusiness {
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 
-			return userDAO.findById(userId);
+			return userDAO.getById(userId);
 
 		} catch (SQLException e) {
 			throw e;
@@ -55,7 +55,7 @@ public class UserBusiness {
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 
-			return userDAO.findByEmail(email);
+			return userDAO.getByEmail(email);
 
 		} catch (SQLException e) {
 			throw e;
@@ -75,13 +75,13 @@ public class UserBusiness {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 
-			users = userDAO.findAll();
+			users = userDAO.getAll();
 
 			for (User user : users) {
 				userPostComment = new UserPostComment();
 				userPostComment.setUser(user);
-				userPostComment.setPosts(postDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
-				userPostComment.setComments(commentDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+				userPostComment.setPosts(postDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+				userPostComment.setComments(commentDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
 				userPostComments.add(userPostComment);
 			}
 
@@ -103,10 +103,10 @@ public class UserBusiness {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 
-			user = userDAO.findById(userId);
+			user = userDAO.getById(userId);
 			userPostComment.setUser(user);
-			userPostComment.setPosts(postDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
-			userPostComment.setComments(commentDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+			userPostComment.setPosts(postDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+			userPostComment.setComments(commentDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
 
 			return userPostComment;
 		} catch (
@@ -118,13 +118,13 @@ public class UserBusiness {
 		}
 	}
 
-	public List<Post> getPosts(int userId) throws SQLException {
+	public List<Post> getPostsOfUser(int userId) throws SQLException {
 
 		List<Post> posts;
 
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
-			posts = postDAO.findByProperty(Constants.ATTR_USER_ID, userId);
+			posts = postDAO.getByProperty(Constants.ATTR_USER_ID, userId);
 
 			return posts;
 
@@ -135,13 +135,13 @@ public class UserBusiness {
 		}
 	}
 
-	public List<Comment> getComments(int userId) throws SQLException {
+	public List<Comment> getCommentsOfUser(int userId) throws SQLException {
 
 		List<Comment> comments;
 
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-			comments = commentDAO.findByProperty(Constants.ATTR_USER_ID, userId);
+			comments = commentDAO.getByProperty(Constants.ATTR_USER_ID, userId);
 
 			return comments;
 
@@ -164,7 +164,7 @@ public class UserBusiness {
 		}
 	}
 
-	public void delete(int userId) throws SQLException {
+	public void deleteUserAndAllReference(int userId) throws SQLException {
 
 		List<Post> posts;
 		List<Comment> comments;
@@ -176,13 +176,13 @@ public class UserBusiness {
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 
-			daoManager.setAutoCommit(false);
+			daoManager.noAutoCommit();
 			userDAO.delete(userId);
-			posts = postDAO.findByProperty(Constants.ATTR_USER_ID, userId);
+			posts = postDAO.getByProperty(Constants.ATTR_USER_ID, userId);
 			if (!Helpers.isEmpty(posts)) {
 				for (Post post : posts) {
 					postDAO.delete(post.getPostId());
-					postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
+					postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
 
 					if (!Helpers.isEmpty(postTags))
 						for (PostTag postTag : postTags) {
@@ -191,7 +191,7 @@ public class UserBusiness {
 				}
 			}
 
-			comments = commentDAO.findByProperty(Constants.ATTR_USER_ID, userId);
+			comments = commentDAO.getByProperty(Constants.ATTR_USER_ID, userId);
 			if (!Helpers.isEmpty(comments)) {
 				for (Comment comment : comments) {
 					commentDAO.delete(comment.getCommentId());
@@ -203,7 +203,7 @@ public class UserBusiness {
 		} catch (SQLException e) {
 			throw e;
 		} finally {
-			daoManager.setAutoCommit(true);
+			daoManager.autoCommit();
 			daoManager.close();
 		}
 	}

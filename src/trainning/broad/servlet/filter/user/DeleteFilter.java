@@ -16,7 +16,7 @@ import trainning.broad.bean.User;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebFilter(urlPatterns = { "/user/delete" })
 public class DeleteFilter implements Filter {
@@ -53,7 +53,7 @@ public class DeleteFilter implements Filter {
 		if (user.getIsRole()) {
 			arg2.doFilter(arg0, arg1);
 		} else {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 
 	}

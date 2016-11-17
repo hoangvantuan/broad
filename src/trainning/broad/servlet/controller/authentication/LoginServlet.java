@@ -13,7 +13,7 @@ import trainning.broad.bean.User;
 import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
@@ -33,9 +33,9 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		if (Helpers.isOnline(req)) {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
-			Links.fowardTo(req, resp, Constants.LOGIN_JSP);
+			GoTo.fowardTo(req, resp, Constants.LOGIN_JSP);
 		}
 	}
 
@@ -48,21 +48,21 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			boolean validate;
-			validate = authenticationBusiness.checkLogin(email, password);
+			validate = authenticationBusiness.userValidator(email, password);
 
 			if (validate) {
 				user = authenticationBusiness.getUser(email);
 				Helpers.storeUserToSession(req, user);
 				req.setAttribute(Constants.MESSAGE, Constants.LOGIN_SUCCESS);
-				Links.fowardTo(req, resp, Constants.HOME_PATH);
+				GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 			} else {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_EMAIL_OR_PASSWORD);
-				Links.fowardTo(req, resp, Constants.LOGIN_JSP);
+				GoTo.fowardTo(req, resp, Constants.LOGIN_JSP);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Links.redirectTo(req, resp, Constants.LOGIN_PATH);
+			GoTo.redirectTo(req, resp, Constants.LOGIN_PATH);
 		}
 	}
 }

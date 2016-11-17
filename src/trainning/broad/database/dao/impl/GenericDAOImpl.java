@@ -31,7 +31,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	}
 
 	@Override
-	public List<T> findAll() throws SQLException {
+	public List<T> getAll() throws SQLException {
 
 		String query = "SELECT * FROM " + tableName + " ORDER BY " + Constants.ATTR_CREATE_AT + " DESC";
 		statement = con.prepareStatement(query);
@@ -49,7 +49,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	}
 
 	@Override
-	public T findById(int id) throws SQLException {
+	public T getById(int id) throws SQLException {
 
 		String query = "SELECT * FROM " + tableName + " WHERE " + this.id + " = ?";
 		statement = con.prepareStatement(query);
@@ -74,7 +74,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	}
 
 	@Override
-	public List<T> findByProperty(String property, int value) throws SQLException {
+	public List<T> getByProperty(String property, int value) throws SQLException {
 
 		String query;
 		if (tableName == Constants.TABLE_USER || tableName == Constants.TABLE_POST
@@ -106,7 +106,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	}
 
 	@Override
-	public List<T> findByProperty(String property, String value) throws SQLException {
+	public List<T> getByproperty(String property, String value) throws SQLException {
 
 		String query;
 		if (tableName == Constants.TABLE_USER || tableName == Constants.TABLE_POST

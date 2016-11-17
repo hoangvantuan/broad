@@ -13,7 +13,7 @@ import trainning.broad.bean.User;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/user/edit" })
 public class EditUserServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class EditUserServlet extends HttpServlet {
 
 		User user = Helpers.getUserFromSession(req);
 		req.setAttribute(Constants.ATTR_USER, user);
-		Links.fowardTo(req, resp, Constants.USER_EDIT_JSP);
+		GoTo.fowardTo(req, resp, Constants.USER_EDIT_JSP);
 	}
 
 	@Override
@@ -51,18 +51,18 @@ public class EditUserServlet extends HttpServlet {
 				user.setUserName(userName);
 				user.setPassword("");
 				req.setAttribute(Constants.ATTR_USER, user);
-				Links.fowardTo(req, resp, Constants.USER_EDIT_JSP);
+				GoTo.fowardTo(req, resp, Constants.USER_EDIT_JSP);
 			} else {
 				user.setUserName(userName);
 				user.setPassword(password);
 				userBusiness.update(user);
 				Helpers.storeUserToSession(req, user);
 				req.setAttribute(Constants.MESSAGE, Constants.EDIT_SUCCESS);
-				Links.fowardTo(req, resp, Constants.USER_PROFILE_PATH);
+				GoTo.fowardTo(req, resp, Constants.USER_PROFILE_PATH);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Links.fowardTo(req, resp, Constants.HOME_PATH);
+			GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 }

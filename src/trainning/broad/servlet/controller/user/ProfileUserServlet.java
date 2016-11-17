@@ -14,7 +14,7 @@ import trainning.broad.bean.UserPostComment;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/user/profile" })
 public class ProfileUserServlet extends HttpServlet {
@@ -47,15 +47,15 @@ public class ProfileUserServlet extends HttpServlet {
 
 			if (Helpers.isEmpty(user)) {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-				Links.fowardTo(req, resp, Constants.HOME_PATH);
+				GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 			} else {
 				userPostComment = userBusiness.getUserPostComment(user.getUserId());
 				req.setAttribute(Constants.ATTR_USER, userPostComment);
-				Links.fowardTo(req, resp, Constants.USER_PROFILE_JSP);
+				GoTo.fowardTo(req, resp, Constants.USER_PROFILE_JSP);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 

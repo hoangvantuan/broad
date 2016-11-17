@@ -16,7 +16,7 @@ import trainning.broad.bean.UserComment;
 import trainning.broad.business.CommentBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/comment/add" })
 public class AddCommentServlet extends HttpServlet {
@@ -35,7 +35,7 @@ public class AddCommentServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
-		Links.redirectTo(req, resp, Constants.HOME_PATH);
+		GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class AddCommentServlet extends HttpServlet {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 
 		}

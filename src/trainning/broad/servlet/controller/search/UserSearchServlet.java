@@ -14,7 +14,7 @@ import trainning.broad.bean.UserPostComment;
 import trainning.broad.business.SearchBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/user/search" })
 public class UserSearchServlet extends HttpServlet {
@@ -36,7 +36,7 @@ public class UserSearchServlet extends HttpServlet {
 		String keyWord = req.getParameter(Constants.KEY_WORD);
 		List<UserPostComment> userPostComments;
 		try {
-			userPostComments = searchBusiness.searchUser(keyWord);
+			userPostComments = searchBusiness.searchByAttributeOfUser(keyWord);
 
 			if (Helpers.isEmpty(userPostComments)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
@@ -44,10 +44,10 @@ public class UserSearchServlet extends HttpServlet {
 				req.setAttribute(Constants.MESSAGE, userPostComments.size() + " 検索結果の " + keyWord + (":"));
 				req.setAttribute(Constants.USER_POST_COMMENTS, userPostComments);
 			}
-			Links.fowardTo(req, resp, Constants.USER_LIST_JSP);
+			GoTo.fowardTo(req, resp, Constants.USER_LIST_JSP);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 

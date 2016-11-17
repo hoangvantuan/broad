@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/user/delete" })
 public class DeleteUserServlet extends HttpServlet {
@@ -36,14 +36,14 @@ public class DeleteUserServlet extends HttpServlet {
 		if (!Helpers.isEmpty(userId) && Helpers.isNumber(userId)) {
 			try {
 				int id = Integer.parseInt(userId);
-				userBusiness.delete(id);
+				userBusiness.deleteUserAndAllReference(id);
 				req.setAttribute(Constants.MESSAGE, Constants.DELETE_SUCCESS);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
-		Links.fowardTo(req, resp, Constants.USER_LIST_PATH);
+		GoTo.fowardTo(req, resp, Constants.USER_LIST_PATH);
 
 	}
 

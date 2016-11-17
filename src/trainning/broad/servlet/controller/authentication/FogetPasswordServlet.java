@@ -15,7 +15,7 @@ import trainning.broad.bean.User;
 import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/fogetpassword" })
 public class FogetPasswordServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class FogetPasswordServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Links.fowardTo(req, resp, Constants.FOGOT_PASSWORD_JSP);
+		GoTo.fowardTo(req, resp, Constants.FOGOT_PASSWORD_JSP);
 	}
 
 	@Override
@@ -56,6 +56,6 @@ public class FogetPasswordServlet extends HttpServlet {
 			e.printStackTrace();
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 		}
-		Links.fowardTo(req, resp, Constants.FOGOT_PASSWORD_JSP);
+		GoTo.fowardTo(req, resp, Constants.FOGOT_PASSWORD_JSP);
 	}
 }

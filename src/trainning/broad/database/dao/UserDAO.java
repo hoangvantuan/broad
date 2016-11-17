@@ -7,7 +7,7 @@ import trainning.broad.bean.User;
 
 public interface UserDAO extends GenericDAO<User> {
 
-	public User findByEmail(String email) throws SQLException;
+	public User getByEmail(String email) throws SQLException;
 
 	public int countEmail(String email) throws SQLException;
 

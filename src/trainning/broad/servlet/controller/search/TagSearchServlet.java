@@ -14,7 +14,7 @@ import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.SearchBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/tag/search" })
 public class TagSearchServlet extends HttpServlet {
@@ -38,12 +38,12 @@ public class TagSearchServlet extends HttpServlet {
 
 		if (Helpers.isEmpty(tagId) || !Helpers.isNumber(tagId)) {
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
 
 			int id = Integer.parseInt(tagId);
 			try {
-				userPostTags = searchBusiness.searchByTag(id);
+				userPostTags = searchBusiness.searchByTagId(id);
 
 				if (Helpers.isEmpty(userPostTags)) {
 					req.setAttribute(Constants.ERROR, Constants.NO_DATA);
@@ -51,10 +51,10 @@ public class TagSearchServlet extends HttpServlet {
 					req.setAttribute(Constants.MESSAGE, userPostTags.size() + " 検索結果の " + (":"));
 					req.setAttribute(Constants.POST_USER_TAGS, userPostTags);
 				}
-				Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+				GoTo.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
 	}

@@ -14,7 +14,7 @@ import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.HomepageBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "" })
 public class HomepageServlet extends HttpServlet {
@@ -35,14 +35,14 @@ public class HomepageServlet extends HttpServlet {
 
 		if (Helpers.isOnline(req)) {
 			try {
-				List<PostUserTag> postUserTags = homepageBusiness.getDataForHomepage();
+				List<PostUserTag> postUserTags = homepageBusiness.getDataHomepage();
 				req.setAttribute(Constants.POST_USER_TAGS, postUserTags);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
-		Links.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
+		GoTo.fowardTo(req, resp, Constants.HOMEPAGE_JSP);
 
 	}
 

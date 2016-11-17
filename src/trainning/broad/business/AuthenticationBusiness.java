@@ -26,11 +26,11 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean checkLogin(String email, String password) throws SQLException {
+	public boolean userValidator(String email, String password) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-			User tempUser = userDAO.findByEmail(email);
+			User tempUser = userDAO.getByEmail(email);
 
 			if (!Helpers.isEmpty(tempUser) && tempUser.getIsActive() == true
 					&& tempUser.getPassword().equals(password)) {
@@ -46,7 +46,7 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean isAvalibledEmail(String email) throws SQLException {
+	public boolean isExitsEmail(String email) throws SQLException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
@@ -61,7 +61,7 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public void register(String email) throws SQLException, EmailException, NoSuchAlgorithmException {
+	public void sendActiveLink(String email) throws SQLException, EmailException, NoSuchAlgorithmException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
@@ -79,11 +79,11 @@ public class AuthenticationBusiness {
 		}
 	}
 
-	public boolean checkActiveInfo(String email, String code) throws SQLException, NoSuchAlgorithmException {
+	public boolean checkActiveLink(String email, String code) throws SQLException, NoSuchAlgorithmException {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-			User tempUser = userDAO.findByEmail(email);
+			User tempUser = userDAO.getByEmail(email);
 
 			if (!Helpers.isEmpty(tempUser) && !tempUser.getIsActive() && code.equals(Helpers.getCodeActive(email))) {
 				return true;
@@ -116,7 +116,7 @@ public class AuthenticationBusiness {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-			return userDAO.findByEmail(email);
+			return userDAO.getByEmail(email);
 		} catch (SQLException e) {
 			throw e;
 		} finally {

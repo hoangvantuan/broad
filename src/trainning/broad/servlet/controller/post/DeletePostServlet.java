@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/post/delete" })
 public class DeletePostServlet extends HttpServlet {
@@ -38,7 +38,7 @@ public class DeletePostServlet extends HttpServlet {
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
 			int id = Integer.parseInt(postId);
 			try {
-				postBusiness.deletePost(id);
+				postBusiness.deletePostAndAllReferences(id);
 				req.setAttribute(Constants.MESSAGE, Constants.DELETE_SUCCESS);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -47,10 +47,10 @@ public class DeletePostServlet extends HttpServlet {
 		}
 
 		if (Helpers.isEmpty(userId))
-			Links.fowardTo(req, resp, Constants.HOME_PATH);
+			GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 		else {
 			req.setAttribute(Constants.ATTR_USER_ID, userId);
-			Links.fowardTo(req, resp, Constants.LIST_POST_PATH);
+			GoTo.fowardTo(req, resp, Constants.LIST_POST_PATH);
 		}
 	}
 

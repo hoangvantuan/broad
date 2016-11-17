@@ -17,7 +17,7 @@ import trainning.broad.bean.User;
 import trainning.broad.business.CommentBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebFilter(urlPatterns = { "/comment/delete" })
 public class DeleteFilter implements Filter {
@@ -53,7 +53,7 @@ public class DeleteFilter implements Filter {
 		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
 
 		if (Helpers.isEmpty(commentId) || !Helpers.isNumber(commentId)) {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
 			try {
 				boolean check;
@@ -63,12 +63,12 @@ public class DeleteFilter implements Filter {
 				if (check || user.getIsRole()) {
 					arg2.doFilter(arg0, arg1);
 				} else {
-					Links.redirectTo(req, resp, Constants.HOME_PATH);
+					GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
 	}

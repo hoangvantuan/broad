@@ -29,7 +29,7 @@ public class CommentBusiness {
 
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-			comment = commentDAO.findById(commentId);
+			comment = commentDAO.getById(commentId);
 
 			return userId == comment.getUserId() ? true : false;
 
@@ -59,7 +59,7 @@ public class CommentBusiness {
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			int id = commentDAO.save(userId, postId, content.trim());
-			userComment.setComment(commentDAO.findById(id));
+			userComment.setComment(commentDAO.getById(id));
 			return userComment;
 		} catch (SQLException e) {
 			throw e;

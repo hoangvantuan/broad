@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Links {
+public class GoTo {
 
 	public static void fowardTo(HttpServletRequest req, HttpServletResponse resp, String target) {
 

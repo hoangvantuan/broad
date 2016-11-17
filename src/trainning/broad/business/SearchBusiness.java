@@ -38,7 +38,7 @@ public class SearchBusiness {
 		}
 	}
 
-	public List<PostUserTag> searchPost(String keyWord) throws SQLException {
+	public List<PostUserTag> searchByAttributeOfPost(String keyWord) throws SQLException {
 
 		List<Post> posts;
 		List<Tag> tags;
@@ -59,10 +59,10 @@ public class SearchBusiness {
 			tags = tagDAO.search(keyWord);
 
 			for (Tag tag : tags) {
-				postTags = postTagDAO.findByProperty(Constants.ATTR_TAG_ID, tag.getTagId());
+				postTags = postTagDAO.getByProperty(Constants.ATTR_TAG_ID, tag.getTagId());
 
 				for (PostTag postTag : postTags) {
-					post = postDAO.findById(postTag.getPostId());
+					post = postDAO.getById(postTag.getPostId());
 
 					if (!Helpers.isDuplicatePostId(posts, post))
 						posts.add(post);
@@ -73,12 +73,12 @@ public class SearchBusiness {
 
 				temp.setContent(Helpers.cutString(temp.getContent()));
 				postUserTag = new PostUserTag();
-				user = userDAO.findById(temp.getUserId());
-				postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, temp.getPostId());
+				user = userDAO.getById(temp.getUserId());
+				postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, temp.getPostId());
 				tags = new ArrayList<Tag>();
 
 				for (PostTag postTag : postTags) {
-					tags.add(tagDAO.findById(postTag.getTagId()));
+					tags.add(tagDAO.getById(postTag.getTagId()));
 				}
 
 				postUserTag.setUser(user);
@@ -94,7 +94,7 @@ public class SearchBusiness {
 		}
 	}
 
-	public List<PostUserTag> searchByTag(int tagId) throws SQLException {
+	public List<PostUserTag> searchByTagId(int tagId) throws SQLException {
 
 		List<PostTag> postTags;
 		PostUserTag postUserTag;
@@ -106,18 +106,18 @@ public class SearchBusiness {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
-			postTags = postTagDAO.findByProperty(Constants.ATTR_TAG_ID, tagId);
+			postTags = postTagDAO.getByProperty(Constants.ATTR_TAG_ID, tagId);
 
 			for (PostTag postTag : postTags) {
 				postUserTag = new PostUserTag();
-				Post post = postDAO.findById(postTag.getPostId());
+				Post post = postDAO.getById(postTag.getPostId());
 				post.setContent(Helpers.cutString(post.getContent()));
-				User user = userDAO.findById(post.getUserId());
+				User user = userDAO.getById(post.getUserId());
 				tags = new ArrayList<Tag>();
-				List<PostTag> tempPostTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
+				List<PostTag> tempPostTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
 
 				for (PostTag tempPostTag : tempPostTags) {
-					tags.add(tagDAO.findById(tempPostTag.getTagId()));
+					tags.add(tagDAO.getById(tempPostTag.getTagId()));
 				}
 
 				postUserTag.setUser(user);
@@ -133,7 +133,7 @@ public class SearchBusiness {
 
 	}
 
-	public List<UserPostComment> searchUser(String keyWord) throws SQLException {
+	public List<UserPostComment> searchByAttributeOfUser(String keyWord) throws SQLException {
 
 		List<User> users;
 		List<UserPostComment> userPostComments = new ArrayList<UserPostComment>();
@@ -150,8 +150,8 @@ public class SearchBusiness {
 			for (User user : users) {
 				userPostComment = new UserPostComment();
 				userPostComment.setUser(user);
-				userPostComment.setPosts(postDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
-				userPostComment.setComments(commentDAO.findByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+				userPostComment.setPosts(postDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
+				userPostComment.setComments(commentDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
 				userPostComments.add(userPostComment);
 			}
 			return userPostComments;

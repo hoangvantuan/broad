@@ -13,7 +13,7 @@ import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/post/edit" })
 public class EditPostServlet extends HttpServlet {
@@ -42,17 +42,17 @@ public class EditPostServlet extends HttpServlet {
 
 				if (Helpers.isEmpty(postUserTag)) {
 					req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
-					Links.fowardTo(req, resp, Constants.HOME_PATH);
+					GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 				} else {
 					req.setAttribute(Constants.POST_USER_TAG, postUserTag);
-					Links.fowardTo(req, resp, Constants.POST_EDIT_JSP);
+					GoTo.fowardTo(req, resp, Constants.POST_EDIT_JSP);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		} else {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 
@@ -70,15 +70,15 @@ public class EditPostServlet extends HttpServlet {
 				postBusiness.editPost(id, postName, content, tags);
 				req.setAttribute(Constants.MESSAGE, Constants.EDIT_SUCCESS);
 				req.setAttribute(Constants.ATTR_POST_ID, id);
-				Links.fowardTo(req, resp, Constants.POST_DETAIL);
+				GoTo.fowardTo(req, resp, Constants.POST_DETAIL);
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 				req.setAttribute(Constants.ERROR, Constants.EDIT_ERROR);
-				Links.fowardTo(req, resp, Constants.POST_EDIT_JSP);
+				GoTo.fowardTo(req, resp, Constants.POST_EDIT_JSP);
 			}
 		} else {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		}
 	}
 }

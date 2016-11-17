@@ -34,7 +34,7 @@ public class HomepageBusiness {
 		}
 	}
 
-	public List<PostUserTag> getDataForHomepage() throws SQLException {
+	public List<PostUserTag> getDataHomepage() throws SQLException {
 
 		List<PostUserTag> infoPostHomepages = new ArrayList<PostUserTag>();
 		List<Tag> tags;
@@ -46,18 +46,18 @@ public class HomepageBusiness {
 		tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 
 		try {
-			posts = postDAO.findAll();
+			posts = postDAO.getAll();
 
 			for (Post post : posts) {
 				tags = new ArrayList<Tag>();
 				PostUserTag infoPostHomepage = new PostUserTag();
 				post.setContent(Helpers.cutString(post.getContent()));
 				infoPostHomepage.setPost(post);
-				infoPostHomepage.setUser(userDAO.findById(post.getUserId()));
-				postTags = postTagDAO.findByProperty(Constants.ATTR_POST_ID, post.getPostId());
+				infoPostHomepage.setUser(userDAO.getById(post.getUserId()));
+				postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
 
 				for (PostTag postTag : postTags) {
-					tags.add(tagDAO.findById(postTag.getTagId()));
+					tags.add(tagDAO.getById(postTag.getTagId()));
 				}
 
 				infoPostHomepage.setTags(tags);

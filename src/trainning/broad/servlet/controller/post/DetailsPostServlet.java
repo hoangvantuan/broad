@@ -15,7 +15,7 @@ import trainning.broad.bean.UserComment;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebServlet(urlPatterns = { "/post/details" })
 public class DetailsPostServlet extends HttpServlet {
@@ -37,7 +37,7 @@ public class DetailsPostServlet extends HttpServlet {
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 
 		if (Helpers.isEmpty(postId) || !Helpers.isNumber(postId)) {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
 			int id = Integer.parseInt(postId);
 			try {
@@ -46,12 +46,12 @@ public class DetailsPostServlet extends HttpServlet {
 				int numOfComment = postComments.size();
 
 				if (Helpers.isEmpty(postUserTag)) {
-					Links.redirectTo(req, resp, Constants.HOME_PATH);
+					GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 				} else {
 					req.setAttribute(Constants.POST_USER_TAG, postUserTag);
 					req.setAttribute(Constants.USER_COMMENT, postComments);
 					req.setAttribute("num_of_comments", numOfComment);
-					Links.fowardTo(req, resp, Constants.POST_DETAIL_JSP);
+					GoTo.fowardTo(req, resp, Constants.POST_DETAIL_JSP);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

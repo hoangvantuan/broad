@@ -17,7 +17,7 @@ import trainning.broad.bean.User;
 import trainning.broad.business.CommentBusiness;
 import trainning.broad.helpers.Constants;
 import trainning.broad.helpers.Helpers;
-import trainning.broad.helpers.Links;
+import trainning.broad.helpers.GoTo;
 
 @WebFilter(urlPatterns = { "/comment/edit" })
 public class EditFilter implements Filter {
@@ -53,7 +53,7 @@ public class EditFilter implements Filter {
 		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
 
 		if (Helpers.isEmpty(commentId) || !Helpers.isNumber(commentId)) {
-			Links.redirectTo(req, resp, Constants.HOME_PATH);
+			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
 			int id = Integer.parseInt(commentId);
 			try {
@@ -63,12 +63,12 @@ public class EditFilter implements Filter {
 				if (check) {
 					arg2.doFilter(arg0, arg1);
 				} else {
-					Links.redirectTo(req, resp, Constants.HOME_PATH);
+					GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				Links.redirectTo(req, resp, Constants.HOME_PATH);
+				GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 			}
 		}
 	}
