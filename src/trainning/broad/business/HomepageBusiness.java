@@ -44,7 +44,6 @@ public class HomepageBusiness {
 		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 		postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 		tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
-
 		try {
 			posts = postDAO.getAll();
 			for (Post post : posts) {

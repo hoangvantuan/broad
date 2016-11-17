@@ -46,7 +46,6 @@ public class PostBusiness {
 		List<PostTag> postTags;
 		List<Tag> tags = new ArrayList<Tag>();
 		PostUserTag postUserTag = new PostUserTag();
-
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
@@ -102,9 +101,7 @@ public class PostBusiness {
 
 		int postId;
 		int tagId;
-
 		List<Integer> tagsId = new ArrayList<Integer>();
-
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
@@ -142,7 +139,6 @@ public class PostBusiness {
 		List<PostTag> postTags;
 		int tagId;
 		List<Integer> tagsId = new ArrayList<Integer>();
-
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			daoManager.noAutoCommit();
@@ -182,7 +178,6 @@ public class PostBusiness {
 
 		List<PostTag> postTags;
 		List<Comment> comments;
-
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
@@ -210,7 +205,6 @@ public class PostBusiness {
 	public boolean isMyPost(int userId, int postId) throws SQLException {
 
 		Post post;
-
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			post = postDAO.getById(postId);
@@ -235,7 +229,6 @@ public class PostBusiness {
 		userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 		postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 		tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
-
 		try {
 			posts = postDAO.getByProperty(Constants.ATTR_USER_ID, userId);
 			for (Post post : posts) {

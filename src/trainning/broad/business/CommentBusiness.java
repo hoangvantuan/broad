@@ -26,7 +26,6 @@ public class CommentBusiness {
 	public boolean isMyComment(int userId, int commentId) throws SQLException {
 
 		Comment comment;
-
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			comment = commentDAO.getById(commentId);
@@ -53,7 +52,6 @@ public class CommentBusiness {
 	public UserComment addComment(int userId, int postId, String content) throws SQLException {
 
 		UserComment userComment = new UserComment();
-
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			int id = commentDAO.save(userId, postId, content.trim());

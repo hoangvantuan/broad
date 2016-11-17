@@ -65,7 +65,6 @@ public class UserBusiness {
 		List<UserPostComment> userPostComments = new ArrayList<UserPostComment>();
 		UserPostComment userPostComment;
 		List<User> users;
-
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
@@ -90,7 +89,6 @@ public class UserBusiness {
 
 		UserPostComment userPostComment = new UserPostComment();
 		User user;
-
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
@@ -110,7 +108,6 @@ public class UserBusiness {
 	public List<Post> getPostsOfUser(int userId) throws SQLException {
 
 		List<Post> posts;
-
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			posts = postDAO.getByProperty(Constants.ATTR_USER_ID, userId);
@@ -154,7 +151,6 @@ public class UserBusiness {
 		List<Post> posts;
 		List<Comment> comments;
 		List<PostTag> postTags;
-
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);

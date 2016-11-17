@@ -48,7 +48,6 @@ public class SearchBusiness {
 		List<PostUserTag> postUserTags = new ArrayList<PostUserTag>();
 		PostUserTag postUserTag;
 		keyWord = keyWord.trim().toLowerCase();
-
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
@@ -93,7 +92,6 @@ public class SearchBusiness {
 		PostUserTag postUserTag;
 		List<Tag> tags;
 		List<PostUserTag> postUserTags = new ArrayList<PostUserTag>();
-
 		try {
 			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
