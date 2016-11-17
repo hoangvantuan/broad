@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/post/edit" })
 public class EditPostServlet extends HttpServlet {
@@ -33,13 +33,10 @@ public class EditPostServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
-
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
 			int id = Integer.parseInt(postId);
-
 			try {
 				PostUserTag postUserTag = postBusiness.getPost(id);
-
 				if (Helpers.isEmpty(postUserTag)) {
 					req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 					GoTo.fowardTo(req, resp, Constants.HOME_PATH);
@@ -63,7 +60,6 @@ public class EditPostServlet extends HttpServlet {
 		String content = req.getParameter(Constants.ATTR_CONNTENT);
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 		String[] tags = req.getParameterValues(Constants.TAG);
-
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
 			int id = Integer.parseInt(postId);
 			try {
@@ -71,7 +67,6 @@ public class EditPostServlet extends HttpServlet {
 				req.setAttribute(Constants.MESSAGE, Constants.EDIT_SUCCESS);
 				req.setAttribute(Constants.ATTR_POST_ID, id);
 				GoTo.fowardTo(req, resp, Constants.POST_DETAIL);
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 				req.setAttribute(Constants.ERROR, Constants.EDIT_ERROR);

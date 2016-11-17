@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.UserPostComment;
 import trainning.broad.business.SearchBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/user/search" })
 public class UserSearchServlet extends HttpServlet {
@@ -37,7 +37,6 @@ public class UserSearchServlet extends HttpServlet {
 		List<UserPostComment> userPostComments;
 		try {
 			userPostComments = searchBusiness.searchByAttributeOfUser(keyWord);
-
 			if (Helpers.isEmpty(userPostComments)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
 			} else {

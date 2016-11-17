@@ -14,8 +14,8 @@ import org.apache.commons.mail.EmailException;
 
 import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/register" })
 public class RegisterServlet extends HttpServlet {
@@ -46,7 +46,6 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
-
 		try {
 			if (!authenticationBusiness.isExitsEmail(email)) {
 				req.setAttribute(Constants.ERROR, Constants.ACCOUNT_HAS_AVALIBLE);

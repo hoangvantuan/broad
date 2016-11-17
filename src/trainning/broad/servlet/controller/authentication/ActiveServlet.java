@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.User;
 import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/active" })
 public class ActiveServlet extends HttpServlet {
@@ -35,7 +35,6 @@ public class ActiveServlet extends HttpServlet {
 
 		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
 		String code = req.getParameter(Constants.CODE).trim();
-
 		if (Helpers.isEmpty(email) || Helpers.isEmpty(code)) {
 			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
@@ -59,7 +58,6 @@ public class ActiveServlet extends HttpServlet {
 		String email = req.getParameter(Constants.ATTR_EMAIL).trim();
 		String password = req.getParameter(Constants.ATTR_PASSWORD).trim();
 		User user;
-
 		if (!Helpers.isEmpty(email) && !Helpers.isEmpty(password)) {
 			try {
 				authenticationBusiness.active(email, password);

@@ -36,9 +36,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 		String query = "SELECT * FROM " + tableName + " ORDER BY " + Constants.ATTR_CREATE_AT + " DESC";
 		statement = con.prepareStatement(query);
 		result = statement.executeQuery();
-
 		switch (tableName) {
-
 		case Constants.TABLE_USER:
 			return (List<T>) DAOHelpers.convertResultToUsers(result);
 		case Constants.TABLE_POST:
@@ -55,9 +53,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 		statement = con.prepareStatement(query);
 		statement.setInt(1, id);
 		result = statement.executeQuery();
-
 		switch (tableName) {
-
 		case Constants.TABLE_USER:
 			return (T) DAOHelpers.convertResultToUser(result);
 		case Constants.TABLE_POST:
@@ -87,9 +83,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 		statement = con.prepareStatement(query);
 		statement.setInt(1, value);
 		result = statement.executeQuery();
-
 		switch (tableName) {
-
 		case Constants.TABLE_USER:
 			return (List<T>) DAOHelpers.convertResultToUsers(result);
 		case Constants.TABLE_POST:
@@ -116,13 +110,10 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 		} else {
 			query = "SELECT * FROM " + tableName + " WHERE " + property + " = ?";
 		}
-
 		statement = con.prepareStatement(query);
 		statement.setString(1, value);
 		result = statement.executeQuery();
-
 		switch (tableName) {
-
 		case Constants.TABLE_USER:
 			return (List<T>) DAOHelpers.convertResultToUsers(result);
 		case Constants.TABLE_POST:

@@ -30,9 +30,7 @@ public class CommentBusiness {
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			comment = commentDAO.getById(commentId);
-
 			return userId == comment.getUserId() ? true : false;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {

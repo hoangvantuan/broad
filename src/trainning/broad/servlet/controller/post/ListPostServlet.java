@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/user/posts" })
 public class ListPostServlet extends HttpServlet {
@@ -36,22 +36,17 @@ public class ListPostServlet extends HttpServlet {
 		int id;
 		String userId = "";
 		List<PostUserTag> postUserTags;
-
 		if (!Helpers.isEmpty(req.getAttribute(Constants.ATTR_USER_ID)))
 			userId = (String) req.getAttribute(Constants.ATTR_USER_ID);
-
 		if (Helpers.isEmpty(userId))
 			userId = req.getParameter(Constants.ATTR_USER_ID);
-
 		if (Helpers.isEmpty(userId) || !Helpers.isNumber(userId)) {
 			id = Helpers.getUserFromSession(req).getUserId();
 		} else {
 			id = Integer.parseInt(userId);
 		}
-
 		try {
 			postUserTags = postBusiness.getPosts(id);
-
 			if (Helpers.isEmpty(postUserTags)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
 				GoTo.fowardTo(req, resp, Constants.HOMEPAGE_JSP);

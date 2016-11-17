@@ -16,9 +16,7 @@ public class DAOHelpers {
 	public static List<User> convertResultToUsers(ResultSet result) throws SQLException {
 
 		List<User> users = new ArrayList<User>();
-
 		while (result.next()) {
-
 			users.add(getUserFromResult(result));
 		}
 		return users;
@@ -172,4 +170,3 @@ public class DAOHelpers {
 		}
 	}
 }
-

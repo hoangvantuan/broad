@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import trainning.broad.business.CommentBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/comment/delete" })
 public class DeleteCommentServlet extends HttpServlet {
@@ -32,7 +32,6 @@ public class DeleteCommentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
-
 		if (Helpers.isEmpty(commentId) && !Helpers.isNumber(commentId)) {
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 			GoTo.fowardTo(req, resp, Constants.HOME_PATH);

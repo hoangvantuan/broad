@@ -34,7 +34,6 @@ public class ListUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		List<UserPostComment> userPostComments = new ArrayList<UserPostComment>();
-
 		try {
 			userPostComments = userBusiness.getUserPostComments();
 			req.setAttribute(Constants.USER_POST_COMMENTS, userPostComments);

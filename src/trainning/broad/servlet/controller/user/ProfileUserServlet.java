@@ -13,8 +13,8 @@ import trainning.broad.bean.User;
 import trainning.broad.bean.UserPostComment;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/user/profile" })
 public class ProfileUserServlet extends HttpServlet {
@@ -36,7 +36,6 @@ public class ProfileUserServlet extends HttpServlet {
 		String userId = req.getParameter(Constants.ATTR_USER_ID);
 		User user;
 		UserPostComment userPostComment;
-
 		try {
 			if (Helpers.isEmpty(userId) || !Helpers.isNumber(userId)) {
 				user = Helpers.getUserFromSession(req);
@@ -44,7 +43,6 @@ public class ProfileUserServlet extends HttpServlet {
 				int id = Integer.parseInt(userId);
 				user = userBusiness.getUser(id);
 			}
-
 			if (Helpers.isEmpty(user)) {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 				GoTo.fowardTo(req, resp, Constants.HOME_PATH);

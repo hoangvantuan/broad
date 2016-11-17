@@ -14,8 +14,8 @@ import trainning.broad.bean.PostUserTag;
 import trainning.broad.bean.UserComment;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/post/details" })
 public class DetailsPostServlet extends HttpServlet {
@@ -35,7 +35,6 @@ public class DetailsPostServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
-
 		if (Helpers.isEmpty(postId) || !Helpers.isNumber(postId)) {
 			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
@@ -44,7 +43,6 @@ public class DetailsPostServlet extends HttpServlet {
 				PostUserTag postUserTag = postBusiness.getPost(id);
 				List<UserComment> postComments = postBusiness.getPostComment(id);
 				int numOfComment = postComments.size();
-
 				if (Helpers.isEmpty(postUserTag)) {
 					GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 				} else {

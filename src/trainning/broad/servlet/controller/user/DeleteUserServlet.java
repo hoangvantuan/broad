@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/user/delete" })
 public class DeleteUserServlet extends HttpServlet {
@@ -32,7 +32,6 @@ public class DeleteUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String userId = req.getParameter(Constants.ATTR_USER_ID);
-
 		if (!Helpers.isEmpty(userId) && Helpers.isNumber(userId)) {
 			try {
 				int id = Integer.parseInt(userId);

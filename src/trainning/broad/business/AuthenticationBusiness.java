@@ -31,14 +31,11 @@ public class AuthenticationBusiness {
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			User tempUser = userDAO.getByEmail(email);
-
 			if (!Helpers.isEmpty(tempUser) && tempUser.getIsActive() == true
 					&& tempUser.getPassword().equals(password)) {
 				return true;
-			} else {
-				return false;
 			}
-
+			return false;
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -51,9 +48,7 @@ public class AuthenticationBusiness {
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			int numEmail = userDAO.countEmail(email);
-
 			return numEmail == 0 ? true : false;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -71,7 +66,6 @@ public class AuthenticationBusiness {
 			String content = "http://localhost:8080/broad/active?email=" + email + "&code="
 					+ Helpers.getCodeActive(email);
 			mail.sendEmail(Constants.FROM_EMAIL, email, subject, content);
-
 		} catch (SQLException | EmailException | NoSuchAlgorithmException e) {
 			throw e;
 		} finally {
@@ -84,13 +78,10 @@ public class AuthenticationBusiness {
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			User tempUser = userDAO.getByEmail(email);
-
 			if (!Helpers.isEmpty(tempUser) && !tempUser.getIsActive() && code.equals(Helpers.getCodeActive(email))) {
 				return true;
-			} else {
-				return false;
 			}
-
+			return false;
 		} catch (SQLException | NoSuchAlgorithmException e) {
 			throw e;
 		} finally {
@@ -106,7 +97,6 @@ public class AuthenticationBusiness {
 		} catch (SQLException e) {
 			throw e;
 		} finally {
-
 			daoManager.close();
 		}
 

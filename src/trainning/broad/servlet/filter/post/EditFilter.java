@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.User;
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebFilter(urlPatterns = { "/post/edit" })
 public class EditFilter implements Filter {
@@ -51,7 +51,6 @@ public class EditFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) arg1;
 		User user = Helpers.getUserFromSession(req);
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
-
 		if (Helpers.isEmpty(postId) || !Helpers.isNumber(postId)) {
 			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
@@ -59,7 +58,6 @@ public class EditFilter implements Filter {
 				boolean check;
 				int id = Integer.parseInt(postId);
 				check = postBusiness.isMyPost(user.getUserId(), id);
-
 				if (check) {
 					arg2.doFilter(arg0, arg1);
 				} else {

@@ -47,7 +47,6 @@ public class HomepageBusiness {
 
 		try {
 			posts = postDAO.getAll();
-
 			for (Post post : posts) {
 				tags = new ArrayList<Tag>();
 				PostUserTag infoPostHomepage = new PostUserTag();
@@ -55,17 +54,13 @@ public class HomepageBusiness {
 				infoPostHomepage.setPost(post);
 				infoPostHomepage.setUser(userDAO.getById(post.getUserId()));
 				postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
-
 				for (PostTag postTag : postTags) {
 					tags.add(tagDAO.getById(postTag.getTagId()));
 				}
-
 				infoPostHomepage.setTags(tags);
 				infoPostHomepages.add(infoPostHomepage);
 			}
-
 			return infoPostHomepages;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -74,4 +69,3 @@ public class HomepageBusiness {
 
 	}
 }
-

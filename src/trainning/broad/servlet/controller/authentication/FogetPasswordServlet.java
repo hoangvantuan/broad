@@ -14,8 +14,8 @@ import org.apache.commons.mail.EmailException;
 import trainning.broad.bean.User;
 import trainning.broad.business.AuthenticationBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/fogetpassword" })
 public class FogetPasswordServlet extends HttpServlet {
@@ -44,13 +44,11 @@ public class FogetPasswordServlet extends HttpServlet {
 		User user;
 		try {
 			user = authenticationBusiness.getUser(email);
-
 			if (Helpers.isEmpty(user)) {
 				req.setAttribute(Constants.ERROR, Constants.NOT_REGISTER);
 			} else {
 				authenticationBusiness.sendPassword(user, email);
 				req.setAttribute(Constants.MESSAGE, Constants.SEND_PASSWORD);
-
 			}
 		} catch (EmailException | SQLException e) {
 			e.printStackTrace();

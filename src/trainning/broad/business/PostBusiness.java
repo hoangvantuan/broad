@@ -52,26 +52,19 @@ public class PostBusiness {
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-
 			post = postDAO.getById(postId);
-
 			if (Helpers.isEmpty(post)) {
 				return null;
 			}
-
 			user = userDAO.getById(post.getUserId());
 			postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
-
 			for (PostTag postTag : postTags) {
 				tags.add(tagDAO.getById(postTag.getTagId()));
 			}
-
 			postUserTag.setPost(post);
 			postUserTag.setTags(tags);
 			postUserTag.setUser(user);
-
 			return postUserTag;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -90,7 +83,6 @@ public class PostBusiness {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			comments = commentDAO.getByProperty(Constants.ATTR_POST_ID, postId);
-
 			for (Comment comment : comments) {
 				userComment = new UserComment();
 				user = userDAO.getById(comment.getUserId());
@@ -98,9 +90,7 @@ public class PostBusiness {
 				userComment.setUser(user);
 				userComments.add(userComment);
 			}
-
 			return userComments;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -119,10 +109,8 @@ public class PostBusiness {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
-
 			daoManager.noAutoCommit();
 			postId = postDAO.save(postName, content, userId);
-
 			if (!Helpers.isEmpty(tags)) {
 				for (int i = 0; i < tags.length; i++) {
 					List<Tag> temps = tagDAO.getByproperty(Constants.ATTR_TAG_NAME, tags[i].toLowerCase());
@@ -138,9 +126,7 @@ public class PostBusiness {
 					postTagDAO.save(postId, id);
 				}
 			}
-
 			daoManager.commit();
-
 		} catch (SQLException e) {
 			daoManager.rollBack();
 			throw e;
@@ -164,13 +150,10 @@ public class PostBusiness {
 			if (!Helpers.isEmpty(tags)) {
 				tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 				postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
-
 				postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, postId);
-
 				for (PostTag postTag : postTags) {
 					postTagDAO.delete(postTag.getPostTagId());
 				}
-
 				for (int i = 0; i < tags.length; i++) {
 					temps = tagDAO.getByproperty(Constants.ATTR_TAG_NAME, tags[i]);
 					if (Helpers.isEmpty(temps)) {
@@ -184,7 +167,6 @@ public class PostBusiness {
 				for (Integer id : tagsId) {
 					postTagDAO.save(postId, id);
 				}
-
 				daoManager.commit();
 			}
 		} catch (SQLException e) {
@@ -205,7 +187,6 @@ public class PostBusiness {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-
 			daoManager.noAutoCommit();
 			postDAO.delete(postId);
 			postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, postId);
@@ -213,13 +194,10 @@ public class PostBusiness {
 			for (PostTag postTag : postTags) {
 				postTagDAO.delete(postTag.getPostTagId());
 			}
-
 			for (Comment comment : comments) {
 				commentDAO.delete(comment.getCommentId());
 			}
-
 			daoManager.commit();
-
 		} catch (SQLException e) {
 			daoManager.rollBack();
 			throw e;
@@ -240,7 +218,6 @@ public class PostBusiness {
 				return false;
 			else
 				return userId == post.getUserId() ? true : false;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -261,7 +238,6 @@ public class PostBusiness {
 
 		try {
 			posts = postDAO.getByProperty(Constants.ATTR_USER_ID, userId);
-
 			for (Post post : posts) {
 				tags = new ArrayList<Tag>();
 				PostUserTag postUserTag = new PostUserTag();
@@ -269,17 +245,13 @@ public class PostBusiness {
 				postUserTag.setPost(post);
 				postUserTag.setUser(userDAO.getById(post.getUserId()));
 				postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
-
 				for (PostTag postTag : postTags) {
 					tags.add(tagDAO.getById(postTag.getTagId()));
 				}
-
 				postUserTag.setTags(tags);
 				postUserTags.add(postUserTag);
 			}
-
 			return postUserTags;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.User;
 import trainning.broad.business.UserBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/user/edit" })
 public class EditUserServlet extends HttpServlet {
@@ -44,7 +44,6 @@ public class EditUserServlet extends HttpServlet {
 		String password = req.getParameter(Constants.ATTR_PASSWORD).trim();
 		String confirmPassword = req.getParameter(Constants.CONFIRM_PASSWORD).trim();
 		User user = Helpers.getUserFromSession(req);
-
 		try {
 			if (!password.equals(confirmPassword)) {
 				req.setAttribute(Constants.ERROR, Constants.CONFIRM_PASSWORD_WRONG);

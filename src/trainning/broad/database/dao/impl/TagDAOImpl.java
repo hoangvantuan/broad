@@ -26,12 +26,10 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
 		PreparedStatement statement = null;
 		ResultSet resultKey;
 		String query = "INSERT INTO " + tableName + "(" + Constants.ATTR_TAG_NAME + ")" + " VALUES(?)";
-
 		statement = con.prepareStatement(query, statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, tagName);
 		statement.executeUpdate();
 		resultKey = statement.getGeneratedKeys();
-
 		return DAOHelpers.getGenerateKey(resultKey);
 
 	}
@@ -45,7 +43,6 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
 		statement = con.prepareStatement(query);
 		statement.setString(1, "%" + keyWord + "%");
 		result = statement.executeQuery();
-
 		return DAOHelpers.convertResultToTags(result);
 	}
 }

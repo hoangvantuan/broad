@@ -39,7 +39,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 		statement = con.prepareStatement(query);
 		statement.setString(1, email);
 		result = statement.executeQuery();
-
 		if (result.next()) {
 			return result.getInt("num");
 		} else
@@ -75,7 +74,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
 		String query = "UPDATE " + tableName + " SET " + Constants.ATTR_USER_NAME + " = ?, " + Constants.ATTR_PASSWORD
 				+ " = ?, " + Constants.ATTR_UPDATE_AT + " = ?  WHERE " + Constants.ATTR_EMAIL + " = ?";
-
 		statement = con.prepareStatement(query);
 		statement.setString(1, user.getUserName());
 		statement.setString(2, user.getPassword());

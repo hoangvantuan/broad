@@ -54,33 +54,26 @@ public class SearchBusiness {
 			tagDAO = (TagDAO) daoManager.getDAO(Constants.TABLE_TAG);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-
 			posts = postDAO.search(keyWord);
 			tags = tagDAO.search(keyWord);
 
 			for (Tag tag : tags) {
 				postTags = postTagDAO.getByProperty(Constants.ATTR_TAG_ID, tag.getTagId());
-
 				for (PostTag postTag : postTags) {
 					post = postDAO.getById(postTag.getPostId());
-
 					if (!Helpers.isDuplicatePostId(posts, post))
 						posts.add(post);
 				}
 			}
-
 			for (Post temp : posts) {
-
 				temp.setContent(Helpers.cutString(temp.getContent()));
 				postUserTag = new PostUserTag();
 				user = userDAO.getById(temp.getUserId());
 				postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, temp.getPostId());
 				tags = new ArrayList<Tag>();
-
 				for (PostTag postTag : postTags) {
 					tags.add(tagDAO.getById(postTag.getTagId()));
 				}
-
 				postUserTag.setUser(user);
 				postUserTag.setPost(temp);
 				postUserTag.setTags(tags);
@@ -115,18 +108,15 @@ public class SearchBusiness {
 				User user = userDAO.getById(post.getUserId());
 				tags = new ArrayList<Tag>();
 				List<PostTag> tempPostTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
-
 				for (PostTag tempPostTag : tempPostTags) {
 					tags.add(tagDAO.getById(tempPostTag.getTagId()));
 				}
-
 				postUserTag.setUser(user);
 				postUserTag.setPost(post);
 				postUserTag.setTags(tags);
 				postUserTags.add(postUserTag);
 			}
 			return postUserTags;
-
 		} catch (SQLException e) {
 			throw e;
 		}
@@ -144,9 +134,7 @@ public class SearchBusiness {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-
 			users = userDAO.search(keyWord);
-
 			for (User user : users) {
 				userPostComment = new UserPostComment();
 				userPostComment.setUser(user);

@@ -39,9 +39,7 @@ public class UserBusiness {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-
 			return userDAO.getById(userId);
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -54,9 +52,7 @@ public class UserBusiness {
 
 		try {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
-
 			return userDAO.getByEmail(email);
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -74,9 +70,7 @@ public class UserBusiness {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-
 			users = userDAO.getAll();
-
 			for (User user : users) {
 				userPostComment = new UserPostComment();
 				userPostComment.setUser(user);
@@ -84,7 +78,6 @@ public class UserBusiness {
 				userPostComment.setComments(commentDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
 				userPostComments.add(userPostComment);
 			}
-
 			return userPostComments;
 		} catch (SQLException e) {
 			throw e;
@@ -102,16 +95,12 @@ public class UserBusiness {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-
 			user = userDAO.getById(userId);
 			userPostComment.setUser(user);
 			userPostComment.setPosts(postDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
 			userPostComment.setComments(commentDAO.getByProperty(Constants.ATTR_USER_ID, user.getUserId()));
-
 			return userPostComment;
-		} catch (
-
-		SQLException e) {
+		} catch (SQLException e) {
 			throw e;
 		} finally {
 			daoManager.close();
@@ -125,9 +114,7 @@ public class UserBusiness {
 		try {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			posts = postDAO.getByProperty(Constants.ATTR_USER_ID, userId);
-
 			return posts;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -142,9 +129,7 @@ public class UserBusiness {
 		try {
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
 			comments = commentDAO.getByProperty(Constants.ATTR_USER_ID, userId);
-
 			return comments;
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -175,7 +160,6 @@ public class UserBusiness {
 			postDAO = (PostDAO) daoManager.getDAO(Constants.TABLE_POST);
 			postTagDAO = (PostTagDAO) daoManager.getDAO(Constants.TABLE_POSTTAG);
 			commentDAO = (CommentDAO) daoManager.getDAO(Constants.TABLE_COMMENT);
-
 			daoManager.noAutoCommit();
 			userDAO.delete(userId);
 			posts = postDAO.getByProperty(Constants.ATTR_USER_ID, userId);
@@ -183,23 +167,19 @@ public class UserBusiness {
 				for (Post post : posts) {
 					postDAO.delete(post.getPostId());
 					postTags = postTagDAO.getByProperty(Constants.ATTR_POST_ID, post.getPostId());
-
 					if (!Helpers.isEmpty(postTags))
 						for (PostTag postTag : postTags) {
 							postTagDAO.delete(postTag.getPostTagId());
 						}
 				}
 			}
-
 			comments = commentDAO.getByProperty(Constants.ATTR_USER_ID, userId);
 			if (!Helpers.isEmpty(comments)) {
 				for (Comment comment : comments) {
 					commentDAO.delete(comment.getCommentId());
 				}
 			}
-
 			daoManager.commit();
-
 		} catch (SQLException e) {
 			throw e;
 		} finally {

@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.SearchBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/tag/search" })
 public class TagSearchServlet extends HttpServlet {
@@ -35,16 +35,13 @@ public class TagSearchServlet extends HttpServlet {
 
 		String tagId = req.getParameter(Constants.ATTR_TAG_ID);
 		List<PostUserTag> userPostTags;
-
 		if (Helpers.isEmpty(tagId) || !Helpers.isNumber(tagId)) {
 			req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
-
 			int id = Integer.parseInt(tagId);
 			try {
 				userPostTags = searchBusiness.searchByTagId(id);
-
 				if (Helpers.isEmpty(userPostTags)) {
 					req.setAttribute(Constants.ERROR, Constants.NO_DATA);
 				} else {

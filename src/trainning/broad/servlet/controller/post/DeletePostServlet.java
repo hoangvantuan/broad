@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import trainning.broad.business.PostBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/post/delete" })
 public class DeletePostServlet extends HttpServlet {
@@ -34,7 +34,6 @@ public class DeletePostServlet extends HttpServlet {
 
 		String postId = req.getParameter(Constants.ATTR_POST_ID);
 		userId = req.getParameter(Constants.ATTR_USER_ID);
-
 		if (!Helpers.isEmpty(postId) && Helpers.isNumber(postId)) {
 			int id = Integer.parseInt(postId);
 			try {
@@ -45,7 +44,6 @@ public class DeletePostServlet extends HttpServlet {
 				req.setAttribute(Constants.ERROR, Constants.ERROR_UNKONW);
 			}
 		}
-
 		if (Helpers.isEmpty(userId))
 			GoTo.fowardTo(req, resp, Constants.HOME_PATH);
 		else {

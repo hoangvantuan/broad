@@ -23,7 +23,6 @@ public class PostTagDAOImpl extends GenericDAOImpl<PostTag> implements PostTagDA
 		PreparedStatement statement;
 		String query = "INSERT INTO " + tableName + "(" + Constants.ATTR_POST_ID + "," + Constants.ATTR_TAG_ID + ")"
 				+ " VALUES(?,?)";
-
 		statement = con.prepareStatement(query);
 		statement.setInt(1, postId);
 		statement.setInt(2, tagId);

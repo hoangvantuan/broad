@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.User;
 import trainning.broad.business.CommentBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebFilter(urlPatterns = { "/comment/delete" })
 public class DeleteFilter implements Filter {
@@ -51,7 +51,6 @@ public class DeleteFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) arg1;
 		User user = Helpers.getUserFromSession(req);
 		String commentId = req.getParameter(Constants.ATTR_COMMENT_ID);
-
 		if (Helpers.isEmpty(commentId) || !Helpers.isNumber(commentId)) {
 			GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 		} else {
@@ -59,13 +58,11 @@ public class DeleteFilter implements Filter {
 				boolean check;
 				int id = Integer.parseInt(commentId);
 				check = commentBusiness.isMyComment(user.getUserId(), id);
-
 				if (check || user.getIsRole()) {
 					arg2.doFilter(arg0, arg1);
 				} else {
 					GoTo.redirectTo(req, resp, Constants.HOME_PATH);
 				}
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 				GoTo.redirectTo(req, resp, Constants.HOME_PATH);

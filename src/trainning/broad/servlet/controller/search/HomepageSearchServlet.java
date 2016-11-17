@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import trainning.broad.bean.PostUserTag;
 import trainning.broad.business.SearchBusiness;
 import trainning.broad.helpers.Constants;
-import trainning.broad.helpers.Helpers;
 import trainning.broad.helpers.GoTo;
+import trainning.broad.helpers.Helpers;
 
 @WebServlet(urlPatterns = { "/post/search" })
 public class HomepageSearchServlet extends HttpServlet {
@@ -35,10 +35,8 @@ public class HomepageSearchServlet extends HttpServlet {
 
 		List<PostUserTag> postUserTags;
 		String keyWord = req.getParameter(Constants.KEY_WORD);
-
 		try {
 			postUserTags = searchBusiness.searchByAttributeOfPost(keyWord);
-
 			if (Helpers.isEmpty(postUserTags)) {
 				req.setAttribute(Constants.ERROR, Constants.NO_DATA);
 			} else {
