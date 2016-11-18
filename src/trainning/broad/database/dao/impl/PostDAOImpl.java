@@ -58,7 +58,7 @@ public class PostDAOImpl extends GenericDAOImpl<Post> implements PostDAO {
 
 		PreparedStatement statement = null;
 		ResultSet result;
-		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.POST_NAME + " LIKE ? ";
+		String query = "SELECT * FROM " + tableName + " WHERE lower(" +Constants.POST_NAME + ") like ? ";
 		statement = con.prepareStatement(query);
 		statement.setString(1, "%" + keyWord + "%");
 		result = statement.executeQuery();

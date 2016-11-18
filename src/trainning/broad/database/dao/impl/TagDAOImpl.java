@@ -39,7 +39,7 @@ public class TagDAOImpl extends GenericDAOImpl<Tag> implements TagDAO {
 
 		PreparedStatement statement = null;
 		ResultSet result;
-		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.ATTR_TAG_NAME + " LIKE ? ";
+		String query = "SELECT * FROM " + tableName + " WHERE lower(" + Constants.ATTR_TAG_NAME + ") LIKE ? ";
 		statement = con.prepareStatement(query);
 		statement.setString(1, "%" + keyWord + "%");
 		result = statement.executeQuery();

@@ -87,8 +87,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
 		PreparedStatement statement = null;
 		ResultSet result;
-		String query = "SELECT * FROM " + tableName + " WHERE " + Constants.ATTR_USER_NAME + " LIKE ? OR "
-				+ Constants.ATTR_EMAIL + " LIKE ? ";
+		String query = "SELECT * FROM " + tableName + " WHERE lower(" + Constants.ATTR_USER_NAME + ") LIKE ? OR lower("
+				+ Constants.ATTR_EMAIL + ") LIKE ? ";
 		statement = con.prepareStatement(query);
 		statement.setString(1, "%" + keyWord + "%");
 		statement.setString(2, "%" + keyWord + "%");
