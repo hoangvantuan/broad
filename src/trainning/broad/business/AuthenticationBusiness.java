@@ -32,12 +32,10 @@ public class AuthenticationBusiness {
 			userDAO = (UserDAO) daoManager.getDAO(Constants.TABLE_USER);
 			User tempUser = userDAO.getByEmail(email);
 
-			if (!Helpers.isEmpty(tempUser) && tempUser.getIsActive() == true
-					&& tempUser.getPassword().equals(password)) {
+			if (!Helpers.isEmpty(tempUser) && tempUser.getIsActive() && tempUser.getPassword().equals(password)) {
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 
 		} catch (SQLException e) {
 			throw e;
